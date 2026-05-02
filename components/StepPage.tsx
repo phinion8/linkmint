@@ -2,7 +2,15 @@
 
 import { useState, useCallback, useEffect, useRef } from "react";
 import CountdownTimer from "./CountdownTimer";
-import AdPlaceholder from "./AdPlaceholder";
+import {
+  AdPopunder,
+  AdSocialBar,
+  AdNativeBanner,
+  AdBanner468x60,
+  AdBanner300x250,
+  AdBanner160x300,
+  AdBanner320x50,
+} from "./AdsterraAds";
 
 // ===== DATA =====
 const funFacts = [
@@ -446,12 +454,12 @@ export default function StepPage({
 
           {/* LEFT SIDEBAR */}
           <div className="hidden lg:flex flex-col gap-4">
-            {/* Ad: 300x250 — highest CPM banner */}
-            <AdPlaceholder size="300x250" slot={`step-${stepNumber}-left-1`} />
+            {/* Ad: 300x250 — highest CPM */}
+            <AdBanner300x250 />
             <FunFactCard />
             <QuickPoll step={stepNumber} />
-            {/* Ad: 300x250 — second left ad */}
-            <AdPlaceholder size="300x250" slot={`step-${stepNumber}-left-2`} />
+            {/* Ad: 160x300 */}
+            <AdBanner160x300 />
             {/* Platform Stats */}
             <div className="glass-card p-5">
               <div className="flex items-center gap-2 mb-3">
@@ -476,7 +484,7 @@ export default function StepPage({
           {/* CENTER */}
           <div className="flex flex-col gap-5 w-full">
             {/* Ad: 468x60 banner above timer */}
-            <AdPlaceholder size="468x60" slot={`step-${stepNumber}-banner`} />
+            <AdBanner468x60 />
 
             {/* Timer + CTA Card */}
             <div className="glass-card-accent p-8 flex flex-col items-center gap-6 w-full">
@@ -514,14 +522,15 @@ export default function StepPage({
               </button>
             </div>
 
-            {/* Ad: 300x250 below timer */}
-            <AdPlaceholder size="300x250" slot={`step-${stepNumber}-mid`} />
+            {/* Ad: 300x250 below timer — highest CPM spot */}
+            <AdBanner300x250 />
 
-            {/* Native Banner ad */}
-            <AdPlaceholder size="native" slot={`step-${stepNumber}-native`} />
+            {/* Native Banner — blends with content */}
+            <AdNativeBanner />
 
-            {/* Mobile-only engagement */}
+            {/* Mobile: 320x50 banner + engagement */}
             <div className="lg:hidden flex flex-col gap-4">
+              <AdBanner320x50 />
               <FunFactCard />
               <JokeCard />
               <TriviaCard />
@@ -530,12 +539,12 @@ export default function StepPage({
 
           {/* RIGHT SIDEBAR */}
           <div className="hidden lg:flex flex-col gap-4">
-            {/* Ad: 300x250 — highest CPM banner */}
-            <AdPlaceholder size="300x250" slot={`step-${stepNumber}-right-1`} />
+            {/* Ad: 300x250 — highest CPM */}
+            <AdBanner300x250 />
             <TriviaCard />
             <JokeCard />
-            {/* Ad: 300x250 — second right ad */}
-            <AdPlaceholder size="300x250" slot={`step-${stepNumber}-right-2`} />
+            {/* Ad: 160x300 */}
+            <AdBanner160x300 />
             {/* Pro Tips */}
             <div className="glass-card p-5">
               <div className="flex items-center gap-2 mb-3">
@@ -561,8 +570,9 @@ export default function StepPage({
           </div>
         </div>
 
-        {/* Popunder + Social Bar scripts — injected once per page */}
-        <PopunderScript />
+        {/* Popunder + Social Bar — fire once per page load */}
+        <AdPopunder />
+        <AdSocialBar />
       </div>
 
       {/* Footer */}
