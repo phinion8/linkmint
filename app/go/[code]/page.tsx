@@ -3,7 +3,7 @@ import { headers } from "next/headers";
 import { supabase } from "@/lib/supabase";
 import { generateSessionToken } from "@/lib/utils";
 import StepPage from "@/components/StepPage";
-import Script from "next/script";
+import GlobalAdScripts from "@/components/GlobalAdScripts";
 
 export default async function InterstitialPage({
   params,
@@ -115,16 +115,7 @@ export default async function InterstitialPage({
 
   return (
     <>
-    {/* Popunder — loaded outside React tree */}
-    <Script
-      src="https://pl29321604.profitablecpmratenetwork.com/f2/57/b8/f257b844adcb37aa5873d4916d70d37c.js"
-      strategy="afterInteractive"
-    />
-    {/* Social Bar — loaded outside React tree */}
-    <Script
-      src="https://pl29321607.profitablecpmratenetwork.com/a1/be/eb/a1beebc96cc0bcdb42e278de8d2b2ba6.js"
-      strategy="afterInteractive"
-    />
+    <GlobalAdScripts />
     <StepPage
       sessionToken={session.session_token}
       shortCode={code}

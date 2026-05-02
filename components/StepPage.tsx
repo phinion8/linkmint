@@ -301,21 +301,14 @@ function ReactionGame() {
 function WhackAMole() {
   const [score, setScore] = useState(0);
   const [active, setActive] = useState(-1);
-  const [gameOn, setGameOn] = useState(false);
   const intervalRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
-  function startGame() {
-    setScore(0);
-    setGameOn(true);
-    moveMole();
-  }
-
-  function moveMole() {
+  const moveMole = useCallback(() => {
     clearTimeout(intervalRef.current);
     const next = Math.floor(Math.random() * 9);
     setActive(next);
-    intervalRef.current = setTimeout(moveMole, 600 + Math.random() * 500);
-  }
+    intervalRef.current = setTimeout(() => moveMole(), 600 + Math.random() * 500);
+  }, []);
 
   function handleWhack(i: number) {
     if (i === active) {
@@ -324,9 +317,11 @@ function WhackAMole() {
     }
   }
 
+  // Auto-start on mount
   useEffect(() => {
+    moveMole();
     return () => clearTimeout(intervalRef.current);
-  }, []);
+  }, [moveMole]);
 
   return (
     <div className="glass-card p-5 w-full max-w-md">
@@ -335,29 +330,85 @@ function WhackAMole() {
           <span className="text-lg">🎯</span>
           <span className="text-xs font-semibold uppercase tracking-wider text-emerald-400">Whack-a-Mole</span>
         </div>
-        {gameOn && <span className="text-sm font-bold text-white">Score: {score}</span>}
+        <span className="text-sm font-bold text-white">Score: {score}</span>
+      </div>
+      <div className="grid grid-cols-3 gap-2">
+        {Array.from({ length: 9 }, (_, i) => (
+          <button
+            key={i}
+            onClick={() => handleWhack(i)}
+            className={`aspect-square rounded-xl text-2xl flex items-center justify-center transition-all duration-150 ${
+              i === active
+                ? "bg-emerald-500 scale-110 shadow-[0_0_15px_rgba(16,185,129,0.4)]"
+                : "bg-[#1A1A1A] border border-[#2A2A2A] hover:bg-[#222222]"
+            }`}
+          >
+            {i === active ? "🐹" : "🕳️"}
+          </button>
+        ))}
+      </div>
+      <p className="text-[#555555] text-xs text-center mt-3">Tap the gopher as fast as you can!</p>
+    </div>
+  );
+}
+
+function TapSpeedGame() {
+  const [count, setCount] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(5);
+  const [started, setStarted] = useState(false);
+  const [finished, setFinished] = useState(false);
+
+  useEffect(() => {
+    if (!started || finished) return;
+    if (timeLeft <= 0) {
+      setFinished(true);
+      return;
+    }
+    const t = setTimeout(() => setTimeLeft((v) => v - 1), 1000);
+    return () => clearTimeout(t);
+  }, [started, timeLeft, finished]);
+
+  function handleTap() {
+    if (!started) {
+      setStarted(true);
+      setCount(1);
+    } else if (!finished) {
+      setCount((c) => c + 1);
+    }
+  }
+
+  function reset() {
+    setCount(0);
+    setTimeLeft(5);
+    setStarted(false);
+    setFinished(false);
+  }
+
+  return (
+    <div className="glass-card p-5 w-full max-w-md">
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <span className="text-lg">👆</span>
+          <span className="text-xs font-semibold uppercase tracking-wider text-[#3B82F6]">Speed Tap</span>
+        </div>
+        {started && !finished && <span className="text-sm font-bold text-amber-400">{timeLeft}s</span>}
       </div>
 
-      {!gameOn ? (
-        <button onClick={startGame} className="w-full py-4 bg-[#3B82F6] text-white rounded-xl font-semibold hover:bg-[#2563EB] transition-colors">
-          Start — Tap the Mole!
-        </button>
-      ) : (
-        <div className="grid grid-cols-3 gap-2">
-          {Array.from({ length: 9 }, (_, i) => (
-            <button
-              key={i}
-              onClick={() => handleWhack(i)}
-              className={`aspect-square rounded-xl text-2xl flex items-center justify-center transition-all duration-150 ${
-                i === active
-                  ? "bg-emerald-500 scale-110"
-                  : "bg-[#1A1A1A] border border-[#2A2A2A] hover:bg-[#222222]"
-              }`}
-            >
-              {i === active ? "🐹" : ""}
-            </button>
-          ))}
+      {finished ? (
+        <div className="text-center py-3">
+          <p className="text-3xl font-bold text-white mb-1">{count}</p>
+          <p className="text-sm text-[#999999] mb-3">taps in 5 seconds ({(count / 5).toFixed(1)}/sec)</p>
+          <button onClick={reset} className="text-sm bg-[#3B82F6] text-white px-4 py-1.5 rounded-lg hover:bg-[#2563EB] transition-colors">
+            Try Again
+          </button>
         </div>
+      ) : (
+        <button
+          onClick={handleTap}
+          className="w-full py-6 bg-[#111111] border-2 border-[#2A2A2A] rounded-xl text-white font-bold text-xl hover:bg-[#1A1A1A] active:scale-95 transition-all select-none"
+        >
+          {!started ? "TAP TO START" : `${count}`}
+        </button>
       )}
     </div>
   );
@@ -612,6 +663,7 @@ export default function StepPage({
             <AdBanner160x600 />
             <ReactionGame />
             <FunFactCard />
+            <QuickPoll step={stepNumber} />
           </div>
 
           {/* CENTER */}
@@ -669,6 +721,7 @@ export default function StepPage({
 
             {/* Mobile engagement */}
             <div className="lg:hidden flex flex-col gap-4">
+              <WhackAMole />
               <ReactionGame />
               <FunFactCard />
               <TriviaCard />
@@ -681,6 +734,8 @@ export default function StepPage({
             <AdBanner160x300 />
             <WhackAMole />
             <TriviaCard />
+            <TapSpeedGame />
+            <JokeCard />
           </div>
         </div>
 
