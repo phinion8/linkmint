@@ -768,7 +768,7 @@ export default function StepPage({
                   <svg className="w-4 h-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                   </svg>
-                  Continue to destination
+                  Scroll down to continue
                 </button>
               </div>
             )}
