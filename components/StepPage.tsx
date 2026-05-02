@@ -225,7 +225,7 @@ function ReactionGame() {
   const [reactionTime, setReactionTime] = useState(0);
   const [best, setBest] = useState<number | null>(null);
   const startRef = useRef(0);
-  const timeoutRef = useRef<NodeJS.Timeout>();
+  const timeoutRef = useRef<NodeJS.Timeout>(null);
 
   function startGame() {
     setPhase("waiting");
