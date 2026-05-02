@@ -756,7 +756,13 @@ export default function StepPage({
             {canProceed && !continueVisible && (
               <div className="fixed bottom-4 left-0 right-0 z-40 flex justify-center animate-fade-up pointer-events-none">
                 <button
-                  onClick={() => document.getElementById("continue-section")?.scrollIntoView({ behavior: "smooth" })}
+                  onClick={() => {
+                    const el = document.getElementById("continue-section");
+                    if (el) {
+                      const y = el.getBoundingClientRect().top + window.scrollY - 80;
+                      window.scrollTo({ top: y, behavior: "smooth" });
+                    }
+                  }}
                   className="pointer-events-auto flex items-center gap-2 bg-[#3B82F6] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#2563EB] transition-all shadow-xl shadow-[#3B82F6]/30"
                 >
                   <svg className="w-4 h-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
