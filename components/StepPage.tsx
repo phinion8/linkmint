@@ -596,7 +596,7 @@ export default function StepPage({
       <div className="absolute bottom-[-10%] right-[-5%] w-[300px] h-[300px] rounded-full bg-[#60A5FA]/[0.04] blur-[80px] animate-float" />
 
       {/* Top bar */}
-      <div className="relative z-10">
+      <div className="sticky top-0 z-50">
         <div className="bg-black/80 backdrop-blur-2xl border-b border-[#1A1A1A]">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <div className="flex items-center justify-between h-14">
@@ -718,8 +718,12 @@ export default function StepPage({
                     </div>
                   </div>
 
-                  {/* Ad inside container */}
-                  <AdBanner468x60 />
+                  {/* Ad inside container — scaled to fit */}
+                  <div className="w-full overflow-hidden flex justify-center" style={{ maxWidth: "100%" }}>
+                    <div className="transform scale-[0.85] sm:scale-100 origin-center">
+                      <AdBanner320x50 />
+                    </div>
+                  </div>
 
                   {error && <p className="text-red-400 text-sm">{error}</p>}
                   <button
