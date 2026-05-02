@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect, useRef } from "react";
 import CountdownTimer from "./CountdownTimer";
+import AdBlockDetector from "./AdBlockDetector";
 import {
   AdPopunder,
   AdSocialBar,
@@ -372,6 +373,7 @@ export default function StepPage({
   }
 
   return (
+    <AdBlockDetector>
     <div className="min-h-screen bg-black flex flex-col relative overflow-hidden">
       {/* Particle background */}
       <ParticleCanvas />
@@ -580,5 +582,6 @@ export default function StepPage({
         Powered by LinkMint — You will be redirected after completing all steps
       </div>
     </div>
+    </AdBlockDetector>
   );
 }
