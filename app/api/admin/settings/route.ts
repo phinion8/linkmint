@@ -67,6 +67,7 @@ export async function PATCH(request: NextRequest) {
     if (body.max_links_per_user !== undefined) updates.max_links_per_user = body.max_links_per_user;
     if (body.site_name !== undefined) updates.site_name = body.site_name;
     if (body.cpm_rate !== undefined) updates.cpm_rate = body.cpm_rate;
+    if (body.ad_layout !== undefined) updates.ad_layout = body.ad_layout;
 
     const { data: settings, error } = await supabase
       .from("global_settings")

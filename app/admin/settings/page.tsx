@@ -11,6 +11,7 @@ export default function AdminSettingsPage() {
     default_timer_seconds: 5,
     max_links_per_user: 100,
     cpm_rate: 1.5,
+    ad_layout: "v1",
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -33,6 +34,7 @@ export default function AdminSettingsPage() {
             default_timer_seconds: data.settings.default_timer_seconds,
             max_links_per_user: data.settings.max_links_per_user,
             cpm_rate: data.settings.cpm_rate || 1.5,
+            ad_layout: data.settings.ad_layout || "v1",
           });
         }
         setLoading(false);
@@ -130,6 +132,80 @@ export default function AdminSettingsPage() {
             max={10000}
             className="w-32 px-4 py-2 bg-[#111111] border border-[#2A2A2A] rounded-xl text-white placeholder:text-[#555555] focus:border-[#3B82F6]/50 focus:outline-none focus:ring-1 focus:ring-[#3B82F6]/30 transition-all"
           />
+        </div>
+
+        {/* Ad Layout Selector */}
+        <div className="pt-4 border-t border-[#2A2A2A]">
+          <label className="block text-sm text-[#999999] mb-3">Ad Page Layout</label>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* V1 */}
+            <label
+              className={`cursor-pointer rounded-xl border-2 p-4 transition-all ${
+                settings.ad_layout === "v1"
+                  ? "border-[#3B82F6] bg-[#3B82F6]/5"
+                  : "border-[#2A2A2A] bg-[#111111] hover:border-[#3A3A3A]"
+              }`}
+            >
+              <input
+                type="radio"
+                name="ad_layout"
+                value="v1"
+                checked={settings.ad_layout === "v1"}
+                onChange={() => setSettings({ ...settings, ad_layout: "v1" })}
+                className="sr-only"
+              />
+              <div className="flex items-center gap-3 mb-2">
+                <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
+                  settings.ad_layout === "v1" ? "border-[#3B82F6]" : "border-[#444444]"
+                }`}>
+                  {settings.ad_layout === "v1" && <div className="w-2 h-2 rounded-full bg-[#3B82F6]" />}
+                </div>
+                <span className="text-white font-semibold text-sm">V1 — Full Experience</span>
+              </div>
+              <p className="text-[#666666] text-xs leading-relaxed ml-7">
+                3-column layout with games, trivia, polls, fun facts. 6 banner ads + native + popunder + social bar. Maximum engagement & revenue.
+              </p>
+              <div className="mt-3 ml-7 flex flex-wrap gap-1">
+                {["728x90", "160x600", "468x60", "300x250", "320x50", "160x300", "Native", "Popunder", "Social Bar"].map((t) => (
+                  <span key={t} className="text-[10px] bg-[#1A1A1A] text-[#666666] px-1.5 py-0.5 rounded">{t}</span>
+                ))}
+              </div>
+            </label>
+
+            {/* V2 */}
+            <label
+              className={`cursor-pointer rounded-xl border-2 p-4 transition-all ${
+                settings.ad_layout === "v2"
+                  ? "border-[#3B82F6] bg-[#3B82F6]/5"
+                  : "border-[#2A2A2A] bg-[#111111] hover:border-[#3A3A3A]"
+              }`}
+            >
+              <input
+                type="radio"
+                name="ad_layout"
+                value="v2"
+                checked={settings.ad_layout === "v2"}
+                onChange={() => setSettings({ ...settings, ad_layout: "v2" })}
+                className="sr-only"
+              />
+              <div className="flex items-center gap-3 mb-2">
+                <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
+                  settings.ad_layout === "v2" ? "border-[#3B82F6]" : "border-[#444444]"
+                }`}>
+                  {settings.ad_layout === "v2" && <div className="w-2 h-2 rounded-full bg-[#3B82F6]" />}
+                </div>
+                <span className="text-white font-semibold text-sm">V2 — Clean & Focused</span>
+              </div>
+              <p className="text-[#666666] text-xs leading-relaxed ml-7">
+                Single column, minimal UI. Top banner → countdown → high CPM ad → continue button. Popunder on click. Sticky bottom banner. Fast & clean.
+              </p>
+              <div className="mt-3 ml-7 flex flex-wrap gap-1">
+                {["728x90", "300x250", "320x50", "Popunder", "Social Bar", "Sticky"].map((t) => (
+                  <span key={t} className="text-[10px] bg-[#1A1A1A] text-[#666666] px-1.5 py-0.5 rounded">{t}</span>
+                ))}
+              </div>
+            </label>
+          </div>
         </div>
 
         <div className="flex items-center gap-4">

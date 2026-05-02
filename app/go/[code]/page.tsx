@@ -125,6 +125,7 @@ export default async function InterstitialPage({
       buttonText={currentStepConfig.button_text}
       adHtml={currentStepConfig.ad_html}
       linkTitle={link.title}
+      adLayout={(await supabase.from("global_settings").select("ad_layout").single()).data?.ad_layout || "v1"}
     />
     </>
   );

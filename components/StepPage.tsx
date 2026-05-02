@@ -519,6 +519,7 @@ interface StepPageProps {
   buttonText: string;
   adHtml: string | null;
   linkTitle: string | null;
+  adLayout?: string;
 }
 
 export default function StepPage({
@@ -530,6 +531,7 @@ export default function StepPage({
   buttonText,
   adHtml,
   linkTitle,
+  adLayout = "v1",
 }: StepPageProps) {
   const [canProceed, setCanProceed] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -649,95 +651,133 @@ export default function StepPage({
           </h1>
         )}
 
-        {/* Ad: 728x90 — top leaderboard (desktop only) */}
-        <div className="hidden md:block mb-5">
-          <AdBanner728x90 />
-        </div>
-
-        {/* 3-Column Layout */}
-        <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-[300px_1fr_300px] gap-5 items-start">
-
-          {/* LEFT SIDEBAR */}
-          <div className="hidden lg:flex flex-col gap-4">
-            {/* Ad: 160x600 — skyscraper */}
-            <AdBanner160x600 />
-            <ReactionGame />
-            <FunFactCard />
-            <QuickPoll step={stepNumber} />
-          </div>
-
-          {/* CENTER */}
-          <div className="flex flex-col gap-5 w-full items-center">
-            {/* Ad: 468x60 banner */}
-            <AdBanner468x60 />
+        {adLayout === "v2" ? (
+          /* ===== V2 — Clean & Focused ===== */
+          <div className="w-full max-w-lg mx-auto flex flex-col items-center gap-5">
+            {/* Top banner */}
+            <div className="hidden sm:block"><AdBanner728x90 /></div>
+            <div className="sm:hidden"><AdBanner320x50 /></div>
 
             {/* Timer */}
-            <div className="glass-card-accent p-8 flex flex-col items-center gap-5 w-full max-w-md">
+            <div className="glass-card-accent p-8 flex flex-col items-center gap-5 w-full">
               <CountdownTimer seconds={timerSeconds} onComplete={handleTimerComplete} />
-            </div>
-
-            {/* Ad: 300x250 — between timer and progress */}
-            <AdBanner300x250 />
-
-            {/* Progress + Button Card */}
-            <div className="glass-card p-6 flex flex-col items-center gap-4 w-full max-w-md">
               <div className="w-full">
                 <div className="flex justify-between text-xs text-[#666666] mb-1.5">
-                  <span>Progress</span>
-                  <span>{stepNumber}/{totalSteps} steps</span>
+                  <span>Step {stepNumber} of {totalSteps}</span>
+                  <span>{Math.round((stepNumber / totalSteps) * 100)}%</span>
                 </div>
-                <div className="w-full h-2 bg-[#111111] rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-gradient-to-r from-[#3B82F6] to-[#60A5FA] rounded-full transition-all duration-500"
-                    style={{ width: `${(stepNumber / totalSteps) * 100}%` }}
-                  />
+                <div className="w-full h-1.5 bg-[#111111] rounded-full overflow-hidden">
+                  <div className="h-full bg-[#3B82F6] rounded-full transition-all duration-500" style={{ width: `${(stepNumber / totalSteps) * 100}%` }} />
+                </div>
+              </div>
+            </div>
+
+            {/* High CPM inline ad */}
+            <AdBanner300x250 />
+
+            {/* Continue button */}
+            {error && <p className="text-red-400 text-sm">{error}</p>}
+            <button
+              onClick={handleContinue}
+              disabled={!canProceed || loading}
+              className={`w-full py-4 px-6 font-semibold rounded-xl transition-all duration-300 text-lg ${
+                canProceed
+                  ? "bg-[#3B82F6] text-white hover:bg-[#2563EB] hover:shadow-lg hover:shadow-[#3B82F6]/25 cursor-pointer"
+                  : "bg-[#111111] text-[#666666] cursor-not-allowed"
+              }`}
+            >
+              {loading ? "Verifying..." : canProceed ? buttonText : `Please wait ${timerSeconds}s...`}
+            </button>
+
+            {/* Native banner (scroll ad) */}
+            <AdNativeBanner />
+
+            {/* Sticky bottom banner */}
+            <div className="fixed bottom-0 left-0 right-0 z-50 flex justify-center py-2 bg-black/90 backdrop-blur border-t border-[#1A1A1A]">
+              <AdBanner468x60 />
+            </div>
+
+            {/* Spacer for sticky bottom */}
+            <div className="h-20" />
+          </div>
+        ) : (
+          /* ===== V1 — Full Experience ===== */
+          <>
+            {/* Ad: 728x90 — top leaderboard (desktop only) */}
+            <div className="hidden md:block mb-5">
+              <AdBanner728x90 />
+            </div>
+
+            {/* 3-Column Layout */}
+            <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-[300px_1fr_300px] gap-5 items-start">
+
+              {/* LEFT SIDEBAR */}
+              <div className="hidden lg:flex flex-col gap-4">
+                <AdBanner160x600 />
+                <ReactionGame />
+                <FunFactCard />
+                <QuickPoll step={stepNumber} />
+              </div>
+
+              {/* CENTER */}
+              <div className="flex flex-col gap-5 w-full items-center">
+                <AdBanner468x60 />
+
+                <div className="glass-card-accent p-8 flex flex-col items-center gap-5 w-full max-w-md">
+                  <CountdownTimer seconds={timerSeconds} onComplete={handleTimerComplete} />
+                </div>
+
+                <AdBanner300x250 />
+
+                <div className="glass-card p-6 flex flex-col items-center gap-4 w-full max-w-md">
+                  <div className="w-full">
+                    <div className="flex justify-between text-xs text-[#666666] mb-1.5">
+                      <span>Progress</span>
+                      <span>{stepNumber}/{totalSteps} steps</span>
+                    </div>
+                    <div className="w-full h-2 bg-[#111111] rounded-full overflow-hidden">
+                      <div className="h-full bg-gradient-to-r from-[#3B82F6] to-[#60A5FA] rounded-full transition-all duration-500" style={{ width: `${(stepNumber / totalSteps) * 100}%` }} />
+                    </div>
+                  </div>
+
+                  <AdBanner320x50 />
+
+                  {error && <p className="text-red-400 text-sm">{error}</p>}
+
+                  <button
+                    onClick={handleContinue}
+                    disabled={!canProceed || loading}
+                    className={`w-full py-3.5 px-6 font-semibold rounded-xl transition-all duration-300 ${
+                      canProceed
+                        ? "bg-gradient-to-r from-[#3B82F6] to-[#60A5FA] text-white hover:shadow-lg hover:shadow-[#3B82F6]/25 hover:scale-[1.02] cursor-pointer"
+                        : "bg-[#111111] text-[#666666] cursor-not-allowed"
+                    }`}
+                  >
+                    {loading ? "Verifying..." : canProceed ? buttonText : `Please wait ${timerSeconds}s...`}
+                  </button>
+                </div>
+
+                <AdNativeBanner />
+
+                <div className="lg:hidden flex flex-col gap-4">
+                  <WhackAMole />
+                  <ReactionGame />
+                  <FunFactCard />
+                  <TriviaCard />
                 </div>
               </div>
 
-              {/* Ad: 320x50 — between progress and button */}
-              <AdBanner320x50 />
-
-              {error && <p className="text-red-400 text-sm">{error}</p>}
-
-              <button
-                onClick={handleContinue}
-                disabled={!canProceed || loading}
-                className={`w-full py-3.5 px-6 font-semibold rounded-xl transition-all duration-300 ${
-                  canProceed
-                    ? "bg-gradient-to-r from-[#3B82F6] to-[#60A5FA] text-white hover:shadow-lg hover:shadow-[#3B82F6]/25 hover:scale-[1.02] cursor-pointer"
-                    : "bg-[#111111] text-[#666666] cursor-not-allowed"
-                }`}
-              >
-                {loading
-                  ? "Verifying..."
-                  : canProceed
-                  ? buttonText
-                  : `Please wait ${timerSeconds}s...`}
-              </button>
+              {/* RIGHT SIDEBAR */}
+              <div className="hidden lg:flex flex-col gap-4">
+                <AdBanner160x300 />
+                <WhackAMole />
+                <TriviaCard />
+                <TapSpeedGame />
+                <JokeCard />
+              </div>
             </div>
-
-            {/* Native Banner */}
-            <AdNativeBanner />
-
-            {/* Mobile engagement */}
-            <div className="lg:hidden flex flex-col gap-4">
-              <WhackAMole />
-              <ReactionGame />
-              <FunFactCard />
-              <TriviaCard />
-            </div>
-          </div>
-
-          {/* RIGHT SIDEBAR */}
-          <div className="hidden lg:flex flex-col gap-4">
-            {/* Ad: 160x300 */}
-            <AdBanner160x300 />
-            <WhackAMole />
-            <TriviaCard />
-            <TapSpeedGame />
-            <JokeCard />
-          </div>
-        </div>
+          </>
+        )}
 
       </div>
 
