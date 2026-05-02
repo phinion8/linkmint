@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   title: "LinkMint - Turn Your Links Into Revenue",
   description:
     "Shorten URLs, add monetization steps, and earn revenue from every click. The modern link monetization platform.",
+  other: {
+    "admaven-placement": "Bqjs6qTgG",
+  },
 };
 
 export default function RootLayout({
