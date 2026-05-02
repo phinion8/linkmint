@@ -537,6 +537,9 @@ export default function StepPage({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [continueVisible, setContinueVisible] = useState(false);
+  const [showInterstitial, setShowInterstitial] = useState(false);
+  const [interstitialClosed, setInterstitialClosed] = useState(false);
+  const [interstitialCountdown, setInterstitialCountdown] = useState(5);
   const continueRef = useRef<HTMLDivElement>(null);
 
   // Pick engagement widget based on step number
@@ -545,6 +548,20 @@ export default function StepPage({
   const handleTimerComplete = useCallback(() => {
     setCanProceed(true);
   }, []);
+
+  // Show interstitial ad after 2 seconds of timer starting
+  useEffect(() => {
+    if (interstitialClosed) return;
+    const delay = setTimeout(() => setShowInterstitial(true), 2000);
+    return () => clearTimeout(delay);
+  }, [interstitialClosed]);
+
+  // Interstitial close countdown
+  useEffect(() => {
+    if (!showInterstitial || interstitialCountdown <= 0) return;
+    const t = setTimeout(() => setInterstitialCountdown((c) => c - 1), 1000);
+    return () => clearTimeout(t);
+  }, [showInterstitial, interstitialCountdown]);
 
   // Track if continue section is in viewport
   useEffect(() => {
@@ -589,6 +606,44 @@ export default function StepPage({
   return (
     <AdBlockDetector>
     <div className="min-h-screen bg-black flex flex-col relative overflow-hidden">
+      {/* Interstitial Ad Overlay */}
+      {showInterstitial && !interstitialClosed && (
+        <div className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center px-4">
+          <div className="max-w-md w-full flex flex-col items-center gap-4">
+            {/* Header */}
+            <div className="w-full flex items-center justify-between">
+              <span className="text-[#666666] text-xs uppercase tracking-wider">Advertisement</span>
+              {interstitialCountdown > 0 ? (
+                <span className="text-[#666666] text-xs">
+                  Close in <span className="text-white font-bold">{interstitialCountdown}s</span>
+                </span>
+              ) : (
+                <button
+                  onClick={() => { setShowInterstitial(false); setInterstitialClosed(true); }}
+                  className="flex items-center gap-1.5 text-white text-xs bg-[#2A2A2A] hover:bg-[#3A3A3A] px-3 py-1.5 rounded-lg transition-colors"
+                >
+                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                  Close Ad
+                </button>
+              )}
+            </div>
+
+            {/* Ad Content */}
+            <div className="glass-card p-6 w-full flex flex-col items-center gap-4">
+              <AdBanner300x250 />
+              <AdNativeBanner />
+            </div>
+
+            {/* Timer still running text */}
+            <p className="text-[#555555] text-xs text-center">
+              Your timer is still running in the background
+            </p>
+          </div>
+        </div>
+      )}
+
       {/* Particle background */}
       <ParticleCanvas />
 
