@@ -24,8 +24,7 @@ export default function AdBlockDetector({ children }: { children: React.ReactNod
       setChecking(false);
     }
 
-    // Wait for ads to load before showing content
-    setTimeout(detect, 2500);
+    setTimeout(detect, 500);
   }, []);
 
   if (checking) {
