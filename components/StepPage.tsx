@@ -218,6 +218,151 @@ function QuickPoll({ step }: { step: number }) {
   );
 }
 
+// ===== MINI GAMES =====
+
+function ReactionGame() {
+  const [phase, setPhase] = useState<"idle" | "waiting" | "go" | "result" | "early">("idle");
+  const [reactionTime, setReactionTime] = useState(0);
+  const [best, setBest] = useState<number | null>(null);
+  const startRef = useRef(0);
+  const timeoutRef = useRef<NodeJS.Timeout>();
+
+  function startGame() {
+    setPhase("waiting");
+    const delay = 1000 + Math.random() * 3000;
+    timeoutRef.current = setTimeout(() => {
+      startRef.current = Date.now();
+      setPhase("go");
+    }, delay);
+  }
+
+  function handleClick() {
+    if (phase === "waiting") {
+      clearTimeout(timeoutRef.current);
+      setPhase("early");
+    } else if (phase === "go") {
+      const time = Date.now() - startRef.current;
+      setReactionTime(time);
+      if (!best || time < best) setBest(time);
+      setPhase("result");
+    }
+  }
+
+  useEffect(() => {
+    return () => clearTimeout(timeoutRef.current);
+  }, []);
+
+  return (
+    <div className="glass-card p-5 w-full max-w-md">
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <span className="text-lg">⚡</span>
+          <span className="text-xs font-semibold uppercase tracking-wider text-amber-400">Reaction Test</span>
+        </div>
+        {best && <span className="text-xs text-[#666666]">Best: {best}ms</span>}
+      </div>
+
+      {phase === "idle" && (
+        <button onClick={startGame} className="w-full py-4 bg-[#3B82F6] text-white rounded-xl font-semibold hover:bg-[#2563EB] transition-colors">
+          Start — Test Your Reflexes!
+        </button>
+      )}
+      {phase === "waiting" && (
+        <button onClick={handleClick} className="w-full py-6 bg-red-500 text-white rounded-xl font-semibold text-lg animate-pulse">
+          Wait for green...
+        </button>
+      )}
+      {phase === "go" && (
+        <button onClick={handleClick} className="w-full py-6 bg-emerald-500 text-white rounded-xl font-bold text-lg">
+          CLICK NOW!
+        </button>
+      )}
+      {phase === "early" && (
+        <div className="text-center">
+          <p className="text-red-400 font-semibold mb-2">Too early!</p>
+          <button onClick={startGame} className="text-sm text-[#3B82F6] hover:text-[#60A5FA]">Try again</button>
+        </div>
+      )}
+      {phase === "result" && (
+        <div className="text-center">
+          <p className="text-3xl font-bold text-white mb-1">{reactionTime}<span className="text-sm text-[#666666] ml-1">ms</span></p>
+          <p className="text-sm text-[#999999] mb-3">
+            {reactionTime < 200 ? "Incredible!" : reactionTime < 300 ? "Great reflexes!" : reactionTime < 400 ? "Not bad!" : "Keep trying!"}
+          </p>
+          <button onClick={startGame} className="text-sm bg-[#3B82F6] text-white px-4 py-1.5 rounded-lg hover:bg-[#2563EB] transition-colors">
+            Try Again
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function WhackAMole() {
+  const [score, setScore] = useState(0);
+  const [active, setActive] = useState(-1);
+  const [gameOn, setGameOn] = useState(false);
+  const intervalRef = useRef<NodeJS.Timeout>();
+
+  function startGame() {
+    setScore(0);
+    setGameOn(true);
+    moveMole();
+  }
+
+  function moveMole() {
+    clearTimeout(intervalRef.current);
+    const next = Math.floor(Math.random() * 9);
+    setActive(next);
+    intervalRef.current = setTimeout(moveMole, 600 + Math.random() * 500);
+  }
+
+  function handleWhack(i: number) {
+    if (i === active) {
+      setScore((s) => s + 1);
+      setActive(-1);
+    }
+  }
+
+  useEffect(() => {
+    return () => clearTimeout(intervalRef.current);
+  }, []);
+
+  return (
+    <div className="glass-card p-5 w-full max-w-md">
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <span className="text-lg">🎯</span>
+          <span className="text-xs font-semibold uppercase tracking-wider text-emerald-400">Whack-a-Mole</span>
+        </div>
+        {gameOn && <span className="text-sm font-bold text-white">Score: {score}</span>}
+      </div>
+
+      {!gameOn ? (
+        <button onClick={startGame} className="w-full py-4 bg-[#3B82F6] text-white rounded-xl font-semibold hover:bg-[#2563EB] transition-colors">
+          Start — Tap the Mole!
+        </button>
+      ) : (
+        <div className="grid grid-cols-3 gap-2">
+          {Array.from({ length: 9 }, (_, i) => (
+            <button
+              key={i}
+              onClick={() => handleWhack(i)}
+              className={`aspect-square rounded-xl text-2xl flex items-center justify-center transition-all duration-150 ${
+                i === active
+                  ? "bg-emerald-500 scale-110"
+                  : "bg-[#1A1A1A] border border-[#2A2A2A] hover:bg-[#222222]"
+              }`}
+            >
+              {i === active ? "🐹" : ""}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function ParticleCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -465,8 +610,8 @@ export default function StepPage({
           <div className="hidden lg:flex flex-col gap-4">
             {/* Ad: 160x600 — skyscraper */}
             <AdBanner160x600 />
+            <ReactionGame />
             <FunFactCard />
-            <QuickPoll step={stepNumber} />
           </div>
 
           {/* CENTER */}
@@ -524,8 +669,8 @@ export default function StepPage({
 
             {/* Mobile engagement */}
             <div className="lg:hidden flex flex-col gap-4">
+              <ReactionGame />
               <FunFactCard />
-              <JokeCard />
               <TriviaCard />
             </div>
           </div>
@@ -534,8 +679,8 @@ export default function StepPage({
           <div className="hidden lg:flex flex-col gap-4">
             {/* Ad: 160x300 */}
             <AdBanner160x300 />
+            <WhackAMole />
             <TriviaCard />
-            <JokeCard />
           </div>
         </div>
 
