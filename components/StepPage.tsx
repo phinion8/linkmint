@@ -453,34 +453,24 @@ export default function StepPage({
           </h1>
         )}
 
+        {/* Ad: 728x90 — top leaderboard */}
+        <div className="hidden sm:block mb-5">
+          <AdBanner728x90 />
+        </div>
+        {/* Ad: 320x50 — mobile top banner */}
+        <div className="sm:hidden mb-5">
+          <AdBanner320x50 />
+        </div>
+
         {/* 3-Column Layout */}
         <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-[300px_1fr_300px] gap-5 items-start">
 
           {/* LEFT SIDEBAR */}
           <div className="hidden lg:flex flex-col gap-4">
-            {/* Ad: 160x600 — tall skyscraper fills sidebar */}
+            {/* Ad: 160x600 — skyscraper */}
             <AdBanner160x600 />
             <FunFactCard />
             <QuickPoll step={stepNumber} />
-            {/* Platform Stats */}
-            <div className="glass-card p-5">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="text-lg">📊</span>
-                <span className="text-xs font-semibold uppercase tracking-wider text-blue-400">Platform Stats</span>
-              </div>
-              <div className="space-y-3">
-                {[
-                  { label: "Links Shortened", value: "10,847", color: "text-[#3B82F6]" },
-                  { label: "Clicks Today", value: "24,519", color: "text-[#60A5FA]" },
-                  { label: "Publishers Active", value: "5,230", color: "text-emerald-400" },
-                ].map((stat) => (
-                  <div key={stat.label} className="flex items-center justify-between">
-                    <span className="text-[#666666] text-sm">{stat.label}</span>
-                    <span className={`font-bold tabular-nums text-sm ${stat.color}`}>{stat.value}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
 
           {/* CENTER */}
@@ -524,15 +514,14 @@ export default function StepPage({
               </button>
             </div>
 
-            {/* Ad: 300x250 below timer — highest CPM spot */}
+            {/* Ad: 300x250 below timer — highest CPM */}
             <AdBanner300x250 />
 
             {/* Native Banner — blends with content */}
             <AdNativeBanner />
 
-            {/* Mobile: 320x50 banner + engagement */}
+            {/* Mobile engagement */}
             <div className="lg:hidden flex flex-col gap-4">
-              <AdBanner320x50 />
               <FunFactCard />
               <JokeCard />
               <TriviaCard />
@@ -541,36 +530,14 @@ export default function StepPage({
 
           {/* RIGHT SIDEBAR */}
           <div className="hidden lg:flex flex-col gap-4">
-            {/* Ad: 160x300 — unique size for right */}
+            {/* Ad: 160x300 */}
             <AdBanner160x300 />
             <TriviaCard />
             <JokeCard />
-            {/* Pro Tips */}
-            <div className="glass-card p-5">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="text-lg">✨</span>
-                <span className="text-xs font-semibold uppercase tracking-wider text-cyan-400">Pro Tips</span>
-              </div>
-              <ul className="space-y-2.5">
-                {[
-                  "Share links on social media to maximize clicks",
-                  "Short links with titles get 30% more engagement",
-                  "Track your earnings in real-time from the dashboard",
-                  "Each completed ad view earns you revenue",
-                ].map((tip, i) => (
-                  <li key={i} className="flex items-start gap-2 text-[#999999] text-sm leading-relaxed">
-                    <svg className="w-4 h-4 text-cyan-400 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
-                    {tip}
-                  </li>
-                ))}
-              </ul>
-            </div>
           </div>
         </div>
 
-        {/* Popunder + Social Bar — fire once per page load */}
+        {/* Popunder + Social Bar */}
         <AdPopunder />
         <AdSocialBar />
       </div>
