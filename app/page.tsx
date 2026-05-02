@@ -15,15 +15,6 @@ export default function HomePage() {
           <div className="absolute top-[30%] right-[10%] w-[300px] h-[300px] rounded-full bg-[#3B82F6]/[0.04] blur-[80px] animate-float" />
 
           <div className="relative mx-auto max-w-5xl px-4 py-28 md:py-36 text-center">
-            {/* Badge */}
-            <div className="inline-flex items-center rounded-full border border-[#3B82F6]/20 bg-[#3B82F6]/[0.06] px-5 py-2 text-sm font-medium text-[#3B82F6] mb-10 backdrop-blur-sm">
-              <span className="relative flex h-2 w-2 mr-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#3B82F6] opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#3B82F6]" />
-              </span>
-              The modern link monetization platform
-            </div>
-
             {/* Heading */}
             <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-8 leading-[1.05]">
               <span className="text-gradient">Great links start</span>
