@@ -652,52 +652,79 @@ export default function StepPage({
         )}
 
         {adLayout === "v2" ? (
-          /* ===== V2 — Clean & Focused ===== */
-          <div className="w-full max-w-lg mx-auto flex flex-col items-center gap-5">
-            {/* Top banner */}
-            <div className="hidden sm:block"><AdBanner728x90 /></div>
-            <div className="sm:hidden"><AdBanner320x50 /></div>
+          /* ===== V2 — Optimized Revenue ===== */
+          <div className="w-full max-w-5xl mx-auto">
+            {/* 2-Column Layout: Content + Sidebar Ad */}
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 items-start">
 
-            {/* Timer */}
-            <div className="glass-card-accent p-8 flex flex-col items-center gap-5 w-full">
-              <CountdownTimer seconds={timerSeconds} onComplete={handleTimerComplete} />
-              <div className="w-full">
-                <div className="flex justify-between text-xs text-[#666666] mb-1.5">
-                  <span>Step {stepNumber} of {totalSteps}</span>
-                  <span>{Math.round((stepNumber / totalSteps) * 100)}%</span>
+              {/* MAIN COLUMN */}
+              <div className="flex flex-col gap-5 items-center">
+                {/* AD #1: 300x250 above the fold — highest CPM position */}
+                <AdBanner300x250 />
+
+                {/* Timer + Progress + Button — kept together, never separated by ads */}
+                <div className="glass-card-accent p-8 flex flex-col items-center gap-5 w-full max-w-md">
+                  <CountdownTimer seconds={timerSeconds} onComplete={handleTimerComplete} />
+                  <div className="w-full">
+                    <div className="flex justify-between text-xs text-[#666666] mb-1.5">
+                      <span>Step {stepNumber} of {totalSteps}</span>
+                      <span>{Math.round((stepNumber / totalSteps) * 100)}%</span>
+                    </div>
+                    <div className="w-full h-1.5 bg-[#111111] rounded-full overflow-hidden">
+                      <div className="h-full bg-[#3B82F6] rounded-full transition-all duration-500" style={{ width: `${(stepNumber / totalSteps) * 100}%` }} />
+                    </div>
+                  </div>
+                  {error && <p className="text-red-400 text-sm">{error}</p>}
+                  <button
+                    onClick={handleContinue}
+                    disabled={!canProceed || loading}
+                    className={`w-full py-4 px-6 font-semibold rounded-xl transition-all duration-300 text-lg ${
+                      canProceed
+                        ? "bg-[#3B82F6] text-white hover:bg-[#2563EB] hover:shadow-lg hover:shadow-[#3B82F6]/25 cursor-pointer"
+                        : "bg-[#111111] text-[#666666] cursor-not-allowed"
+                    }`}
+                  >
+                    {loading ? "Verifying..." : canProceed ? buttonText : `Please wait ${timerSeconds}s...`}
+                  </button>
                 </div>
-                <div className="w-full h-1.5 bg-[#111111] rounded-full overflow-hidden">
-                  <div className="h-full bg-[#3B82F6] rounded-full transition-all duration-500" style={{ width: `${(stepNumber / totalSteps) * 100}%` }} />
+
+                {/* AD #2: 728x90 below CTA — second attention point */}
+                <div className="hidden sm:block"><AdBanner728x90 /></div>
+                <div className="sm:hidden"><AdBanner320x50 /></div>
+
+                {/* Interactive engagement — boosts dwell time → higher CPM */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+                  <WhackAMole />
+                  <ReactionGame />
                 </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+                  <FunFactCard />
+                  <TriviaCard />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+                  <QuickPoll step={stepNumber} />
+                  <JokeCard />
+                </div>
+
+                {/* Native Banner — blends with content, good CTR */}
+                <AdNativeBanner />
+              </div>
+
+              {/* RIGHT SIDEBAR — desktop only */}
+              <div className="hidden lg:flex flex-col gap-4 sticky top-24">
+                {/* AD #3: 160x600 sidebar — 22% higher viewability, stays visible while scrolling */}
+                <AdBanner160x600 />
+                <TapSpeedGame />
               </div>
             </div>
 
-            {/* High CPM inline ad */}
-            <AdBanner300x250 />
-
-            {/* Continue button */}
-            {error && <p className="text-red-400 text-sm">{error}</p>}
-            <button
-              onClick={handleContinue}
-              disabled={!canProceed || loading}
-              className={`w-full py-4 px-6 font-semibold rounded-xl transition-all duration-300 text-lg ${
-                canProceed
-                  ? "bg-[#3B82F6] text-white hover:bg-[#2563EB] hover:shadow-lg hover:shadow-[#3B82F6]/25 cursor-pointer"
-                  : "bg-[#111111] text-[#666666] cursor-not-allowed"
-              }`}
-            >
-              {loading ? "Verifying..." : canProceed ? buttonText : `Please wait ${timerSeconds}s...`}
-            </button>
-
-            {/* Native banner (scroll ad) */}
-            <AdNativeBanner />
-
-            {/* Sticky bottom banner */}
-            <div className="fixed bottom-0 left-0 right-0 z-50 flex justify-center py-2 bg-black/90 backdrop-blur border-t border-[#1A1A1A]">
-              <AdBanner468x60 />
+            {/* Sticky bottom banner — guaranteed impression, +43% revenue */}
+            <div className="fixed bottom-0 left-0 right-0 z-50 flex justify-center py-2 bg-black/90 backdrop-blur-xl border-t border-[#1A1A1A]">
+              <div className="hidden sm:block"><AdBanner468x60 /></div>
+              <div className="sm:hidden"><AdBanner320x50 /></div>
             </div>
-
-            {/* Spacer for sticky bottom */}
             <div className="h-20" />
           </div>
         ) : (
