@@ -245,6 +245,7 @@ export default function AdminSettingsPage() {
               {applying ? "Applying..." : "Apply to All Existing Links"}
             </button>
             {applied && <span className="text-[#3B82F6] text-sm">{applied}</span>}
+          </div>
         </div>
       </form>
     </div>
