@@ -24,17 +24,28 @@ export default function AdBlockDetector({ children }: { children: React.ReactNod
       setChecking(false);
     }
 
-    // Small delay to let the page render first
-    setTimeout(detect, 500);
+    // Wait for ads to load before showing content
+    setTimeout(detect, 2500);
   }, []);
 
   if (checking) {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-8 h-8 border-2 border-[#3B82F6] border-t-transparent rounded-full animate-spin" />
-          <p className="text-[#666666] text-sm">Loading...</p>
+        <div className="flex flex-col items-center gap-5">
+          <div className="w-10 h-10 rounded-xl bg-[#3B82F6] flex items-center justify-center">
+            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+            </svg>
+          </div>
+          <div className="flex flex-col items-center gap-2">
+            <p className="text-white font-semibold">LinkMint</p>
+            <div className="w-32 h-1 bg-[#111111] rounded-full overflow-hidden">
+              <div className="h-full bg-[#3B82F6] rounded-full animate-[loading_2s_ease-in-out_infinite]" style={{ animation: "loading 2s ease-in-out infinite" }} />
+            </div>
+            <p className="text-[#555555] text-xs">Preparing your page...</p>
+          </div>
         </div>
+        <style>{`@keyframes loading { 0% { width: 0% } 50% { width: 100% } 100% { width: 0% } }`}</style>
       </div>
     );
   }
