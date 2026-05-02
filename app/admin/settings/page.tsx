@@ -16,6 +16,8 @@ export default function AdminSettingsPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [applying, setApplying] = useState(false);
+  const [applied, setApplied] = useState("");
 
   useEffect(() => {
     fetch("/api/admin/settings")
@@ -208,7 +210,7 @@ export default function AdminSettingsPage() {
           </div>
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center gap-4">
           <button
             type="submit"
             disabled={saving}
@@ -217,6 +219,32 @@ export default function AdminSettingsPage() {
             {saving ? "Saving..." : "Save Settings"}
           </button>
           {saved && <span className="text-[#3B82F6] text-sm">Settings saved!</span>}
+        </div>
+
+        {/* Apply to existing links */}
+        <div className="pt-4 border-t border-[#2A2A2A]">
+          <p className="text-[#999999] text-sm mb-3">
+            Settings above only apply to new links. Click below to update <strong className="text-white">all existing links</strong> with the current steps and timer values.
+          </p>
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              disabled={applying}
+              onClick={async () => {
+                if (!confirm("This will replace step configurations for ALL existing links. Continue?")) return;
+                setApplying(true);
+                setApplied("");
+                const res = await fetch("/api/admin/settings/apply-all", { method: "POST" });
+                const data = await res.json();
+                setApplying(false);
+                setApplied(res.ok ? `Updated ${data.updated} links` : data.error || "Failed");
+                setTimeout(() => setApplied(""), 5000);
+              }}
+              className="px-5 py-2.5 border border-amber-500/30 bg-amber-500/10 text-amber-400 font-medium rounded-xl hover:bg-amber-500/20 transition-all disabled:opacity-50 text-sm"
+            >
+              {applying ? "Applying..." : "Apply to All Existing Links"}
+            </button>
+            {applied && <span className="text-[#3B82F6] text-sm">{applied}</span>}
         </div>
       </form>
     </div>
