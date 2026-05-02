@@ -536,12 +536,25 @@ export default function StepPage({
   const [canProceed, setCanProceed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [continueVisible, setContinueVisible] = useState(false);
 
   // Pick engagement widget based on step number
   const widgetType = stepNumber % 3; // 0=fact, 1=joke, 2=trivia
 
   const handleTimerComplete = useCallback(() => {
     setCanProceed(true);
+  }, []);
+
+  // Track if continue section is in viewport
+  useEffect(() => {
+    const el = document.getElementById("continue-section");
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setContinueVisible(entry.isIntersecting),
+      { threshold: 0.3 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
   }, []);
 
   async function handleContinue() {
@@ -693,7 +706,7 @@ export default function StepPage({
                 </div>
 
                 {/* Continue section — progress + ad + button */}
-                <div id="continue-section" className="glass-card p-6 flex flex-col items-center gap-5 w-full">
+                <div id="continue-section" className="glass-card p-6 flex flex-col items-center gap-5 w-full overflow-hidden">
                   {/* Step progress */}
                   <div className="w-full">
                     <div className="flex justify-between text-xs text-[#666666] mb-1.5">
@@ -735,7 +748,7 @@ export default function StepPage({
             </div>
 
             {/* Floating "Go to Continue" bar — appears when timer completes */}
-            {canProceed && (
+            {canProceed && !continueVisible && (
               <div className="fixed bottom-4 left-0 right-0 z-40 flex justify-center animate-fade-up pointer-events-none">
                 <button
                   onClick={() => document.getElementById("continue-section")?.scrollIntoView({ behavior: "smooth" })}
