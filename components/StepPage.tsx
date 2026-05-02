@@ -653,17 +653,24 @@ export default function StepPage({
 
         {adLayout === "v2" ? (
           /* ===== V2 — Optimized Revenue ===== */
-          <div className="w-full max-w-5xl mx-auto">
-            {/* 2-Column Layout: Content + Sidebar Ad */}
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 items-start">
+          <div className="w-full max-w-6xl mx-auto">
+            {/* 3-Column: Games | Center Content | Games */}
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(0,480px)_1fr] gap-5 items-start">
 
-              {/* MAIN COLUMN */}
+              {/* LEFT — Games */}
+              <div className="hidden lg:flex flex-col gap-4">
+                <WhackAMole />
+                <FunFactCard />
+                <QuickPoll step={stepNumber} />
+              </div>
+
+              {/* CENTER — Ads + Timer + Button at bottom */}
               <div className="flex flex-col gap-5 items-center">
-                {/* AD #1: 300x250 above the fold — highest CPM position */}
+                {/* Ad: 300x250 above fold */}
                 <AdBanner300x250 />
 
-                {/* Timer + Progress + Button — kept together, never separated by ads */}
-                <div className="glass-card-accent p-8 flex flex-col items-center gap-5 w-full max-w-md">
+                {/* Timer + Progress */}
+                <div className="glass-card-accent p-8 flex flex-col items-center gap-5 w-full">
                   <CountdownTimer seconds={timerSeconds} onComplete={handleTimerComplete} />
                   <div className="w-full">
                     <div className="flex justify-between text-xs text-[#666666] mb-1.5">
@@ -674,6 +681,28 @@ export default function StepPage({
                       <div className="h-full bg-[#3B82F6] rounded-full transition-all duration-500" style={{ width: `${(stepNumber / totalSteps) * 100}%` }} />
                     </div>
                   </div>
+                </div>
+
+                {/* Ad: 468x60 */}
+                <AdBanner468x60 />
+
+                {/* Native Banner */}
+                <AdNativeBanner />
+
+                {/* Ad: 728x90 / 320x50 */}
+                <div className="hidden sm:block"><AdBanner728x90 /></div>
+                <div className="sm:hidden"><AdBanner320x50 /></div>
+
+                {/* Mobile games */}
+                <div className="lg:hidden flex flex-col gap-4 w-full">
+                  <WhackAMole />
+                  <ReactionGame />
+                  <FunFactCard />
+                  <TriviaCard />
+                </div>
+
+                {/* Continue button section — at the bottom */}
+                <div id="continue-section" className="glass-card p-6 flex flex-col items-center gap-4 w-full">
                   {error && <p className="text-red-400 text-sm">{error}</p>}
                   <button
                     onClick={handleContinue}
@@ -688,44 +717,32 @@ export default function StepPage({
                   </button>
                 </div>
 
-                {/* AD #2: 728x90 below CTA — second attention point */}
-                <div className="hidden sm:block"><AdBanner728x90 /></div>
-                <div className="sm:hidden"><AdBanner320x50 /></div>
-
-                {/* Interactive engagement — boosts dwell time → higher CPM */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
-                  <WhackAMole />
-                  <ReactionGame />
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
-                  <FunFactCard />
-                  <TriviaCard />
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
-                  <QuickPoll step={stepNumber} />
-                  <JokeCard />
-                </div>
-
-                {/* Native Banner — blends with content, good CTR */}
-                <AdNativeBanner />
+                <div className="h-10" />
               </div>
 
-              {/* RIGHT SIDEBAR — desktop only */}
-              <div className="hidden lg:flex flex-col gap-4 sticky top-24">
-                {/* AD #3: 160x600 sidebar — 22% higher viewability, stays visible while scrolling */}
-                <AdBanner160x600 />
+              {/* RIGHT — Games */}
+              <div className="hidden lg:flex flex-col gap-4">
+                <ReactionGame />
+                <TriviaCard />
                 <TapSpeedGame />
+                <JokeCard />
               </div>
             </div>
 
-            {/* Sticky bottom banner — guaranteed impression, +43% revenue */}
-            <div className="fixed bottom-0 left-0 right-0 z-50 flex justify-center py-2 bg-black/90 backdrop-blur-xl border-t border-[#1A1A1A]">
-              <div className="hidden sm:block"><AdBanner468x60 /></div>
-              <div className="sm:hidden"><AdBanner320x50 /></div>
-            </div>
-            <div className="h-20" />
+            {/* Floating "Go to Continue" bar — appears when timer completes */}
+            {canProceed && (
+              <div className="fixed bottom-0 left-0 right-0 z-50 flex justify-center py-3 bg-black/95 backdrop-blur-xl border-t border-[#3B82F6]/20 animate-fade-up">
+                <button
+                  onClick={() => document.getElementById("continue-section")?.scrollIntoView({ behavior: "smooth" })}
+                  className="flex items-center gap-2 bg-[#3B82F6] text-white px-6 py-3 rounded-xl font-semibold hover:bg-[#2563EB] transition-all shadow-lg shadow-[#3B82F6]/20"
+                >
+                  <svg className="w-4 h-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                  </svg>
+                  Continue to destination
+                </button>
+              </div>
+            )}
           </div>
         ) : (
           /* ===== V1 — Full Experience ===== */
