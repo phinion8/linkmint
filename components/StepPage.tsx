@@ -453,13 +453,9 @@ export default function StepPage({
           </h1>
         )}
 
-        {/* Ad: 728x90 — top leaderboard */}
-        <div className="hidden sm:block mb-5">
+        {/* Ad: 728x90 — top leaderboard (desktop only) */}
+        <div className="hidden md:block mb-5">
           <AdBanner728x90 />
-        </div>
-        {/* Ad: 320x50 — mobile top banner */}
-        <div className="sm:hidden mb-5">
-          <AdBanner320x50 />
         </div>
 
         {/* 3-Column Layout */}
@@ -474,14 +470,20 @@ export default function StepPage({
           </div>
 
           {/* CENTER */}
-          <div className="flex flex-col gap-5 w-full">
-            {/* Ad: 468x60 banner above timer */}
+          <div className="flex flex-col gap-5 w-full items-center">
+            {/* Ad: 468x60 banner */}
             <AdBanner468x60 />
 
-            {/* Timer + CTA Card */}
-            <div className="glass-card-accent p-8 flex flex-col items-center gap-6 w-full">
+            {/* Timer */}
+            <div className="glass-card-accent p-8 flex flex-col items-center gap-5 w-full max-w-md">
               <CountdownTimer seconds={timerSeconds} onComplete={handleTimerComplete} />
+            </div>
 
+            {/* Ad: 300x250 — between timer and progress */}
+            <AdBanner300x250 />
+
+            {/* Progress + Button Card */}
+            <div className="glass-card p-6 flex flex-col items-center gap-4 w-full max-w-md">
               <div className="w-full">
                 <div className="flex justify-between text-xs text-[#666666] mb-1.5">
                   <span>Progress</span>
@@ -494,6 +496,9 @@ export default function StepPage({
                   />
                 </div>
               </div>
+
+              {/* Ad: 320x50 — between progress and button */}
+              <AdBanner320x50 />
 
               {error && <p className="text-red-400 text-sm">{error}</p>}
 
@@ -514,10 +519,7 @@ export default function StepPage({
               </button>
             </div>
 
-            {/* Ad: 300x250 below timer — highest CPM */}
-            <AdBanner300x250 />
-
-            {/* Native Banner — blends with content */}
+            {/* Native Banner */}
             <AdNativeBanner />
 
             {/* Mobile engagement */}
@@ -537,9 +539,8 @@ export default function StepPage({
           </div>
         </div>
 
-        {/* Popunder + Social Bar */}
+        {/* Popunder */}
         <AdPopunder />
-        <AdSocialBar />
       </div>
 
       {/* Footer */}

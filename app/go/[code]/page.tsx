@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import { supabase } from "@/lib/supabase";
 import { generateSessionToken } from "@/lib/utils";
 import StepPage from "@/components/StepPage";
+import Script from "next/script";
 
 export default async function InterstitialPage({
   params,
@@ -113,6 +114,12 @@ export default async function InterstitialPage({
   const currentStepConfig = steps.find((s: { step_order: number }) => s.step_order === session.current_step) || steps[0];
 
   return (
+    <>
+    {/* Social Bar — loaded via Next.js Script outside React tree */}
+    <Script
+      src="https://pl29321607.profitablecpmratenetwork.com/a1/be/eb/a1beebc96cc0bcdb42e278de8d2b2ba6.js"
+      strategy="afterInteractive"
+    />
     <StepPage
       sessionToken={session.session_token}
       shortCode={code}
@@ -123,5 +130,6 @@ export default async function InterstitialPage({
       adHtml={currentStepConfig.ad_html}
       linkTitle={link.title}
     />
+    </>
   );
 }
