@@ -537,6 +537,7 @@ export default function StepPage({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [continueVisible, setContinueVisible] = useState(false);
+  const continueRef = useRef<HTMLDivElement>(null);
 
   // Pick engagement widget based on step number
   const widgetType = stepNumber % 3; // 0=fact, 1=joke, 2=trivia
@@ -547,15 +548,15 @@ export default function StepPage({
 
   // Track if continue section is in viewport
   useEffect(() => {
-    const el = document.getElementById("continue-section");
+    const el = continueRef.current;
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => setContinueVisible(entry.isIntersecting),
-      { threshold: 0.3 }
+      { threshold: 0.1 }
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  });
 
   async function handleContinue() {
     setLoading(true);
@@ -706,7 +707,7 @@ export default function StepPage({
                 </div>
 
                 {/* Continue section — progress + ad + button */}
-                <div id="continue-section" className="glass-card p-6 flex flex-col items-center gap-5 w-full overflow-hidden">
+                <div ref={continueRef} id="continue-section" className="glass-card p-6 flex flex-col items-center gap-5 w-full overflow-hidden">
                   {/* Step progress */}
                   <div className="w-full">
                     <div className="flex justify-between text-xs text-[#666666] mb-1.5">
