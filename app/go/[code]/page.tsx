@@ -115,7 +115,12 @@ export default async function InterstitialPage({
 
   return (
     <>
-    {/* Social Bar — loaded via Next.js Script outside React tree */}
+    {/* Popunder — loaded outside React tree */}
+    <Script
+      src="https://pl29321604.profitablecpmratenetwork.com/f2/57/b8/f257b844adcb37aa5873d4916d70d37c.js"
+      strategy="afterInteractive"
+    />
+    {/* Social Bar — loaded outside React tree */}
     <Script
       src="https://pl29321607.profitablecpmratenetwork.com/a1/be/eb/a1beebc96cc0bcdb42e278de8d2b2ba6.js"
       strategy="afterInteractive"

@@ -225,7 +225,7 @@ function ReactionGame() {
   const [reactionTime, setReactionTime] = useState(0);
   const [best, setBest] = useState<number | null>(null);
   const startRef = useRef(0);
-  const timeoutRef = useRef<NodeJS.Timeout>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   function startGame() {
     setPhase("waiting");
@@ -302,7 +302,7 @@ function WhackAMole() {
   const [score, setScore] = useState(0);
   const [active, setActive] = useState(-1);
   const [gameOn, setGameOn] = useState(false);
-  const intervalRef = useRef<NodeJS.Timeout>();
+  const intervalRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   function startGame() {
     setScore(0);
@@ -684,8 +684,6 @@ export default function StepPage({
           </div>
         </div>
 
-        {/* Popunder */}
-        <AdPopunder />
       </div>
 
       {/* Footer */}
