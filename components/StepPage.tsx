@@ -669,18 +669,9 @@ export default function StepPage({
                 {/* Ad: 300x250 above fold */}
                 <AdBanner300x250 />
 
-                {/* Timer + Progress */}
-                <div className="glass-card-accent p-8 flex flex-col items-center gap-5 w-full">
+                {/* Timer */}
+                <div className="glass-card-accent p-8 flex flex-col items-center w-full">
                   <CountdownTimer seconds={timerSeconds} onComplete={handleTimerComplete} />
-                  <div className="w-full">
-                    <div className="flex justify-between text-xs text-[#666666] mb-1.5">
-                      <span>Step {stepNumber} of {totalSteps}</span>
-                      <span>{Math.round((stepNumber / totalSteps) * 100)}%</span>
-                    </div>
-                    <div className="w-full h-1.5 bg-[#111111] rounded-full overflow-hidden">
-                      <div className="h-full bg-[#3B82F6] rounded-full transition-all duration-500" style={{ width: `${(stepNumber / totalSteps) * 100}%` }} />
-                    </div>
-                  </div>
                 </div>
 
                 {/* Ad: 468x60 */}
@@ -701,8 +692,22 @@ export default function StepPage({
                   <TriviaCard />
                 </div>
 
-                {/* Continue button section — at the bottom */}
-                <div id="continue-section" className="glass-card p-6 flex flex-col items-center gap-4 w-full">
+                {/* Continue section — progress + ad + button */}
+                <div id="continue-section" className="glass-card p-6 flex flex-col items-center gap-5 w-full">
+                  {/* Step progress */}
+                  <div className="w-full">
+                    <div className="flex justify-between text-xs text-[#666666] mb-1.5">
+                      <span>Step {stepNumber} of {totalSteps}</span>
+                      <span>{Math.round((stepNumber / totalSteps) * 100)}%</span>
+                    </div>
+                    <div className="w-full h-1.5 bg-[#111111] rounded-full overflow-hidden">
+                      <div className="h-full bg-[#3B82F6] rounded-full transition-all duration-500" style={{ width: `${(stepNumber / totalSteps) * 100}%` }} />
+                    </div>
+                  </div>
+
+                  {/* Ad inside container */}
+                  <AdBanner468x60 />
+
                   {error && <p className="text-red-400 text-sm">{error}</p>}
                   <button
                     onClick={handleContinue}
@@ -731,10 +736,10 @@ export default function StepPage({
 
             {/* Floating "Go to Continue" bar — appears when timer completes */}
             {canProceed && (
-              <div className="fixed bottom-0 left-0 right-0 z-50 flex justify-center py-3 bg-black/95 backdrop-blur-xl border-t border-[#3B82F6]/20 animate-fade-up">
+              <div className="fixed bottom-4 left-0 right-0 z-40 flex justify-center animate-fade-up pointer-events-none">
                 <button
                   onClick={() => document.getElementById("continue-section")?.scrollIntoView({ behavior: "smooth" })}
-                  className="flex items-center gap-2 bg-[#3B82F6] text-white px-6 py-3 rounded-xl font-semibold hover:bg-[#2563EB] transition-all shadow-lg shadow-[#3B82F6]/20"
+                  className="pointer-events-auto flex items-center gap-2 bg-[#3B82F6] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#2563EB] transition-all shadow-xl shadow-[#3B82F6]/30"
                 >
                   <svg className="w-4 h-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
