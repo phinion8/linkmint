@@ -10,7 +10,9 @@ import {
   AdBanner468x60,
   AdBanner300x250,
   AdBanner160x300,
+  AdBanner160x600,
   AdBanner320x50,
+  AdBanner728x90,
 } from "./AdsterraAds";
 
 // ===== DATA =====
@@ -456,12 +458,10 @@ export default function StepPage({
 
           {/* LEFT SIDEBAR */}
           <div className="hidden lg:flex flex-col gap-4">
-            {/* Ad: 300x250 — highest CPM */}
-            <AdBanner300x250 />
+            {/* Ad: 160x600 — tall skyscraper fills sidebar */}
+            <AdBanner160x600 />
             <FunFactCard />
             <QuickPoll step={stepNumber} />
-            {/* Ad: 160x300 */}
-            <AdBanner160x300 />
             {/* Platform Stats */}
             <div className="glass-card p-5">
               <div className="flex items-center gap-2 mb-3">
@@ -541,12 +541,10 @@ export default function StepPage({
 
           {/* RIGHT SIDEBAR */}
           <div className="hidden lg:flex flex-col gap-4">
-            {/* Ad: 300x250 — highest CPM */}
-            <AdBanner300x250 />
+            {/* Ad: 160x300 — unique size for right */}
+            <AdBanner160x300 />
             <TriviaCard />
             <JokeCard />
-            {/* Ad: 160x300 */}
-            <AdBanner160x300 />
             {/* Pro Tips */}
             <div className="glass-card p-5">
               <div className="flex items-center gap-2 mb-3">
