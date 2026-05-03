@@ -76,7 +76,7 @@ export default function RegisterPage() {
           </p>
           <div className="flex justify-center gap-8 text-xs text-[#555555]">
             <div className="text-center">
-              <p className="text-white font-bold text-lg">$1.50</p>
+              <p className="text-white font-bold text-lg">Up to $1.50</p>
               <p>Per 1K views</p>
             </div>
             <div className="text-center">
