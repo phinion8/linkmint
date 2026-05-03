@@ -12,7 +12,7 @@ export default function HomePage() {
           <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] rounded-full bg-[#3B82F6]/[0.07] blur-[120px] animate-pulse-glow" />
           <div className="absolute bottom-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-[#3B82F6]/[0.04] blur-[100px] animate-float-delayed" />
 
-          <div className="relative mx-auto max-w-5xl px-4 pt-32 pb-20 text-center">
+          <div className="relative mx-auto max-w-7xl px-6 pt-32 pb-20 text-center">
             <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[80px] font-bold tracking-tight mb-6 leading-[1.05]">
               <span className="text-white">Shorten. Share.</span>
               <br />
@@ -55,7 +55,7 @@ export default function HomePage() {
 
         {/* ===== STATS ===== */}
         <section className="border-y border-[#1A1A1A] py-14">
-          <div className="mx-auto max-w-6xl px-4">
+          <div className="mx-auto max-w-7xl px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {[
                 { value: "$1.50", label: "CPM Rate", sub: "per 1K views" },
@@ -75,7 +75,7 @@ export default function HomePage() {
 
         {/* ===== HOW IT WORKS ===== */}
         <section id="how-it-works" className="py-24 md:py-32">
-          <div className="mx-auto max-w-6xl px-4">
+          <div className="mx-auto max-w-7xl px-6">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
                 How it works
@@ -127,7 +127,7 @@ export default function HomePage() {
 
         {/* ===== FEATURES ===== */}
         <section id="features" className="py-24 md:py-32 border-t border-[#1A1A1A]">
-          <div className="mx-auto max-w-5xl px-4">
+          <div className="mx-auto max-w-7xl px-6">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
                 Built for publishers
@@ -186,7 +186,7 @@ export default function HomePage() {
 
         {/* ===== EARNINGS SECTION ===== */}
         <section id="pricing" className="py-24 md:py-32 border-t border-[#1A1A1A]">
-          <div className="mx-auto max-w-6xl px-4">
+          <div className="mx-auto max-w-7xl px-6">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
                 How much can you earn?
@@ -252,7 +252,7 @@ export default function HomePage() {
 
       {/* ===== FOOTER ===== */}
       <footer className="border-t border-[#1A1A1A] py-10">
-        <div className="mx-auto max-w-6xl px-4">
+        <div className="mx-auto max-w-7xl px-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 rounded-md bg-[#3B82F6] flex items-center justify-center">
