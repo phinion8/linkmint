@@ -90,17 +90,21 @@ export default function RegisterPage() {
             </p>
 
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-4 mb-10">
-              {[
-                { value: "Up to $1.50", label: "Per 1K views" },
-                { value: "Growing", label: "Community" },
-                { value: "Thousands", label: "Clicks tracked" },
-              ].map((s) => (
-                <div key={s.label} className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-4 text-center">
-                  <p className="text-white font-bold text-xl">{s.value}</p>
-                  <p className="text-[#666666] text-xs mt-1">{s.label}</p>
-                </div>
-              ))}
+            <div className="flex gap-6 mb-10 text-sm">
+              <div>
+                <p className="text-white font-bold">Up to $1.50</p>
+                <p className="text-[#555555] text-xs">Per 1K views</p>
+              </div>
+              <div className="w-px bg-[#1A1A1A]" />
+              <div>
+                <p className="text-white font-bold">24hr</p>
+                <p className="text-[#555555] text-xs">Payout processing</p>
+              </div>
+              <div className="w-px bg-[#1A1A1A]" />
+              <div>
+                <p className="text-white font-bold">Free</p>
+                <p className="text-[#555555] text-xs">Forever</p>
+              </div>
             </div>
 
             {/* Features list */}
@@ -123,7 +127,7 @@ export default function RegisterPage() {
         </div>
 
         {/* Right Panel — Form */}
-        <div className="w-full lg:w-1/2 flex items-center justify-center px-6 py-16">
+        <div className="w-full lg:w-1/2 flex items-center justify-end px-6 lg:px-20 py-16">
           <div className="w-full max-w-sm">
             <h1 className="text-2xl font-bold text-white mb-1">Create your account</h1>
             <p className="text-[#999999] text-sm mb-8">Start earning from your links in seconds</p>
