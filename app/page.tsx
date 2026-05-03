@@ -7,51 +7,72 @@ export default function HomePage() {
       <Navbar />
       <main className="flex-1 overflow-hidden">
         {/* ===== HERO ===== */}
-        <section className="relative min-h-[90vh] flex items-center justify-center">
-          {/* Background effects */}
-          <div className="absolute inset-0 grid-pattern opacity-60" />
+        <section className="relative min-h-screen flex items-center justify-center">
+          <div className="absolute inset-0 grid-pattern opacity-40" />
           <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] rounded-full bg-[#3B82F6]/[0.07] blur-[120px] animate-pulse-glow" />
-          <div className="absolute bottom-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-[#60A5FA]/[0.05] blur-[100px] animate-float-delayed" />
-          <div className="absolute top-[30%] right-[10%] w-[300px] h-[300px] rounded-full bg-[#3B82F6]/[0.04] blur-[80px] animate-float" />
+          <div className="absolute bottom-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-[#3B82F6]/[0.04] blur-[100px] animate-float-delayed" />
 
-          <div className="relative mx-auto max-w-5xl px-4 py-28 md:py-36 text-center">
-            {/* Heading */}
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-8 leading-[1.05]">
-              <span className="text-gradient">Great links start</span>
+          <div className="relative mx-auto max-w-4xl px-4 pt-32 pb-20 text-center">
+            {/* Eyebrow */}
+            <div className="inline-flex items-center gap-2 bg-[#111111] border border-[#2A2A2A] rounded-full px-4 py-1.5 mb-8">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="text-xs text-[#999999]">Trusted by 5,000+ publishers worldwide</span>
+            </div>
+
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[80px] font-bold tracking-tight mb-6 leading-[1.05]">
+              <span className="text-white">Shorten links.</span>
               <br />
-              <span className="text-gradient-mint">with a click</span>
+              <span className="text-[#3B82F6]">Earn money.</span>
             </h1>
 
-            <p className="text-[#999999] text-lg md:text-xl max-w-2xl mx-auto mb-14 leading-relaxed">
-              Shorten URLs, add monetization steps, and earn revenue from every
-              visitor. Track clicks, manage links, and grow your earnings.
+            <p className="text-[#999999] text-lg md:text-xl max-w-xl mx-auto mb-10 leading-relaxed">
+              Every click on your link generates ad revenue. Create short links, share them anywhere, and watch your earnings grow.
             </p>
 
             {/* Shorten Form */}
-            <div className="max-w-2xl mx-auto">
+            <div className="max-w-xl mx-auto mb-6">
               <ShortenForm />
             </div>
 
-            <p className="text-[#555555] text-sm mt-6">
-              No credit card required &bull; Start shortening in seconds
-            </p>
+            <div className="flex items-center justify-center gap-6 text-xs text-[#666666]">
+              <span className="flex items-center gap-1.5">
+                <svg className="w-3.5 h-3.5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                Free forever
+              </span>
+              <span className="flex items-center gap-1.5">
+                <svg className="w-3.5 h-3.5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                No credit card
+              </span>
+              <span className="flex items-center gap-1.5">
+                <svg className="w-3.5 h-3.5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                Instant setup
+              </span>
+            </div>
+          </div>
+
+          {/* Scroll indicator */}
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+            <span className="text-[#444444] text-xs">Scroll</span>
+            <div className="w-5 h-8 rounded-full border border-[#2A2A2A] flex items-start justify-center pt-1.5">
+              <div className="w-1 h-2 rounded-full bg-[#3B82F6] animate-bounce" />
+            </div>
           </div>
         </section>
 
-        {/* ===== STATS BAR ===== */}
-        <section className="relative border-y border-[#222222] py-16">
-          <div className="absolute inset-0 bg-white/[0.01]" />
-          <div className="relative mx-auto max-w-5xl px-4">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+        {/* ===== STATS ===== */}
+        <section className="border-y border-[#1A1A1A] py-14">
+          <div className="mx-auto max-w-4xl px-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {[
-                { value: "10K+", label: "Links Created" },
-                { value: "1M+", label: "Clicks Tracked" },
-                { value: "5K+", label: "Publishers" },
-                { value: "99.9%", label: "Uptime" },
+                { value: "$1.50", label: "CPM Rate", sub: "per 1K views" },
+                { value: "10K+", label: "Links Created", sub: "and growing" },
+                { value: "1M+", label: "Clicks Tracked", sub: "this month" },
+                { value: "99.9%", label: "Uptime", sub: "guaranteed" },
               ].map((stat) => (
                 <div key={stat.label} className="text-center">
-                  <p className="text-3xl md:text-4xl font-bold tabular-nums text-gradient-mint">{stat.value}</p>
-                  <p className="text-[#666666] text-sm mt-2">{stat.label}</p>
+                  <p className="text-2xl md:text-3xl font-bold text-white tabular-nums">{stat.value}</p>
+                  <p className="text-[#999999] text-sm mt-1">{stat.label}</p>
+                  <p className="text-[#444444] text-xs">{stat.sub}</p>
                 </div>
               ))}
             </div>
@@ -59,36 +80,51 @@ export default function HomePage() {
         </section>
 
         {/* ===== HOW IT WORKS ===== */}
-        <section className="relative py-28 md:py-36">
-          <div className="absolute inset-0 mesh-gradient opacity-50" />
-          <div className="relative mx-auto max-w-5xl px-4">
-            <div className="text-center mb-20">
-              <p className="text-[#3B82F6] text-sm font-semibold uppercase tracking-widest mb-4">How It Works</p>
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-5">
-                Three steps to start earning
+        <section id="how-it-works" className="py-24 md:py-32">
+          <div className="mx-auto max-w-4xl px-4">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                How it works
               </h2>
-              <p className="text-[#999999] text-lg max-w-xl mx-auto">
-                Set up your first monetized link in under a minute
+              <p className="text-[#999999] text-lg max-w-md mx-auto">
+                Start earning in three simple steps
               </p>
             </div>
 
-            <div className="relative grid grid-cols-1 md:grid-cols-3 gap-8">
-              {/* Connecting line */}
-              <div className="hidden md:block absolute top-[72px] left-[20%] right-[20%] h-[2px]">
-                <div className="w-full h-full bg-gradient-to-r from-transparent via-[#3B82F6]/20 to-transparent" />
-              </div>
-
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
-                { num: "1", title: "Shorten Your URL", desc: "Paste any long URL and get a clean, short link. Add an optional title to stay organized." },
-                { num: "2", title: "Visitors See Ads", desc: "Each click goes through timed ad steps with countdown timers before reaching the destination." },
-                { num: "3", title: "Track & Earn", desc: "Monitor every click from your dashboard. See device types, referrers, and revenue in real time." },
+                {
+                  num: "01",
+                  title: "Paste your URL",
+                  desc: "Drop any link into our shortener. Get a clean, trackable short URL instantly.",
+                  icon: <path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />,
+                },
+                {
+                  num: "02",
+                  title: "Share everywhere",
+                  desc: "Post your link on social media, forums, blogs, or anywhere people click.",
+                  icon: <path strokeLinecap="round" strokeLinejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />,
+                },
+                {
+                  num: "03",
+                  title: "Get paid",
+                  desc: "Earn $1.50 per 1,000 views. Track earnings and request payouts from your dashboard.",
+                  icon: <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />,
+                },
               ].map((step) => (
-                <div key={step.num} className="relative glass-card glass-card-hover p-8 md:p-10 text-center">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#3B82F6]/20 to-[#3B82F6]/5 border border-[#3B82F6]/20 flex items-center justify-center text-2xl font-bold text-[#3B82F6] mx-auto mb-6 shadow-[0_0_30px_-8px_rgba(59,130,246,0.2)]">
-                    {step.num}
+                <div key={step.num} className="relative group">
+                  <div className="bg-[#111111] border border-[#1A1A1A] rounded-2xl p-8 h-full hover:border-[#2A2A2A] transition-all duration-300">
+                    <div className="flex items-center gap-3 mb-5">
+                      <div className="w-10 h-10 rounded-xl bg-[#3B82F6]/10 flex items-center justify-center">
+                        <svg className="w-5 h-5 text-[#3B82F6]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                          {step.icon}
+                        </svg>
+                      </div>
+                      <span className="text-[#333333] text-sm font-mono font-bold">{step.num}</span>
+                    </div>
+                    <h3 className="text-lg font-semibold text-white mb-2">{step.title}</h3>
+                    <p className="text-[#999999] text-sm leading-relaxed">{step.desc}</p>
                   </div>
-                  <h3 className="text-xl font-semibold text-white mb-3">{step.title}</h3>
-                  <p className="text-[#999999] text-[15px] leading-relaxed">{step.desc}</p>
                 </div>
               ))}
             </div>
@@ -96,186 +132,148 @@ export default function HomePage() {
         </section>
 
         {/* ===== FEATURES ===== */}
-        <section className="relative py-28 md:py-36 border-t border-[#222222]">
-          <div className="absolute inset-0 dot-grid opacity-40" />
-          <div className="absolute bottom-0 left-[20%] w-[400px] h-[400px] rounded-full bg-[#3B82F6]/[0.04] blur-[100px]" />
-
-          <div className="relative mx-auto max-w-5xl px-4">
-            <div className="text-center mb-20">
-              <p className="text-[#3B82F6] text-sm font-semibold uppercase tracking-widest mb-4">Features</p>
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-5">
-                Everything you need to grow
+        <section id="features" className="py-24 md:py-32 border-t border-[#1A1A1A]">
+          <div className="mx-auto max-w-5xl px-4">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                Built for publishers
               </h2>
-              <p className="text-[#999999] text-lg max-w-xl mx-auto">
-                Powerful tools built for publishers who want to monetize their links
+              <p className="text-[#999999] text-lg max-w-md mx-auto">
+                Everything you need to monetize your traffic
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-[#1A1A1A] rounded-2xl overflow-hidden border border-[#1A1A1A]">
               {[
                 {
-                  icon: <path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />,
-                  title: "Link Shortening",
-                  desc: "Generate clean, branded short URLs that are easy to share anywhere.",
-                  gradient: "from-[#3B82F6]/20 to-[#3B82F6]/5",
-                },
-                {
+                  title: "Real-time Analytics",
+                  desc: "Track clicks, devices, referrers, and geography. Know exactly where your traffic comes from.",
                   icon: <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />,
-                  title: "Click Analytics",
-                  desc: "Detailed breakdowns by device, referrer, geography, and time period.",
-                  gradient: "from-[#60A5FA]/20 to-[#60A5FA]/5",
                 },
                 {
-                  icon: <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />,
-                  title: "Ad Monetization",
-                  desc: "Configurable timed ad steps generate revenue on every single visit.",
-                  gradient: "from-amber-500/20 to-amber-500/5",
+                  title: "Wallet & Payouts",
+                  desc: "Earnings deposited to your wallet automatically. Withdraw via PayPal, bank, or crypto anytime.",
+                  icon: <path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />,
                 },
                 {
+                  title: "Custom Ad Steps",
+                  desc: "Configure how many pages visitors see, timer duration per step, and button text. Full control.",
                   icon: <path strokeLinecap="round" strokeLinejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />,
-                  title: "Custom Steps",
-                  desc: "Set timer durations, button text, and ad content per step. Full control.",
-                  gradient: "from-purple-500/20 to-purple-500/5",
                 },
                 {
+                  title: "Anti-Fraud Protection",
+                  desc: "Server-side verification on every step. Bot traffic filtered automatically. Your earnings are safe.",
                   icon: <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />,
-                  title: "Secure & Verified",
-                  desc: "Server-side verification ensures every step is completed legitimately.",
-                  gradient: "from-cyan-500/20 to-cyan-500/5",
                 },
                 {
-                  icon: <path strokeLinecap="round" strokeLinejoin="round" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />,
+                  title: "Telegram Bot",
+                  desc: "Shorten URLs directly from Telegram. Login, paste a link, get your short URL. That simple.",
+                  icon: <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />,
+                },
+                {
                   title: "Publisher Dashboard",
-                  desc: "Manage all your links, view stats, and configure settings from one place.",
-                  gradient: "from-rose-500/20 to-rose-500/5",
+                  desc: "All your links, earnings, and stats in one place. Create, manage, and optimize from a single dashboard.",
+                  icon: <path strokeLinecap="round" strokeLinejoin="round" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />,
                 },
               ].map((feature) => (
-                <div key={feature.title} className="glass-card glass-card-hover p-7">
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${feature.gradient} border border-[#2A2A2A] flex items-center justify-center mb-5`}>
-                    <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                <div key={feature.title} className="bg-black p-8 md:p-10 group hover:bg-[#0A0A0A] transition-colors">
+                  <div className="w-10 h-10 rounded-xl bg-[#111111] border border-[#1A1A1A] flex items-center justify-center mb-5 group-hover:border-[#3B82F6]/20 transition-colors">
+                    <svg className="w-5 h-5 text-[#3B82F6]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
                       {feature.icon}
                     </svg>
                   </div>
-                  <h3 className="text-[17px] font-semibold text-white mb-2">{feature.title}</h3>
-                  <p className="text-[#999999] text-sm leading-relaxed">{feature.desc}</p>
+                  <h3 className="text-lg font-semibold text-white mb-2">{feature.title}</h3>
+                  <p className="text-[#666666] text-sm leading-relaxed">{feature.desc}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ===== CTA ===== */}
-        <section className="relative py-28 md:py-36 overflow-hidden">
-          {/* Gradient background */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#3B82F6]/[0.08] via-transparent to-[#60A5FA]/[0.05]" />
-          <div className="absolute inset-0 dot-grid opacity-30" />
-          {/* Corner glows */}
-          <div className="absolute top-0 left-0 w-[400px] h-[400px] rounded-full bg-[#3B82F6]/[0.06] blur-[100px]" />
-          <div className="absolute bottom-0 right-0 w-[300px] h-[300px] rounded-full bg-[#60A5FA]/[0.05] blur-[80px]" />
-
-          <div className="relative mx-auto max-w-3xl px-4 text-center">
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-6">
-              Ready to monetize your links?
-            </h2>
-            <p className="text-[#999999] text-lg mb-12 max-w-xl mx-auto leading-relaxed">
-              Join publishers who are turning every shared link into a revenue stream. Free to get started.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="/register"
-                className="group inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-[#3B82F6] to-[#60A5FA] px-8 py-4 text-base font-semibold text-white transition-all duration-300 hover:shadow-lg hover:shadow-[#3B82F6]/25 hover:scale-[1.02] active:scale-[0.98]"
-              >
-                Get Started for Free
-                <svg className="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
-              </a>
-              <a
-                href="/login"
-                className="inline-flex items-center justify-center rounded-2xl border border-[#2A2A2A] bg-white/[0.04] px-8 py-4 text-base font-medium text-white transition-all duration-300 hover:bg-[#1A1A1A] hover:border-[#3A3A3A]"
-              >
-                Sign In
-              </a>
+        {/* ===== EARNINGS SECTION ===== */}
+        <section id="pricing" className="py-24 md:py-32 border-t border-[#1A1A1A]">
+          <div className="mx-auto max-w-4xl px-4">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                How much can you earn?
+              </h2>
+              <p className="text-[#999999] text-lg max-w-md mx-auto">
+                Earn $1.50 per 1,000 completed ad views
+              </p>
             </div>
 
-            {/* Trust badges */}
-            <div className="flex flex-wrap items-center justify-center gap-6 mt-12 text-[#666666] text-sm">
-              <span className="flex items-center gap-2">
-                <svg className="w-4 h-4 text-[#3B82F6]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
-                Free forever plan
-              </span>
-              <span className="flex items-center gap-2">
-                <svg className="w-4 h-4 text-[#3B82F6]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
-                No credit card needed
-              </span>
-              <span className="flex items-center gap-2">
-                <svg className="w-4 h-4 text-[#3B82F6]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
-                Setup in 30 seconds
-              </span>
+            <div className="bg-[#111111] border border-[#1A1A1A] rounded-2xl overflow-hidden">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-[#1A1A1A]">
+                    <th className="text-left py-4 px-6 text-[#666666] font-medium">Daily Clicks</th>
+                    <th className="text-left py-4 px-6 text-[#666666] font-medium">Daily Earnings</th>
+                    <th className="text-left py-4 px-6 text-[#666666] font-medium">Monthly Earnings</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    { clicks: "1,000", daily: "$1.50", monthly: "$45" },
+                    { clicks: "5,000", daily: "$7.50", monthly: "$225" },
+                    { clicks: "10,000", daily: "$15.00", monthly: "$450" },
+                    { clicks: "50,000", daily: "$75.00", monthly: "$2,250" },
+                    { clicks: "100,000", daily: "$150.00", monthly: "$4,500", highlight: true },
+                  ].map((row) => (
+                    <tr key={row.clicks} className={`border-b border-[#1A1A1A] last:border-0 ${row.highlight ? "bg-[#3B82F6]/5" : ""}`}>
+                      <td className="py-4 px-6 text-white font-medium">{row.clicks}</td>
+                      <td className="py-4 px-6 text-[#3B82F6] font-semibold tabular-nums">{row.daily}</td>
+                      <td className="py-4 px-6 text-emerald-400 font-semibold tabular-nums">{row.monthly}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <p className="text-center text-[#444444] text-xs mt-4">
+              Earnings based on $1.50 CPM. Actual rates vary by geography and traffic quality.
+            </p>
+          </div>
+        </section>
+
+        {/* ===== CTA ===== */}
+        <section className="py-24 md:py-32 border-t border-[#1A1A1A]">
+          <div className="mx-auto max-w-2xl px-4 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Start earning today
+            </h2>
+            <p className="text-[#999999] text-lg mb-8">
+              Join thousands of publishers earning from every link they share.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <a href="/register" className="inline-flex items-center justify-center bg-[#3B82F6] hover:bg-[#2563EB] text-white font-semibold px-8 py-3.5 rounded-xl transition-all duration-200">
+                Create Free Account
+              </a>
+              <a href="/login" className="inline-flex items-center justify-center bg-[#111111] hover:bg-[#1A1A1A] border border-[#2A2A2A] text-white font-medium px-8 py-3.5 rounded-xl transition-all duration-200">
+                Sign In
+              </a>
             </div>
           </div>
         </section>
       </main>
 
       {/* ===== FOOTER ===== */}
-      <footer className="border-t border-[#222222] pt-16 pb-10">
-        <div className="mx-auto max-w-5xl px-4">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-10 md:gap-8 mb-16">
-            {/* Brand */}
-            <div className="col-span-2 md:col-span-1">
-              <span className="text-gradient-mint font-bold text-xl">LinkMint</span>
-              <p className="text-[#666666] text-sm mt-3 leading-relaxed">
-                The modern platform for link monetization.
-              </p>
+      <footer className="border-t border-[#1A1A1A] py-10">
+        <div className="mx-auto max-w-4xl px-4">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 rounded-md bg-[#3B82F6] flex items-center justify-center">
+                <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                </svg>
+              </div>
+              <span className="text-white font-semibold">LinkMint</span>
             </div>
-
-            <div>
-              <h4 className="text-white text-sm font-semibold mb-4">Product</h4>
-              <ul className="space-y-2.5">
-                <li><a href="/#" className="text-[#666666] text-sm hover:text-[#CCCCCC] transition-colors">URL Shortener</a></li>
-                <li><a href="/#" className="text-[#666666] text-sm hover:text-[#CCCCCC] transition-colors">Analytics</a></li>
-                <li><a href="/#" className="text-[#666666] text-sm hover:text-[#CCCCCC] transition-colors">Ad Steps</a></li>
-                <li><a href="/#" className="text-[#666666] text-sm hover:text-[#CCCCCC] transition-colors">Dashboard</a></li>
-              </ul>
+            <div className="flex items-center gap-6 text-sm text-[#666666]">
+              <a href="/#" className="hover:text-white transition-colors">Privacy</a>
+              <a href="/#" className="hover:text-white transition-colors">Terms</a>
+              <a href="/#" className="hover:text-white transition-colors">Support</a>
             </div>
-
-            <div>
-              <h4 className="text-white text-sm font-semibold mb-4">Resources</h4>
-              <ul className="space-y-2.5">
-                <li><a href="/#" className="text-[#666666] text-sm hover:text-[#CCCCCC] transition-colors">Documentation</a></li>
-                <li><a href="/#" className="text-[#666666] text-sm hover:text-[#CCCCCC] transition-colors">API Reference</a></li>
-                <li><a href="/#" className="text-[#666666] text-sm hover:text-[#CCCCCC] transition-colors">Blog</a></li>
-                <li><a href="/#" className="text-[#666666] text-sm hover:text-[#CCCCCC] transition-colors">Support</a></li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="text-white text-sm font-semibold mb-4">Company</h4>
-              <ul className="space-y-2.5">
-                <li><a href="/#" className="text-[#666666] text-sm hover:text-[#CCCCCC] transition-colors">About</a></li>
-                <li><a href="/#" className="text-[#666666] text-sm hover:text-[#CCCCCC] transition-colors">Careers</a></li>
-                <li><a href="/#" className="text-[#666666] text-sm hover:text-[#CCCCCC] transition-colors">Contact</a></li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="text-white text-sm font-semibold mb-4">Legal</h4>
-              <ul className="space-y-2.5">
-                <li><a href="/#" className="text-[#666666] text-sm hover:text-[#CCCCCC] transition-colors">Privacy</a></li>
-                <li><a href="/#" className="text-[#666666] text-sm hover:text-[#CCCCCC] transition-colors">Terms</a></li>
-                <li><a href="/#" className="text-[#666666] text-sm hover:text-[#CCCCCC] transition-colors">Cookies</a></li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-[#222222]">
-            <p className="text-[#555555] text-sm">&copy; {new Date().getFullYear()} LinkMint. All rights reserved.</p>
-            <div className="flex items-center gap-5">
-              <a href="/#" className="text-[#555555] hover:text-[#999999] transition-colors">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" /></svg>
-              </a>
-              <a href="/#" className="text-[#555555] hover:text-[#999999] transition-colors">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" /></svg>
-              </a>
-            </div>
+            <p className="text-[#444444] text-sm">&copy; {new Date().getFullYear()} LinkMint</p>
           </div>
         </div>
       </footer>
