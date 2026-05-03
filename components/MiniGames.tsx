@@ -475,13 +475,8 @@ export function GamePicker({ step, count = 2, offset = 0 }: { step: number; coun
   const [games, setGames] = useState<typeof ALL_GAMES>([]);
 
   useEffect(() => {
-    // Seeded shuffle based on step + random salt per page load
-    const seed = step * 1000 + (typeof window !== "undefined" ? (parseInt(sessionStorage.getItem("lm_seed") || "0") || (() => { const s = Math.floor(Math.random() * 10000); sessionStorage.setItem("lm_seed", String(s)); return s; })()) : 0);
-    const shuffled = [...ALL_GAMES].sort((a, b) => {
-      const ha = Math.sin(seed + ALL_GAMES.indexOf(a)) * 10000;
-      const hb = Math.sin(seed + ALL_GAMES.indexOf(b)) * 10000;
-      return (ha - Math.floor(ha)) - (hb - Math.floor(hb));
-    });
+    // Fresh random shuffle on every render (page load / refresh / step change)
+    const shuffled = [...ALL_GAMES].sort(() => Math.random() - 0.5);
     setGames(shuffled.slice(offset, offset + count));
   }, [step, count, offset]);
 
