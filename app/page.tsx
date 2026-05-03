@@ -14,13 +14,13 @@ export default function HomePage() {
 
           <div className="relative mx-auto max-w-4xl px-4 pt-32 pb-20 text-center">
             <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[80px] font-bold tracking-tight mb-6 leading-[1.05]">
-              <span className="text-white">Shorten links.</span>
+              <span className="text-white">Shorten. Share.</span>
               <br />
-              <span className="text-[#3B82F6]">Earn money.</span>
+              <span className="text-[#3B82F6]">Get Paid.</span>
             </h1>
 
             <p className="text-[#999999] text-lg md:text-xl max-w-xl mx-auto mb-10 leading-relaxed">
-              Every click on your link generates ad revenue. Create short links, share them anywhere, and watch your earnings grow.
+              The free URL shortener that pays you for every click. Shorten links, track analytics, and earn money from every visitor — no website needed.
             </p>
 
             {/* Shorten Form */}
