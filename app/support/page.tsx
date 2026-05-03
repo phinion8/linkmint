@@ -10,10 +10,14 @@ export default function SupportPage() {
   const [message, setMessage] = useState("");
   const [sent, setSent] = useState(false);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // For now just show success — can be connected to an email API later
-    setSent(true);
+    const res = await fetch("/api/support", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, subject, message }),
+    });
+    if (res.ok) setSent(true);
   }
 
   return (

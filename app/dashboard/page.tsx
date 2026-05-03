@@ -42,7 +42,16 @@ interface PayoutItem {
   created_at: string;
 }
 
-type Tab = "overview" | "earnings" | "payouts" | "links";
+type Tab = "overview" | "earnings" | "payouts" | "links" | "support";
+
+interface TicketItem {
+  id: string;
+  subject: string;
+  message: string;
+  status: string;
+  admin_reply: string | null;
+  created_at: string;
+}
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -60,6 +69,11 @@ export default function DashboardPage() {
   const [payoutMsg, setPayoutMsg] = useState("");
   const [payoutError, setPayoutError] = useState("");
   const [showPayoutForm, setShowPayoutForm] = useState(false);
+  const [tickets, setTickets] = useState<TicketItem[]>([]);
+  const [ticketSubject, setTicketSubject] = useState("");
+  const [ticketMessage, setTicketMessage] = useState("");
+  const [ticketSending, setTicketSending] = useState(false);
+  const [ticketSent, setTicketSent] = useState("");
 
   const fetchLinks = useCallback(async () => {
     const res = await fetch("/api/links");
@@ -86,6 +100,7 @@ export default function DashboardPage() {
   useEffect(() => {
     fetchLinks();
     fetchWallet();
+    fetch("/api/support").then(r => r.ok ? r.json() : null).then(d => { if (d?.tickets) setTickets(d.tickets); });
   }, [fetchLinks, fetchWallet]);
 
   async function handleToggle(id: string, active: boolean) {
@@ -162,6 +177,11 @@ export default function DashboardPage() {
       key: "links",
       label: "My Links",
       icon: <path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />,
+    },
+    {
+      key: "support" as Tab,
+      label: "Support",
+      icon: <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />,
     },
   ];
 
@@ -513,6 +533,91 @@ export default function DashboardPage() {
                 onToggle={handleToggle}
                 onDelete={handleDelete}
               />
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* ===== SUPPORT TAB ===== */}
+      {activeTab === "support" && (
+        <div className="space-y-6">
+          {/* Submit ticket */}
+          <div className="glass-card p-6">
+            <h2 className="text-lg font-semibold text-white mb-4">Submit a Ticket</h2>
+            <form onSubmit={async (e) => {
+              e.preventDefault();
+              setTicketSending(true); setTicketSent("");
+              const res = await fetch("/api/support", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name: "User", email: "user@linkmint.app", subject: ticketSubject, message: ticketMessage }),
+              });
+              if (res.ok) {
+                setTicketSent("Ticket submitted successfully!");
+                setTicketSubject(""); setTicketMessage("");
+                const d = await fetch("/api/support").then(r => r.json());
+                if (d?.tickets) setTickets(d.tickets);
+              } else { setTicketSent("Failed to submit ticket"); }
+              setTicketSending(false);
+              setTimeout(() => setTicketSent(""), 4000);
+            }} className="space-y-4 max-w-lg">
+              <div>
+                <label className="block text-sm text-[#999999] mb-1.5">Subject</label>
+                <select value={ticketSubject} onChange={(e) => setTicketSubject(e.target.value)} required
+                  className="w-full px-4 py-2.5 bg-[#111111] border border-[#2A2A2A] rounded-xl text-white focus:border-[#3B82F6]/50 focus:outline-none focus:ring-1 focus:ring-[#3B82F6]/30 transition-all">
+                  <option value="" className="bg-[#111111]">Select topic</option>
+                  <option value="account" className="bg-[#111111]">Account Issue</option>
+                  <option value="payout" className="bg-[#111111]">Payout / Earnings</option>
+                  <option value="links" className="bg-[#111111]">Links / Shortening</option>
+                  <option value="bug" className="bg-[#111111]">Bug Report</option>
+                  <option value="other" className="bg-[#111111]">Other</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm text-[#999999] mb-1.5">Message</label>
+                <textarea value={ticketMessage} onChange={(e) => setTicketMessage(e.target.value)} required rows={4}
+                  className="w-full px-4 py-2.5 bg-[#111111] border border-[#2A2A2A] rounded-xl text-white placeholder:text-[#555555] focus:border-[#3B82F6]/50 focus:outline-none focus:ring-1 focus:ring-[#3B82F6]/30 transition-all resize-none"
+                  placeholder="Describe your issue..." />
+              </div>
+              {ticketSent && <p className={`text-sm ${ticketSent.includes("success") ? "text-emerald-400" : "text-red-400"}`}>{ticketSent}</p>}
+              <button type="submit" disabled={ticketSending}
+                className="px-6 py-2.5 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-semibold rounded-xl transition-all disabled:opacity-50 text-sm">
+                {ticketSending ? "Submitting..." : "Submit Ticket"}
+              </button>
+            </form>
+          </div>
+
+          {/* Ticket history */}
+          <div className="glass-card p-6">
+            <h2 className="text-lg font-semibold text-white mb-4">Your Tickets</h2>
+            {tickets.length === 0 ? (
+              <p className="text-[#666666] text-sm py-4 text-center">No tickets yet.</p>
+            ) : (
+              <div className="space-y-3">
+                {tickets.map((t) => (
+                  <div key={t.id} className="bg-[#111111] border border-[#1A1A1A] rounded-xl p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-2">
+                        <span className="text-white text-sm font-medium capitalize">{t.subject}</span>
+                        <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${
+                          t.status === "pending" ? "bg-amber-500/10 text-amber-400" :
+                          t.status === "in_progress" ? "bg-blue-500/10 text-blue-400" :
+                          t.status === "resolved" ? "bg-emerald-500/10 text-emerald-400" :
+                          "bg-[#222222] text-[#666666]"
+                        }`}>{t.status.replace("_", " ")}</span>
+                      </div>
+                      <span className="text-[#555555] text-xs">{formatDate(t.created_at)}</span>
+                    </div>
+                    <p className="text-[#999999] text-sm">{t.message}</p>
+                    {t.admin_reply && (
+                      <div className="mt-3 pt-3 border-t border-[#1A1A1A]">
+                        <p className="text-[10px] text-[#3B82F6] uppercase tracking-wider mb-1">Admin Reply</p>
+                        <p className="text-[#CCCCCC] text-sm">{t.admin_reply}</p>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
             )}
           </div>
         </div>

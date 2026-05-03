@@ -46,6 +46,7 @@ export default function Navbar({ variant = "public" }: NavbarProps) {
     { href: "/admin/links", label: "Links" },
     { href: "/admin/users", label: "Users" },
     { href: "/admin/payouts", label: "Payouts" },
+    { href: "/admin/tickets", label: "Tickets" },
     { href: "/admin/settings", label: "Settings" },
   ];
 
