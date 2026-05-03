@@ -89,7 +89,7 @@ export default function LoginPage() {
 
   return (
     <>
-      <Navbar />
+      <Navbar variant="auth" />
       <main className="mesh-gradient dot-grid flex-1 flex items-center justify-center px-4 pt-28 pb-20">
         <div className="w-full max-w-md">
           <h1 className="text-3xl font-bold text-center mb-2">Welcome back</h1>

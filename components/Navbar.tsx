@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
 interface NavbarProps {
-  variant?: "public" | "dashboard" | "admin";
+  variant?: "public" | "dashboard" | "admin" | "auth";
 }
 
 export default function Navbar({ variant = "public" }: NavbarProps) {
@@ -55,6 +55,7 @@ export default function Navbar({ variant = "public" }: NavbarProps) {
   ];
 
   const navLinks = variant === "admin" ? adminLinks : variant === "public" ? publicLinks : [];
+  const hideRightSide = variant === "auth";
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 flex justify-center py-4">
@@ -78,7 +79,7 @@ export default function Navbar({ variant = "public" }: NavbarProps) {
           </Link>
 
           {/* Desktop Nav Links */}
-          <div className="hidden md:flex items-center gap-1">
+          <div className={`hidden md:flex items-center gap-1 ${hideRightSide ? "!hidden" : ""}`}>
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -92,7 +93,7 @@ export default function Navbar({ variant = "public" }: NavbarProps) {
           </div>
 
           {/* Right Side */}
-          <div className="hidden md:flex items-center gap-2.5">
+          <div className={`hidden md:flex items-center gap-2.5 ${hideRightSide ? "!hidden" : ""}`}>
             {!authChecked ? (
               <div className="w-20 h-8 bg-[#111111] rounded-lg animate-pulse" />
             ) : user ? (
@@ -128,7 +129,7 @@ export default function Navbar({ variant = "public" }: NavbarProps) {
           </div>
 
           {/* Mobile menu button */}
-          <button
+          {!hideRightSide && <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:hidden relative w-9 h-9 rounded-lg bg-white/5 hover:bg-white/10 transition-colors flex items-center justify-center"
           >
@@ -137,7 +138,7 @@ export default function Navbar({ variant = "public" }: NavbarProps) {
               <span className={`w-full h-0.5 bg-white rounded-full transition-all duration-300 ${isMenuOpen ? "opacity-0 scale-0" : ""}`} />
               <span className={`w-full h-0.5 bg-white rounded-full transform transition-all duration-300 origin-center ${isMenuOpen ? "-rotate-45 -translate-y-[6px]" : ""}`} />
             </div>
-          </button>
+          </button>}
         </div>
 
         {/* Mobile Menu */}
