@@ -631,9 +631,8 @@ export default function StepPage({
             </div>
 
             {/* Ad Content */}
-            <div className="glass-card p-6 w-full flex flex-col items-center gap-4">
+            <div className="flex justify-center">
               <AdBanner300x250 />
-              <AdNativeBanner />
             </div>
 
             {/* Timer still running text */}
