@@ -79,11 +79,8 @@ export default function LoginPage() {
       <Navbar variant="auth" />
       <main className="flex-1 flex min-h-screen pt-20">
         {/* Left Panel — Branding */}
-        <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#0A0F1C] via-[#111827] to-[#0A0F1C]" />
-          <div className="absolute inset-0 grid-pattern opacity-30" />
-          <div className="absolute top-[20%] left-[-10%] w-[400px] h-[400px] rounded-full bg-[#3B82F6]/[0.08] blur-[100px]" />
-          <div className="absolute bottom-[10%] right-[-5%] w-[300px] h-[300px] rounded-full bg-[#3B82F6]/[0.05] blur-[80px]" />
+        <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden border-r border-[#1A1A1A]">
+          <div className="absolute inset-0 bg-[#0A0A0A]" />
 
           <div className="relative flex flex-col justify-center px-16 py-20 max-w-xl">
             <div className="flex items-center gap-2 mb-12">
@@ -106,13 +103,13 @@ export default function LoginPage() {
                 {[...Array(5)].map((_, i) => <span key={i} className="text-amber-400 text-sm">★</span>)}
               </div>
               <p className="text-[#CCCCCC] text-sm leading-relaxed mb-4">
-                &ldquo;I made $890 last month just sharing links from my YouTube videos. The dashboard is clean and payouts are fast.&rdquo;
+                &ldquo;I made $340 last month just sharing links from my YouTube videos. The dashboard is clean and payouts are fast.&rdquo;
               </p>
               <div className="flex items-center gap-3">
                 <div className="w-9 h-9 rounded-full bg-[#3B82F6]/20 flex items-center justify-center text-[#3B82F6] font-bold text-sm">M</div>
                 <div>
                   <p className="text-white text-sm font-medium">Mike L.</p>
-                  <p className="text-[#666666] text-xs">YouTuber · $890/mo</p>
+                  <p className="text-[#666666] text-xs">YouTuber · $340/mo</p>
                 </div>
               </div>
             </div>
@@ -121,11 +118,11 @@ export default function LoginPage() {
             <div className="flex flex-wrap gap-6 text-xs text-[#666666]">
               <span className="flex items-center gap-1.5">
                 <svg className="w-3.5 h-3.5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
-                5,000+ publishers
+                Fast growing
               </span>
               <span className="flex items-center gap-1.5">
                 <svg className="w-3.5 h-3.5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
-                Instant payouts
+                Payouts in 24 hours
               </span>
               <span className="flex items-center gap-1.5">
                 <svg className="w-3.5 h-3.5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>

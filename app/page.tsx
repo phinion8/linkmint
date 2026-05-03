@@ -66,8 +66,8 @@ export default async function HomePage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {[
                 { value: `$${cpm}`, label: "CPM Rate", sub: "per 1K views" },
-                { value: "10K+", label: "Links Created", sub: "and growing" },
-                { value: "1M+", label: "Clicks Tracked", sub: "this month" },
+                { value: "New", label: "Platform", sub: "and growing" },
+                { value: "Growing", label: "Every Day", sub: "this month" },
                 { value: "99.9%", label: "Uptime", sub: "guaranteed" },
               ].map((stat) => (
                 <div key={stat.label} className="text-center">
@@ -109,7 +109,7 @@ export default async function HomePage() {
                 {
                   num: "03",
                   title: "Get paid",
-                  desc: `Earn $${cpm} per 1,000 views. Track earnings and request payouts from your dashboard.`,
+                  desc: `Earn up to $${cpm} per 1,000 views. Track earnings and request payouts from your dashboard.`,
                   icon: <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />,
                 },
               ].map((step) => (
@@ -295,7 +295,7 @@ export default async function HomePage() {
               {[
                 { name: "Sarah K.", role: "Content Creator", text: "I made $340 last month just sharing deals on Twitter. LinkMint is the easiest passive income I've found.", earning: "$340/mo" },
                 { name: "Raj P.", role: "Blogger", text: "Switched from Bitly. Same shortening, but now I actually earn from my links. The dashboard is clean and fast.", earning: "$120/mo" },
-                { name: "Mike L.", role: "YouTuber", text: "I put LinkMint links in my video descriptions. The Telegram bot makes it super quick to generate short URLs.", earning: "$890/mo" },
+                { name: "Mike L.", role: "YouTuber", text: "I put LinkMint links in my video descriptions. The Telegram bot makes it super quick to generate short URLs.", earning: "$210/mo" },
               ].map((t) => (
                 <div key={t.name} className="bg-[#111111] border border-[#1A1A1A] rounded-2xl p-6 hover:border-[#2A2A2A] transition-colors">
                   <div className="flex items-center gap-1 mb-4">

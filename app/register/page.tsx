@@ -71,11 +71,8 @@ export default function RegisterPage() {
       <Navbar variant="auth" />
       <main className="flex-1 flex min-h-screen pt-20">
         {/* Left Panel — Branding */}
-        <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#0A0F1C] via-[#111827] to-[#0A0F1C]" />
-          <div className="absolute inset-0 grid-pattern opacity-30" />
-          <div className="absolute top-[30%] right-[-10%] w-[400px] h-[400px] rounded-full bg-[#3B82F6]/[0.08] blur-[100px]" />
-          <div className="absolute bottom-[-5%] left-[10%] w-[300px] h-[300px] rounded-full bg-[#3B82F6]/[0.05] blur-[80px]" />
+        <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden border-r border-[#1A1A1A]">
+          <div className="absolute inset-0 bg-[#0A0A0A]" />
 
           <div className="relative flex flex-col justify-center px-16 py-20 max-w-xl">
             <div className="flex items-center gap-2 mb-12">
@@ -95,9 +92,9 @@ export default function RegisterPage() {
             {/* Stats */}
             <div className="grid grid-cols-3 gap-4 mb-10">
               {[
-                { value: "$1.50", label: "Per 1K views" },
-                { value: "5K+", label: "Publishers" },
-                { value: "1M+", label: "Clicks tracked" },
+                { value: "Up to $1.50", label: "Per 1K views" },
+                { value: "Growing", label: "Community" },
+                { value: "Thousands", label: "Clicks tracked" },
               ].map((s) => (
                 <div key={s.label} className="bg-white/[0.03] border border-white/[0.06] rounded-xl p-4 text-center">
                   <p className="text-white font-bold text-xl">{s.value}</p>
@@ -111,7 +108,7 @@ export default function RegisterPage() {
               {[
                 "Shorten URLs and earn per click",
                 "Real-time analytics dashboard",
-                "Withdraw via PayPal, bank, or crypto",
+                "Withdraw via PayPal, bank, or crypto (24hr processing)",
                 "Telegram bot for quick shortening",
               ].map((item) => (
                 <div key={item} className="flex items-center gap-3">
