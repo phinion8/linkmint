@@ -248,7 +248,8 @@ export default function DashboardPage() {
               <span className="hidden sm:inline">{tab.label}</span>
               <span className="sm:hidden">{tab.label.split(" ").pop()}</span>
             </button>
-        ))}
+          ))}
+        </div>
       </div>
 
       {/* ===== OVERVIEW TAB ===== */}
