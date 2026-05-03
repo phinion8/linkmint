@@ -52,7 +52,7 @@ export default function Navbar({ variant = "public" }: NavbarProps) {
   const navLinks = variant === "admin" ? adminLinks : variant === "public" ? publicLinks : [];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center py-3">
+    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center py-4">
       <nav
         className={`w-[90%] md:w-[75%] transition-all duration-500 rounded-[16px] border ${
           isScrolled
@@ -60,7 +60,7 @@ export default function Navbar({ variant = "public" }: NavbarProps) {
             : "bg-white/5 backdrop-blur-md border-white/10"
         }`}
       >
-        <div className="flex items-center justify-between h-11 px-5">
+        <div className="flex items-center justify-between h-11 px-4">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
             <div className="relative">
