@@ -63,13 +63,11 @@ export default function Navbar({ variant = "public" }: NavbarProps) {
       >
         <div className="flex items-center justify-between h-14 px-6">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 group">
+          <Link href="/" className="flex items-center gap-2 group">
             <div className="relative">
-              <div className="absolute inset-0 rounded-xl bg-[#3B82F6] blur-md opacity-50 group-hover:opacity-80 transition-opacity" />
-              <div className="relative w-8 h-8 rounded-lg bg-[#3B82F6] flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                </svg>
+              <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-[#2563EB] to-[#3B82F6] blur-md opacity-40 group-hover:opacity-70 transition-opacity" />
+              <div className="relative w-7 h-7 rounded-lg bg-gradient-to-br from-[#2563EB] to-[#3B82F6] flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                <span className="text-white font-bold text-sm leading-none">L</span>
               </div>
             </div>
             <span className="text-lg font-bold text-white">LinkMint</span>

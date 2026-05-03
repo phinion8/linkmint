@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import ShortenForm from "@/components/ShortenForm";
+import ScrollReveal from "@/components/ScrollReveal";
 import { supabase } from "@/lib/supabase";
 
 export default async function HomePage() {
@@ -17,6 +18,7 @@ export default async function HomePage() {
   return (
     <>
       <Navbar />
+      <ScrollReveal />
       <main className="flex-1 overflow-hidden">
         {/* ===== HERO ===== */}
         <section className="relative min-h-screen flex items-center justify-center">
@@ -228,6 +230,126 @@ export default async function HomePage() {
           </div>
         </section>
 
+        {/* ===== COMPARISON ===== */}
+        <section className="py-24 md:py-32 border-t border-[#1A1A1A]">
+          <div className="mx-auto max-w-7xl px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                Why LinkMint?
+              </h2>
+              <p className="text-[#999999] text-lg max-w-2xl mx-auto">
+                The only URL shortener that pays you. Here&apos;s how we compare.
+              </p>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm min-w-[600px]">
+                <thead>
+                  <tr className="border-b border-[#1A1A1A]">
+                    <th className="text-left py-4 px-4 text-[#666666]">Feature</th>
+                    <th className="py-4 px-4 text-center">
+                      <span className="text-[#3B82F6] font-bold">LinkMint</span>
+                    </th>
+                    <th className="py-4 px-4 text-center text-[#666666]">Bitly</th>
+                    <th className="py-4 px-4 text-center text-[#666666]">TinyURL</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    { feature: "Free URL Shortening", lm: true, bitly: true, tiny: true },
+                    { feature: "Earn Money Per Click", lm: true, bitly: false, tiny: false },
+                    { feature: "Click Analytics", lm: true, bitly: true, tiny: false },
+                    { feature: "Wallet & Payouts", lm: true, bitly: false, tiny: false },
+                    { feature: "Ad Monetization", lm: true, bitly: false, tiny: false },
+                    { feature: "Telegram Bot", lm: true, bitly: false, tiny: false },
+                    { feature: "Custom Ad Steps", lm: true, bitly: false, tiny: false },
+                    { feature: "No Monthly Fees", lm: true, bitly: false, tiny: true },
+                  ].map((row) => (
+                    <tr key={row.feature} className="border-b border-[#1A1A1A]/50">
+                      <td className="py-3 px-4 text-[#CCCCCC]">{row.feature}</td>
+                      <td className="py-3 px-4 text-center">
+                        {row.lm ? <span className="text-emerald-400">✓</span> : <span className="text-[#333333]">✗</span>}
+                      </td>
+                      <td className="py-3 px-4 text-center">
+                        {row.bitly ? <span className="text-[#666666]">✓</span> : <span className="text-[#333333]">✗</span>}
+                      </td>
+                      <td className="py-3 px-4 text-center">
+                        {row.tiny ? <span className="text-[#666666]">✓</span> : <span className="text-[#333333]">✗</span>}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        {/* ===== TESTIMONIALS ===== */}
+        <section className="py-24 md:py-32 border-t border-[#1A1A1A]">
+          <div className="mx-auto max-w-7xl px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                Loved by publishers
+              </h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                { name: "Sarah K.", role: "Content Creator", text: "I made $340 last month just sharing deals on Twitter. LinkMint is the easiest passive income I've found.", earning: "$340/mo" },
+                { name: "Raj P.", role: "Blogger", text: "Switched from Bitly. Same shortening, but now I actually earn from my links. The dashboard is clean and fast.", earning: "$120/mo" },
+                { name: "Mike L.", role: "YouTuber", text: "I put LinkMint links in my video descriptions. The Telegram bot makes it super quick to generate short URLs.", earning: "$890/mo" },
+              ].map((t) => (
+                <div key={t.name} className="bg-[#111111] border border-[#1A1A1A] rounded-2xl p-6 hover:border-[#2A2A2A] transition-colors">
+                  <div className="flex items-center gap-1 mb-4">
+                    {[...Array(5)].map((_, i) => <span key={i} className="text-amber-400 text-sm">★</span>)}
+                  </div>
+                  <p className="text-[#CCCCCC] text-sm leading-relaxed mb-5">&ldquo;{t.text}&rdquo;</p>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-white text-sm font-medium">{t.name}</p>
+                      <p className="text-[#666666] text-xs">{t.role}</p>
+                    </div>
+                    <span className="text-emerald-400 text-sm font-bold">{t.earning}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ===== FAQ ===== */}
+        <section className="py-24 md:py-32 border-t border-[#1A1A1A]">
+          <div className="mx-auto max-w-3xl px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                Frequently asked questions
+              </h2>
+            </div>
+            <div className="space-y-3">
+              {[
+                { q: "How do I earn money?", a: "Create short links and share them anywhere. When visitors click your links and complete the ad steps, you earn revenue based on our CPM rate per 1,000 completed views." },
+                { q: "Is LinkMint really free?", a: "Yes, completely free. We earn from advertising shown on the interstitial pages, and share a portion of that revenue with you. No hidden fees, no monthly charges." },
+                { q: "How much can I earn per click?", a: `Our current CPM rate is shown on the dashboard. Earnings vary by traffic geography — US/UK traffic earns significantly more than other regions.` },
+                { q: "When can I withdraw my earnings?", a: "You can request a payout once your wallet balance reaches the minimum threshold. Payouts are processed via PayPal, bank transfer, or cryptocurrency." },
+                { q: "What kind of links can I shorten?", a: "Any legitimate URL. We prohibit links to malware, phishing, illegal content, or anything that violates our Terms of Service. Violations result in account termination." },
+                { q: "Is bot traffic allowed?", a: "No. All traffic must be legitimate human visitors. We use server-side verification and anti-fraud systems. Accounts caught using bots or click farms are permanently banned." },
+                { q: "Can I use LinkMint without a website?", a: "Absolutely! Share your short links on social media, forums, messaging apps, YouTube descriptions, or anywhere people click links. No website needed." },
+                { q: "Do you have an API or Telegram bot?", a: "Yes! We have a Telegram bot (@linkmint_url_bot) where you can shorten URLs instantly. API access is available for developers." },
+              ].map((item) => (
+                <details key={item.q} className="group bg-[#111111] border border-[#1A1A1A] rounded-xl overflow-hidden">
+                  <summary className="flex items-center justify-between p-5 cursor-pointer text-white text-sm font-medium hover:bg-[#141414] transition-colors list-none">
+                    {item.q}
+                    <svg className="w-4 h-4 text-[#666666] transition-transform duration-300 group-open:rotate-180 shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </summary>
+                  <div className="px-5 pb-5 text-[#999999] text-sm leading-relaxed border-t border-[#1A1A1A] pt-4">
+                    {item.a}
+                  </div>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* ===== CTA ===== */}
         <section className="py-24 md:py-32 border-t border-[#1A1A1A]">
           <div className="mx-auto max-w-2xl px-4 text-center">
@@ -254,10 +376,8 @@ export default async function HomePage() {
         <div className="mx-auto max-w-7xl px-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-md bg-[#3B82F6] flex items-center justify-center">
-                <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                </svg>
+              <div className="w-6 h-6 rounded-md bg-gradient-to-br from-[#2563EB] to-[#3B82F6] flex items-center justify-center">
+                <span className="text-white font-bold text-xs leading-none">L</span>
               </div>
               <span className="text-white font-semibold">LinkMint</span>
             </div>

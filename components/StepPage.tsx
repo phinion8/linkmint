@@ -463,10 +463,8 @@ export default function StepPage({
             <div className="flex items-center justify-between h-14">
               {/* Logo */}
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-[#3B82F6] flex items-center justify-center">
-                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                  </svg>
+                <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#2563EB] to-[#3B82F6] flex items-center justify-center">
+                  <span className="text-white font-bold text-sm leading-none">L</span>
                 </div>
                 <span className="text-white font-bold text-lg">LinkMint</span>
               </div>
