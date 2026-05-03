@@ -31,7 +31,7 @@ export default function TermsPage() {
 
             <section>
               <h2 className="text-lg font-semibold text-white mb-3">4. Payouts</h2>
-              <p>Publishers may request payouts when their wallet balance meets the minimum payout threshold. Payouts are processed via available payment methods (PayPal, bank transfer, cryptocurrency). LinkMint reserves the right to withhold payments in cases of suspected fraud or Terms of Service violations. Payout processing times may vary.</p>
+              <p>Publishers may request payouts when their wallet balance meets the minimum payout threshold. Payouts are processed via PayPal (available globally) or UPI (available for Indian users only). LinkMint reserves the right to withhold payments in cases of suspected fraud or Terms of Service violations. Payout processing times may vary but are typically completed within 24 hours.</p>
             </section>
 
             <section>

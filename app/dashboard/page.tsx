@@ -421,19 +421,23 @@ export default function DashboardPage() {
                     className="w-full px-4 py-2.5 bg-[#111111] border border-[#2A2A2A] rounded-xl text-white focus:border-[#3B82F6]/50 focus:outline-none focus:ring-1 focus:ring-[#3B82F6]/30 transition-all"
                   >
                     <option value="" className="bg-[#111111]">Select method</option>
-                    <option value="paypal" className="bg-[#111111]">PayPal</option>
-                    <option value="bank" className="bg-[#111111]">Bank Transfer</option>
-                    <option value="crypto" className="bg-[#111111]">Crypto (USDT)</option>
+                    <option value="paypal" className="bg-[#111111]">PayPal (Global)</option>
+                    <option value="upi" className="bg-[#111111]">UPI (India only)</option>
                   </select>
+                  {payoutMethod === "upi" && (
+                    <p className="text-amber-400 text-xs mt-1.5">⚠️ UPI is only available for users in India</p>
+                  )}
                 </div>
                 <div>
-                  <label className="block text-sm text-[#999999] mb-1.5">Payment Details</label>
+                  <label className="block text-sm text-[#999999] mb-1.5">
+                    {payoutMethod === "upi" ? "UPI ID or UPI Number" : "PayPal Email"}
+                  </label>
                   <input
                     type="text"
                     value={payoutDetails}
                     onChange={(e) => setPayoutDetails(e.target.value)}
                     required
-                    placeholder="PayPal email, bank account, or wallet address"
+                    placeholder={payoutMethod === "upi" ? "yourname@upi or 9876543210" : "your@email.com"}
                     className="w-full px-4 py-2.5 bg-[#111111] border border-[#2A2A2A] rounded-xl text-white placeholder:text-[#555555] focus:border-[#3B82F6]/50 focus:outline-none focus:ring-1 focus:ring-[#3B82F6]/30 transition-all"
                   />
                 </div>

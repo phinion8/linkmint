@@ -153,7 +153,7 @@ export default async function HomePage() {
                 },
                 {
                   title: "Wallet & Payouts",
-                  desc: "Earnings deposited to your wallet automatically. Withdraw via PayPal, bank, or crypto anytime.",
+                  desc: "Earnings deposited to your wallet automatically. Withdraw via PayPal (global) or UPI (India).",
                   icon: <path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />,
                 },
                 {
@@ -328,7 +328,7 @@ export default async function HomePage() {
                 { q: "How do I earn money?", a: "Create short links and share them anywhere. When visitors click your links and complete the ad steps, you earn revenue based on our CPM rate per 1,000 completed views." },
                 { q: "Is LinkMint really free?", a: "Yes, completely free. We earn from advertising shown on the interstitial pages, and share a portion of that revenue with you. No hidden fees, no monthly charges." },
                 { q: "How much can I earn per click?", a: `Our current CPM rate is shown on the dashboard. Earnings vary by traffic geography — US/UK traffic earns significantly more than other regions.` },
-                { q: "When can I withdraw my earnings?", a: "You can request a payout once your wallet balance reaches the minimum threshold. Payouts are processed via PayPal, bank transfer, or cryptocurrency." },
+                { q: "When can I withdraw my earnings?", a: "You can request a payout once your wallet balance reaches the minimum threshold. Payouts are processed via PayPal (global) or UPI (India only) within 24 hours." },
                 { q: "What kind of links can I shorten?", a: "Any legitimate URL. We prohibit links to malware, phishing, illegal content, or anything that violates our Terms of Service. Violations result in account termination." },
                 { q: "Is bot traffic allowed?", a: "No. All traffic must be legitimate human visitors. We use server-side verification and anti-fraud systems. Accounts caught using bots or click farms are permanently banned." },
                 { q: "Can I use LinkMint without a website?", a: "Absolutely! Share your short links on social media, forums, messaging apps, YouTube descriptions, or anywhere people click links. No website needed." },
