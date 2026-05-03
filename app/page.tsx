@@ -13,12 +13,6 @@ export default function HomePage() {
           <div className="absolute bottom-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-[#3B82F6]/[0.04] blur-[100px] animate-float-delayed" />
 
           <div className="relative mx-auto max-w-4xl px-4 pt-32 pb-20 text-center">
-            {/* Eyebrow */}
-            <div className="inline-flex items-center gap-2 bg-[#111111] border border-[#2A2A2A] rounded-full px-4 py-1.5 mb-8">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-xs text-[#999999]">Trusted by 5,000+ publishers worldwide</span>
-            </div>
-
             <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[80px] font-bold tracking-tight mb-6 leading-[1.05]">
               <span className="text-white">Shorten links.</span>
               <br />
