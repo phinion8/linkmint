@@ -11,6 +11,7 @@ interface NavbarProps {
 export default function Navbar({ variant = "public" }: NavbarProps) {
   const router = useRouter();
   const [user, setUser] = useState<{ name: string; role: string } | null>(null);
+  const [authChecked, setAuthChecked] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -19,8 +20,10 @@ export default function Navbar({ variant = "public" }: NavbarProps) {
       .then((r) => (r.ok ? r.json() : null))
       .then((data) => {
         if (data?.user) setUser(data.user);
+        else setUser(null);
       })
-      .catch(() => {});
+      .catch(() => setUser(null))
+      .finally(() => setAuthChecked(true));
   }, []);
 
   useEffect(() => {
@@ -30,6 +33,7 @@ export default function Navbar({ variant = "public" }: NavbarProps) {
   }, []);
 
   async function handleLogout() {
+    setUser(null);
     await fetch("/api/auth/login", { method: "DELETE" });
     router.push("/login");
     router.refresh();
@@ -89,7 +93,9 @@ export default function Navbar({ variant = "public" }: NavbarProps) {
 
           {/* Right Side */}
           <div className="hidden md:flex items-center gap-2.5">
-            {user ? (
+            {!authChecked ? (
+              <div className="w-20 h-8 bg-[#111111] rounded-lg animate-pulse" />
+            ) : user ? (
               <>
                 <Link href="/dashboard" className="text-sm text-[#999999] hover:text-white transition-colors px-3 py-1.5">
                   Dashboard
