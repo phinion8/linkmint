@@ -98,9 +98,11 @@ export default function Navbar({ variant = "public" }: NavbarProps) {
               <div className="w-20 h-8 bg-[#111111] rounded-lg animate-pulse" />
             ) : user ? (
               <>
-                <Link href="/dashboard" className="text-sm text-[#999999] hover:text-white transition-colors px-3 py-1.5">
-                  Dashboard
-                </Link>
+                {variant !== "admin" && (
+                  <Link href="/dashboard" className="text-sm text-[#999999] hover:text-white transition-colors px-3 py-1.5">
+                    Dashboard
+                  </Link>
+                )}
                 <button onClick={handleLogout} className="text-sm text-[#666666] hover:text-white transition-colors px-3 py-1.5">
                   Log out
                 </button>
