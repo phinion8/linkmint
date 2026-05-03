@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { auth } from "@/lib/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
 
 export default function AdminSettingsPage() {
@@ -23,6 +25,13 @@ export default function AdminSettingsPage() {
   const [passwordSaving, setPasswordSaving] = useState(false);
   const [passwordMsg, setPasswordMsg] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [isGoogleUser, setIsGoogleUser] = useState(false);
+
+  useEffect(() => {
+    return onAuthStateChanged(auth, (u) => {
+      if (u) setIsGoogleUser(u.providerData.some((p) => p.providerId === "google.com"));
+    });
+  }, []);
 
   useEffect(() => {
     fetch("/api/admin/settings")
@@ -255,7 +264,7 @@ export default function AdminSettingsPage() {
       </form>
 
       {/* Change Admin Password */}
-      <div className="glass-card p-6 space-y-5">
+      {!isGoogleUser && <div className="glass-card p-6 space-y-5">
         <h2 className="text-lg font-semibold text-white">Change Admin Password</h2>
         <div>
           <label className="block text-sm text-[#999999] mb-1">Current Password</label>
@@ -307,7 +316,7 @@ export default function AdminSettingsPage() {
         >
           {passwordSaving ? "Changing..." : "Change Password"}
         </button>
-      </div>
+      </div>}
     </div>
   );
 }

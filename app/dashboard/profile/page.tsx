@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { formatDate } from "@/lib/utils";
+import { auth } from "@/lib/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
 interface UserProfile {
   id: string;
@@ -24,6 +26,7 @@ export default function ProfilePage() {
   const [user, setUser] = useState<UserProfile | null>(null);
   const [wallet, setWallet] = useState<WalletData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isGoogleUser, setIsGoogleUser] = useState(false);
   const [name, setName] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -32,6 +35,13 @@ export default function ProfilePage() {
   const [saveError, setSaveError] = useState("");
 
   useEffect(() => {
+    // Check if user signed in via Google
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      if (firebaseUser) {
+        setIsGoogleUser(firebaseUser.providerData.some((p) => p.providerId === "google.com"));
+      }
+    });
+
     Promise.all([
       fetch("/api/auth/me").then((r) => (r.ok ? r.json() : null)),
       fetch("/api/wallet").then((r) => (r.ok ? r.json() : null)),
@@ -45,6 +55,8 @@ export default function ProfilePage() {
       if (walletData?.wallet) setWallet(walletData.wallet);
       setLoading(false);
     });
+
+    return () => unsubscribe();
   }, [router]);
 
   async function handleSaveProfile(e: React.FormEvent) {
@@ -159,6 +171,7 @@ export default function ProfilePage() {
             <p className="text-xs text-[#555555] mt-1">Email cannot be changed</p>
           </div>
 
+          {!isGoogleUser && (
           <div className="pt-4 border-t border-[#222222]">
             <h4 className="text-sm font-medium text-[#CCCCCC] mb-4">Change Password</h4>
             <div className="space-y-4">
@@ -185,6 +198,7 @@ export default function ProfilePage() {
               </div>
             </div>
           </div>
+          )}
 
           {saveError && <p className="text-red-400 text-sm">{saveError}</p>}
           {saveMsg && <p className="text-emerald-400 text-sm">{saveMsg}</p>}
