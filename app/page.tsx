@@ -56,13 +56,6 @@ export default async function HomePage() {
             </div>
           </div>
 
-          {/* Scroll indicator */}
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-            <span className="text-[#444444] text-xs">Scroll</span>
-            <div className="w-5 h-8 rounded-full border border-[#2A2A2A] flex items-start justify-center pt-1.5">
-              <div className="w-1 h-2 rounded-full bg-[#3B82F6] animate-bounce" />
-            </div>
-          </div>
         </section>
 
         {/* ===== STATS ===== */}
