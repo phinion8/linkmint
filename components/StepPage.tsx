@@ -776,8 +776,29 @@ export default function StepPage({
 
       </div>
 
+      {/* Promo Banner */}
+      <div className="relative z-10 border-t border-[#1A1A1A] bg-[#0A0A0A]">
+        <div className="max-w-4xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#2563EB] to-[#3B82F6] flex items-center justify-center shrink-0">
+              <span className="text-white font-bold text-xs">L</span>
+            </div>
+            <div>
+              <p className="text-white text-sm font-medium">Want to earn money by shortening URLs?</p>
+              <p className="text-[#666666] text-xs">Join LinkMint — get paid for every click on your links. Free forever.</p>
+            </div>
+          </div>
+          <a
+            href="/register"
+            className="shrink-0 bg-[#3B82F6] hover:bg-[#2563EB] text-white text-sm font-semibold px-5 py-2 rounded-lg transition-all"
+          >
+            Start Earning
+          </a>
+        </div>
+      </div>
+
       {/* Footer */}
-      <div className="relative border-t border-[#222222] px-4 py-3 text-center text-[#555555] text-xs z-10">
+      <div className="relative border-t border-[#111111] px-4 py-3 text-center text-[#444444] text-xs z-10">
         Powered by LinkMint — You will be redirected after completing all steps
       </div>
     </div>

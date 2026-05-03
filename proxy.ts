@@ -14,6 +14,7 @@ const APP_ROUTES = [
   "/terms",
   "/support",
   "/forgot-password",
+  "/telegram",
 ];
 
 export default async function proxy(req: NextRequest) {

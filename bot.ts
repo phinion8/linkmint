@@ -195,20 +195,168 @@ bot.onText(/\/links/, async (msg) => {
   bot.sendMessage(chatId, text, { parse_mode: "Markdown" });
 });
 
+bot.onText(/\/profile/, async (msg) => {
+  const chatId = msg.chat.id;
+  const session = sessions.get(chatId);
+  if (!session) { bot.sendMessage(chatId, "Please `/login` first.", { parse_mode: "Markdown" }); return; }
+
+  const { data: user } = await supabase.from("users").select("*").eq("id", session.userId).single();
+  if (!user) { bot.sendMessage(chatId, "❌ User not found."); return; }
+
+  const { data: wallet } = await supabase.from("user_wallets").select("*").eq("user_id", session.userId).single();
+
+  const profile = `👤 *Your Profile*
+
+📛 Name: *${user.name}*
+📧 Email: ${user.email}
+🏷️ Role: ${user.role}
+✅ Verified: ${user.is_verified ? "Yes" : "No"}
+📅 Joined: ${new Date(user.created_at).toLocaleDateString()}
+
+💰 Balance: *$${wallet ? Number(wallet.balance).toFixed(2) : "0.00"}*
+📈 Total Earned: *$${wallet ? Number(wallet.total_earned).toFixed(2) : "0.00"}*
+💸 Withdrawn: *$${wallet ? Number(wallet.total_withdrawn).toFixed(2) : "0.00"}*`;
+
+  bot.sendMessage(chatId, profile, { parse_mode: "Markdown" });
+});
+
+bot.onText(/\/wallet/, async (msg) => {
+  const chatId = msg.chat.id;
+  const session = sessions.get(chatId);
+  if (!session) { bot.sendMessage(chatId, "Please `/login` first.", { parse_mode: "Markdown" }); return; }
+
+  const { data: wallet } = await supabase.from("user_wallets").select("*").eq("user_id", session.userId).single();
+  const { data: settings } = await supabase.from("global_settings").select("cpm_rate").single();
+
+  const { data: pendingPayouts } = await supabase
+    .from("payout_requests")
+    .select("amount")
+    .eq("user_id", session.userId)
+    .eq("status", "pending");
+
+  const pendingTotal = pendingPayouts?.reduce((sum, p) => sum + Number(p.amount), 0) || 0;
+
+  const walletMsg = `💰 *Your Wallet*
+
+💵 Balance: *$${wallet ? Number(wallet.balance).toFixed(2) : "0.00"}*
+📈 Total Earned: *$${wallet ? Number(wallet.total_earned).toFixed(2) : "0.00"}*
+💸 Total Withdrawn: *$${wallet ? Number(wallet.total_withdrawn).toFixed(2) : "0.00"}*
+⏳ Pending Payouts: *$${pendingTotal.toFixed(2)}*
+
+💹 CPM Rate: *$${settings?.cpm_rate ? Number(settings.cpm_rate).toFixed(2) : "1.50"}* per 1,000 views
+📤 Min Payout: *$${wallet ? Number(wallet.min_payout).toFixed(2) : "5.00"}*
+
+${wallet && wallet.balance >= wallet.min_payout ? "✅ You can request a payout! Use `/payout amount method details`" : `⚠️ You need $${wallet ? Number(wallet.min_payout).toFixed(2) : "5.00"} to request a payout.`}`;
+
+  bot.sendMessage(chatId, walletMsg, { parse_mode: "Markdown" });
+});
+
+bot.onText(/\/earnings/, async (msg) => {
+  const chatId = msg.chat.id;
+  const session = sessions.get(chatId);
+  if (!session) { bot.sendMessage(chatId, "Please `/login` first.", { parse_mode: "Markdown" }); return; }
+
+  const { data: earnings } = await supabase
+    .from("earnings")
+    .select("amount, cpm_rate, created_at, links(short_code, title)")
+    .eq("user_id", session.userId)
+    .order("created_at", { ascending: false })
+    .limit(15);
+
+  if (!earnings || earnings.length === 0) {
+    bot.sendMessage(chatId, "📈 No earnings yet. Share your links to start earning!");
+    return;
+  }
+
+  let text = "📈 *Recent Earnings*\n\n";
+  let total = 0;
+  earnings.forEach((e, i) => {
+    const link = (e as unknown as { links: { short_code: string; title: string | null } | null }).links;
+    total += Number(e.amount);
+    text += `${i + 1}. +$${Number(e.amount).toFixed(4)} — /${link?.short_code || "?"} — ${new Date(e.created_at).toLocaleDateString()}\n`;
+  });
+  text += `\n💵 Total shown: *$${total.toFixed(4)}*`;
+
+  bot.sendMessage(chatId, text, { parse_mode: "Markdown" });
+});
+
+bot.onText(/\/payout (.+)/, async (msg, match) => {
+  const chatId = msg.chat.id;
+  const session = sessions.get(chatId);
+  if (!session) { bot.sendMessage(chatId, "Please `/login` first.", { parse_mode: "Markdown" }); return; }
+
+  const args = match![1].trim().split(/\s+/);
+  if (args.length < 3) {
+    bot.sendMessage(chatId, "Usage: `/payout amount method details`\nExample: `/payout 10 paypal myemail@gmail.com`", { parse_mode: "Markdown" });
+    return;
+  }
+
+  const [amountStr, method, ...detailParts] = args;
+  const amount = parseFloat(amountStr);
+  const details = detailParts.join(" ");
+
+  if (isNaN(amount) || amount <= 0) {
+    bot.sendMessage(chatId, "❌ Invalid amount.");
+    return;
+  }
+
+  const { data: wallet } = await supabase.from("user_wallets").select("*").eq("user_id", session.userId).single();
+
+  if (!wallet || amount > wallet.balance) {
+    bot.sendMessage(chatId, `❌ Insufficient balance. Your balance: $${wallet ? Number(wallet.balance).toFixed(2) : "0.00"}`);
+    return;
+  }
+
+  if (amount < wallet.min_payout) {
+    bot.sendMessage(chatId, `❌ Minimum payout is $${Number(wallet.min_payout).toFixed(2)}`);
+    return;
+  }
+
+  // Check pending payouts
+  const { data: pending } = await supabase.from("payout_requests").select("id").eq("user_id", session.userId).eq("status", "pending");
+  if (pending && pending.length > 0) {
+    bot.sendMessage(chatId, "❌ You already have a pending payout. Wait for it to be processed.");
+    return;
+  }
+
+  // Create payout
+  await supabase.from("payout_requests").insert({
+    user_id: session.userId,
+    amount,
+    payout_method: method,
+    payout_details: details,
+  });
+
+  // Deduct from wallet
+  await supabase.from("user_wallets").update({
+    balance: Number(wallet.balance) - amount,
+    total_withdrawn: Number(wallet.total_withdrawn) + amount,
+  }).eq("user_id", session.userId);
+
+  bot.sendMessage(chatId, `✅ *Payout request submitted!*\n\n💵 Amount: $${amount.toFixed(2)}\n📤 Method: ${method}\n📋 Details: ${details}\n\nYour request will be processed soon.`, { parse_mode: "Markdown" });
+});
+
 bot.onText(/\/help/, (msg) => {
   const chatId = msg.chat.id;
   const help = `🔗 *LinkMint Bot — Commands*
 
-/start — Welcome message
+*Account:*
 /login email password — Sign in
 /register name email password — Create account
+/profile — Your account details
 /logout — Sign out
-/stats — Your earnings & click stats
-/links — Your recent shortened links
-/help — Show this help
 
-*Shortening a URL:*
-Just paste any URL and I'll shorten it instantly!`;
+*Money:*
+/wallet — Balance, earnings, payout info
+/earnings — Recent earnings breakdown
+/stats — Clicks & revenue overview
+/payout amount method details — Request withdrawal
+
+*Links:*
+/links — Your recent shortened links
+Just paste any URL — Shorten it instantly!
+
+/help — Show this menu`;
 
   bot.sendMessage(chatId, help, { parse_mode: "Markdown" });
 });
