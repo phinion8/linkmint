@@ -352,6 +352,292 @@ function WhackAMole() {
   );
 }
 
+// Fake opponent names for multiplayer feel
+const fakeNames = ["Alex_99", "ProGamer", "xDarkLord", "MikeJ", "Luna_xo", "NoobMaster", "Zara_pk", "CoolKid42", "SwiftFox", "PixelQueen", "ByteMe", "StarDust"];
+function randomName() { return fakeNames[Math.floor(Math.random() * fakeNames.length)]; }
+
+function ColorMatchGame() {
+  const colors = ["bg-red-500", "bg-blue-500", "bg-emerald-500", "bg-amber-500", "bg-purple-500", "bg-pink-500"];
+  const colorNames = ["Red", "Blue", "Green", "Yellow", "Purple", "Pink"];
+  const [target, setTarget] = useState(() => Math.floor(Math.random() * 6));
+  const [score, setScore] = useState(0);
+  const [opponentScore, setOpponentScore] = useState(0);
+  const [opponent] = useState(randomName);
+  const [grid, setGrid] = useState<number[]>([]);
+  const [flash, setFlash] = useState(false);
+
+  const shuffleGrid = useCallback(() => {
+    const g = Array.from({ length: 12 }, () => Math.floor(Math.random() * 6));
+    if (!g.includes(target)) g[Math.floor(Math.random() * 12)] = target;
+    setGrid(g);
+  }, [target]);
+
+  useEffect(() => { shuffleGrid(); }, [shuffleGrid]);
+
+  // Fake opponent scoring
+  useEffect(() => {
+    const t = setInterval(() => {
+      if (Math.random() > 0.6) setOpponentScore((s) => s + 1);
+    }, 2000 + Math.random() * 2000);
+    return () => clearInterval(t);
+  }, []);
+
+  function handleTap(i: number) {
+    if (grid[i] === target) {
+      setScore((s) => s + 1);
+      setFlash(true);
+      setTimeout(() => setFlash(false), 200);
+      setTarget(Math.floor(Math.random() * 6));
+      shuffleGrid();
+    }
+  }
+
+  return (
+    <div className="glass-card p-5 w-full max-w-md">
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <span className="text-lg">🎨</span>
+          <span className="text-xs font-semibold uppercase tracking-wider text-pink-400">Color Match</span>
+        </div>
+        <div className="flex items-center gap-3 text-xs">
+          <span className="text-white font-bold">You: {score}</span>
+          <span className="text-[#666666]">vs</span>
+          <span className="text-amber-400 font-bold">{opponent}: {opponentScore}</span>
+        </div>
+      </div>
+      <p className="text-[#999999] text-xs mb-3">Tap all <span className={`font-bold text-white`}>{colorNames[target]}</span> tiles!</p>
+      <div className={`grid grid-cols-4 gap-1.5 transition-all ${flash ? "scale-95" : ""}`}>
+        {grid.map((c, i) => (
+          <button key={i} onClick={() => handleTap(i)}
+            className={`aspect-square rounded-lg ${colors[c]} hover:opacity-80 active:scale-90 transition-all duration-100`} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function EmojiCatchGame() {
+  const emojis = ["🍎", "🍕", "⭐", "💎", "🔥", "🎯"];
+  const [targetEmoji] = useState(() => emojis[Math.floor(Math.random() * emojis.length)]);
+  const [grid, setGrid] = useState<string[]>([]);
+  const [score, setScore] = useState(0);
+  const [opponentScore, setOpponentScore] = useState(0);
+  const [opponent] = useState(randomName);
+
+  const shuffleGrid = useCallback(() => {
+    const g = Array.from({ length: 16 }, () => emojis[Math.floor(Math.random() * emojis.length)]);
+    const targetCount = 2 + Math.floor(Math.random() * 3);
+    for (let i = 0; i < targetCount; i++) {
+      g[Math.floor(Math.random() * 16)] = targetEmoji;
+    }
+    setGrid(g);
+  }, [targetEmoji]);
+
+  useEffect(() => { shuffleGrid(); }, [shuffleGrid]);
+  useEffect(() => {
+    const t = setInterval(() => { shuffleGrid(); }, 3000);
+    return () => clearInterval(t);
+  }, [shuffleGrid]);
+
+  // Fake opponent
+  useEffect(() => {
+    const t = setInterval(() => {
+      if (Math.random() > 0.5) setOpponentScore((s) => s + 1);
+    }, 1800 + Math.random() * 2000);
+    return () => clearInterval(t);
+  }, []);
+
+  function handleTap(i: number) {
+    if (grid[i] === targetEmoji) {
+      setScore((s) => s + 1);
+      const newGrid = [...grid];
+      newGrid[i] = "✅";
+      setGrid(newGrid);
+    }
+  }
+
+  return (
+    <div className="glass-card p-5 w-full max-w-md">
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <span className="text-lg">🎪</span>
+          <span className="text-xs font-semibold uppercase tracking-wider text-amber-400">Emoji Catch</span>
+        </div>
+        <div className="flex items-center gap-3 text-xs">
+          <span className="text-white font-bold">You: {score}</span>
+          <span className="text-[#666666]">vs</span>
+          <span className="text-amber-400 font-bold">{opponent}: {opponentScore}</span>
+        </div>
+      </div>
+      <p className="text-[#999999] text-xs mb-3">Catch all the <span className="text-lg">{targetEmoji}</span> before they disappear!</p>
+      <div className="grid grid-cols-4 gap-1.5">
+        {grid.map((emoji, i) => (
+          <button key={i} onClick={() => handleTap(i)}
+            className="aspect-square rounded-lg bg-[#1A1A1A] border border-[#2A2A2A] hover:bg-[#222222] active:scale-90 transition-all duration-100 text-xl flex items-center justify-center">
+            {emoji}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function MemoryMatchGame() {
+  const symbols = ["🎮", "🎲", "🎯", "🏆", "💰", "🔮", "🎮", "🎲", "🎯", "🏆", "💰", "🔮"];
+  const [cards, setCards] = useState<string[]>([]);
+  const [flipped, setFlipped] = useState<number[]>([]);
+  const [matched, setMatched] = useState<number[]>([]);
+  const [moves, setMoves] = useState(0);
+  const [opponentMoves, setOpponentMoves] = useState(0);
+  const [opponent] = useState(randomName);
+
+  useEffect(() => {
+    setCards([...symbols].sort(() => Math.random() - 0.5));
+  }, []);
+
+  // Fake opponent
+  useEffect(() => {
+    const t = setInterval(() => {
+      setOpponentMoves((m) => m + 1);
+    }, 3000 + Math.random() * 3000);
+    return () => clearInterval(t);
+  }, []);
+
+  function handleFlip(i: number) {
+    if (flipped.length === 2 || flipped.includes(i) || matched.includes(i)) return;
+    const newFlipped = [...flipped, i];
+    setFlipped(newFlipped);
+    setMoves((m) => m + 1);
+
+    if (newFlipped.length === 2) {
+      if (cards[newFlipped[0]] === cards[newFlipped[1]]) {
+        setMatched((m) => [...m, ...newFlipped]);
+        setFlipped([]);
+      } else {
+        setTimeout(() => setFlipped([]), 800);
+      }
+    }
+  }
+
+  return (
+    <div className="glass-card p-5 w-full max-w-md">
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <span className="text-lg">🧩</span>
+          <span className="text-xs font-semibold uppercase tracking-wider text-cyan-400">Memory Match</span>
+        </div>
+        <div className="flex items-center gap-3 text-xs">
+          <span className="text-white font-bold">You: {moves}</span>
+          <span className="text-[#666666]">vs</span>
+          <span className="text-amber-400 font-bold">{opponent}: {opponentMoves}</span>
+        </div>
+      </div>
+      <p className="text-[#999999] text-xs mb-3">Find all pairs — fewer moves wins!</p>
+      <div className="grid grid-cols-4 gap-1.5">
+        {cards.map((card, i) => (
+          <button key={i} onClick={() => handleFlip(i)}
+            className={`aspect-square rounded-lg text-xl flex items-center justify-center transition-all duration-200 ${
+              flipped.includes(i) || matched.includes(i)
+                ? "bg-[#3B82F6]/20 border border-[#3B82F6]/30 scale-95"
+                : "bg-[#1A1A1A] border border-[#2A2A2A] hover:bg-[#222222]"
+            }`}>
+            {flipped.includes(i) || matched.includes(i) ? card : "❓"}
+          </button>
+        ))}
+      </div>
+      {matched.length === 12 && <p className="text-emerald-400 text-xs text-center mt-3 font-semibold">You won! 🎉</p>}
+    </div>
+  );
+}
+
+function BalloonPopGame() {
+  const [balloons, setBalloons] = useState<{ id: number; x: number; speed: number; color: string; popped: boolean }[]>([]);
+  const [score, setScore] = useState(0);
+  const [opponentScore, setOpponentScore] = useState(0);
+  const [opponent] = useState(randomName);
+  const nextId = useRef(0);
+  const balloonColors = ["bg-red-500", "bg-blue-500", "bg-emerald-500", "bg-amber-500", "bg-pink-500", "bg-purple-500"];
+
+  // Spawn balloons
+  useEffect(() => {
+    const t = setInterval(() => {
+      setBalloons((prev) => [
+        ...prev.filter((b) => !b.popped).slice(-8),
+        {
+          id: nextId.current++,
+          x: 10 + Math.random() * 80,
+          speed: 2 + Math.random() * 3,
+          color: balloonColors[Math.floor(Math.random() * balloonColors.length)],
+          popped: false,
+        },
+      ]);
+    }, 800);
+    return () => clearInterval(t);
+  }, []);
+
+  // Fake opponent
+  useEffect(() => {
+    const t = setInterval(() => {
+      if (Math.random() > 0.4) setOpponentScore((s) => s + 1);
+    }, 2000 + Math.random() * 2000);
+    return () => clearInterval(t);
+  }, []);
+
+  function pop(id: number) {
+    setBalloons((prev) => prev.map((b) => b.id === id ? { ...b, popped: true } : b));
+    setScore((s) => s + 1);
+  }
+
+  return (
+    <div className="glass-card p-5 w-full max-w-md">
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <span className="text-lg">🎈</span>
+          <span className="text-xs font-semibold uppercase tracking-wider text-red-400">Balloon Pop</span>
+        </div>
+        <div className="flex items-center gap-3 text-xs">
+          <span className="text-white font-bold">You: {score}</span>
+          <span className="text-[#666666]">vs</span>
+          <span className="text-amber-400 font-bold">{opponent}: {opponentScore}</span>
+        </div>
+      </div>
+      <div className="relative h-48 bg-[#0A0A0A] rounded-xl border border-[#1A1A1A] overflow-hidden">
+        {balloons.filter((b) => !b.popped).map((b) => (
+          <button
+            key={b.id}
+            onClick={() => pop(b.id)}
+            className={`absolute w-8 h-10 rounded-full ${b.color} hover:scale-125 active:scale-75 transition-all cursor-pointer`}
+            style={{
+              left: `${b.x}%`,
+              animation: `floatUp ${b.speed}s linear forwards`,
+              bottom: "-40px",
+            }}
+          />
+        ))}
+        {balloons.filter((b) => !b.popped).length === 0 && (
+          <p className="absolute inset-0 flex items-center justify-center text-[#444444] text-xs">Balloons incoming...</p>
+        )}
+      </div>
+      <style>{`@keyframes floatUp { from { bottom: -40px; } to { bottom: 200px; } }`}</style>
+    </div>
+  );
+}
+
+// Pick random games based on step number (changes per page)
+function GamePicker({ step }: { step: number }) {
+  const allGames = [WhackAMole, ColorMatchGame, EmojiCatchGame, MemoryMatchGame, BalloonPopGame, ReactionGame];
+  // Use step + position to get different games for left vs right
+  const shuffled = [...allGames].sort(() => Math.sin(step * 1000) - 0.5);
+  const Game1 = shuffled[0];
+  const Game2 = shuffled[1];
+  return (
+    <>
+      <Game1 />
+      <Game2 />
+    </>
+  );
+}
+
 function TapSpeedGame() {
   const [count, setCount] = useState(0);
   const [timeLeft, setTimeLeft] = useState(5);
@@ -725,11 +1011,10 @@ export default function StepPage({
             {/* 3-Column: Games | Center Content | Games */}
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(0,480px)_1fr] gap-5 items-start">
 
-              {/* LEFT — Games */}
+              {/* LEFT — Games (randomized per step) */}
               <div className="hidden lg:flex flex-col gap-4">
-                <WhackAMole />
+                <GamePicker step={stepNumber} />
                 <FunFactCard />
-                <QuickPoll step={stepNumber} />
               </div>
 
               {/* CENTER — Ads + Timer + Button at bottom */}
@@ -752,12 +1037,10 @@ export default function StepPage({
                 <div className="hidden sm:block"><AdBanner728x90 /></div>
                 <div className="sm:hidden"><AdBanner320x50 /></div>
 
-                {/* Mobile games */}
+                {/* Mobile games (randomized) */}
                 <div className="lg:hidden flex flex-col gap-4 w-full">
-                  <WhackAMole />
-                  <ReactionGame />
+                  <GamePicker step={stepNumber} />
                   <FunFactCard />
-                  <TriviaCard />
                 </div>
 
                 {/* Sponsored Recommendations */}
@@ -871,11 +1154,10 @@ export default function StepPage({
                 <div className="h-10" />
               </div>
 
-              {/* RIGHT — Games */}
+              {/* RIGHT — Games (different set, randomized) */}
               <div className="hidden lg:flex flex-col gap-4">
-                <ReactionGame />
-                <TriviaCard />
-                <TapSpeedGame />
+                <GamePicker step={stepNumber + 3} />
+                <QuickPoll step={stepNumber} />
                 <JokeCard />
               </div>
             </div>
