@@ -533,7 +533,7 @@ export default function StepPage({
 
               {/* LEFT — Games (randomized per step) */}
               <div className="hidden lg:flex flex-col gap-4">
-                <GamePicker step={stepNumber} />
+                <GamePicker step={stepNumber} count={3} offset={0} />
                 <FunFactCard />
               </div>
 
@@ -559,7 +559,7 @@ export default function StepPage({
 
                 {/* Mobile games (randomized) */}
                 <div className="lg:hidden flex flex-col gap-4 w-full">
-                  <GamePicker step={stepNumber} />
+                  <GamePicker step={stepNumber} count={3} offset={6} />
                   <FunFactCard />
                 </div>
 
@@ -676,8 +676,7 @@ export default function StepPage({
 
               {/* RIGHT — Games (different set, randomized) */}
               <div className="hidden lg:flex flex-col gap-4">
-                <GamePicker step={stepNumber + 3} />
-                <QuickPoll step={stepNumber} />
+                <GamePicker step={stepNumber + 3} count={3} offset={3} />
                 <JokeCard />
               </div>
             </div>
@@ -717,7 +716,7 @@ export default function StepPage({
               {/* LEFT SIDEBAR */}
               <div className="hidden lg:flex flex-col gap-4">
                 <AdBanner160x600 />
-                <GamePicker step={stepNumber} count={2} offset={0} />
+                <GamePicker step={stepNumber} count={3} offset={0} />
                 <FunFactCard />
               </div>
 
@@ -762,7 +761,7 @@ export default function StepPage({
                 <AdNativeBanner />
 
                 <div className="lg:hidden flex flex-col gap-4">
-                  <GamePicker step={stepNumber} count={2} offset={4} />
+                  <GamePicker step={stepNumber} count={3} offset={6} />
                   <FunFactCard />
                 </div>
               </div>
@@ -770,7 +769,7 @@ export default function StepPage({
               {/* RIGHT SIDEBAR */}
               <div className="hidden lg:flex flex-col gap-4">
                 <AdBanner160x300 />
-                <GamePicker step={stepNumber} count={2} offset={2} />
+                <GamePicker step={stepNumber} count={3} offset={3} />
                 <JokeCard />
               </div>
             </div>
