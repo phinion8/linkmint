@@ -269,9 +269,9 @@ export default async function HomePage() {
               <span className="text-white font-semibold">LinkMint</span>
             </div>
             <div className="flex items-center gap-6 text-sm text-[#666666]">
-              <a href="/#" className="hover:text-white transition-colors">Privacy</a>
-              <a href="/#" className="hover:text-white transition-colors">Terms</a>
-              <a href="/#" className="hover:text-white transition-colors">Support</a>
+              <a href="/privacy" className="hover:text-white transition-colors">Privacy</a>
+              <a href="/terms" className="hover:text-white transition-colors">Terms</a>
+              <a href="/support" className="hover:text-white transition-colors">Support</a>
             </div>
             <p className="text-[#444444] text-sm">&copy; {new Date().getFullYear()} LinkMint</p>
           </div>
