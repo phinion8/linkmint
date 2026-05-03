@@ -220,6 +220,45 @@ function QuickPoll({ step }: { step: number }) {
 }
 
 
+function PromoPopup() {
+  const [show, setShow] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShow(true), 5000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (dismissed || !show) return null;
+
+  return (
+    <div className="fixed bottom-20 right-4 z-40 animate-fade-up" style={{ animation: "slideInRight 0.5s ease-out" }}>
+      <div className="w-72 bg-[#111111] border border-[#2A2A2A] rounded-2xl p-5 shadow-2xl shadow-black/40">
+        <button onClick={() => setDismissed(true)} className="absolute top-3 right-3 text-[#444444] hover:text-white transition-colors">
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+        <div className="flex items-center gap-2.5 mb-3">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#2563EB] to-[#3B82F6] flex items-center justify-center shrink-0">
+            <span className="text-white font-bold text-xs">L</span>
+          </div>
+          <span className="text-white font-bold">LinkMint</span>
+        </div>
+        <p className="text-[#CCCCCC] text-sm font-medium mb-1">Earn money from your links</p>
+        <p className="text-[#666666] text-xs mb-4 leading-relaxed">
+          Shorten any URL and earn revenue for every click. Join 5,000+ publishers earning daily.
+        </p>
+        <a href="/register" className="block w-full py-2.5 bg-[#3B82F6] hover:bg-[#2563EB] text-white text-sm font-semibold rounded-lg transition-all text-center">
+          Join Free
+        </a>
+        <p className="text-[#444444] text-[10px] text-center mt-2">No credit card required</p>
+      </div>
+      <style>{`@keyframes slideInRight { from { transform: translateX(120%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }`}</style>
+    </div>
+  );
+}
+
 function ParticleCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -775,6 +814,9 @@ export default function StepPage({
         )}
 
       </div>
+
+      {/* Slide-in Promo Popup */}
+      <PromoPopup />
 
       {/* Promo Banner */}
       <div className="relative z-10 border-t border-[#1A1A1A] bg-[#0A0A0A]">
