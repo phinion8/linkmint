@@ -127,7 +127,7 @@ export default function RegisterPage() {
         </div>
 
         {/* Right Panel — Form */}
-        <div className="w-full lg:w-1/2 flex items-center justify-end px-6 lg:px-20 py-16">
+        <div className="w-full lg:w-1/2 flex items-center justify-start px-6 lg:px-20 py-16">
           <div className="w-full max-w-sm">
             <h1 className="text-2xl font-bold text-white mb-1">Create your account</h1>
             <p className="text-[#999999] text-sm mb-8">Start earning from your links in seconds</p>
