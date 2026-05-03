@@ -13,6 +13,7 @@ const APP_ROUTES = [
   "/privacy",
   "/terms",
   "/support",
+  "/forgot-password",
 ];
 
 export default async function proxy(req: NextRequest) {

@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import { auth, createUserWithEmailAndPassword, sendEmailVerification } from "@/lib/firebase";
+import GoogleSignIn from "@/components/GoogleSignIn";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -12,6 +14,7 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [verificationSent, setVerificationSent] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -19,6 +22,11 @@ export default function RegisterPage() {
     setLoading(true);
 
     try {
+      // 1. Create Firebase user + send verification email
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      await sendEmailVerification(userCredential.user);
+
+      // 2. Create user in Supabase (unverified)
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -31,13 +39,50 @@ export default function RegisterPage() {
         return;
       }
 
-      router.push("/dashboard");
-      router.refresh();
-    } catch {
-      setError("Network error");
+      // 3. Show verification message
+      setVerificationSent(true);
+    } catch (err: unknown) {
+      const firebaseError = err as { code?: string; message?: string };
+      if (firebaseError.code === "auth/email-already-in-use") {
+        setError("Email already registered");
+      } else {
+        setError(firebaseError.message || "Registration failed");
+      }
     } finally {
       setLoading(false);
     }
+  }
+
+  if (verificationSent) {
+    return (
+      <>
+        <Navbar />
+        <main className="mesh-gradient dot-grid flex-1 flex items-center justify-center px-4 pt-28 pb-20">
+          <div className="w-full max-w-md text-center">
+            <div className="glass-card p-8">
+              <div className="w-16 h-16 rounded-2xl bg-[#3B82F6]/10 flex items-center justify-center mx-auto mb-5">
+                <svg className="w-8 h-8 text-[#3B82F6]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                </svg>
+              </div>
+              <h1 className="text-2xl font-bold text-white mb-3">Check your email</h1>
+              <p className="text-[#999999] text-sm mb-6 leading-relaxed">
+                We&apos;ve sent a verification link to <span className="text-white font-medium">{email}</span>. Click the link in your email to verify your account.
+              </p>
+              <button
+                onClick={() => router.push("/login")}
+                className="w-full py-3 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-semibold rounded-xl transition-all"
+              >
+                Go to Login
+              </button>
+              <p className="text-[#666666] text-xs mt-4">
+                Didn&apos;t receive it? Check your spam folder.
+              </p>
+            </div>
+          </div>
+        </main>
+      </>
+    );
   }
 
   return (
@@ -55,52 +100,34 @@ export default function RegisterPage() {
             )}
             <div>
               <label className="block text-sm font-medium text-[#CCCCCC] mb-2">Name</label>
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-                placeholder="Your full name"
-                className="w-full px-4 py-3 bg-[#111111] border border-[#2A2A2A] rounded-xl text-white placeholder:text-[#555555] focus:border-[#3B82F6]/50 focus:outline-none focus:ring-1 focus:ring-[#3B82F6]/30 transition-all"
-              />
+              <input type="text" value={name} onChange={(e) => setName(e.target.value)} required placeholder="Your full name"
+                className="w-full px-4 py-3 bg-[#111111] border border-[#2A2A2A] rounded-xl text-white placeholder:text-[#555555] focus:border-[#3B82F6]/50 focus:outline-none focus:ring-1 focus:ring-[#3B82F6]/30 transition-all" />
             </div>
             <div>
               <label className="block text-sm font-medium text-[#CCCCCC] mb-2">Email</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                placeholder="you@example.com"
-                className="w-full px-4 py-3 bg-[#111111] border border-[#2A2A2A] rounded-xl text-white placeholder:text-[#555555] focus:border-[#3B82F6]/50 focus:outline-none focus:ring-1 focus:ring-[#3B82F6]/30 transition-all"
-              />
+              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="you@example.com"
+                className="w-full px-4 py-3 bg-[#111111] border border-[#2A2A2A] rounded-xl text-white placeholder:text-[#555555] focus:border-[#3B82F6]/50 focus:outline-none focus:ring-1 focus:ring-[#3B82F6]/30 transition-all" />
             </div>
             <div>
               <label className="block text-sm font-medium text-[#CCCCCC] mb-2">Password</label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                minLength={6}
-                placeholder="Create a password"
-                className="w-full px-4 py-3 bg-[#111111] border border-[#2A2A2A] rounded-xl text-white placeholder:text-[#555555] focus:border-[#3B82F6]/50 focus:outline-none focus:ring-1 focus:ring-[#3B82F6]/30 transition-all"
-              />
+              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} placeholder="Create a password"
+                className="w-full px-4 py-3 bg-[#111111] border border-[#2A2A2A] rounded-xl text-white placeholder:text-[#555555] focus:border-[#3B82F6]/50 focus:outline-none focus:ring-1 focus:ring-[#3B82F6]/30 transition-all" />
               <p className="text-xs text-[#666666] mt-1.5">Minimum 6 characters</p>
             </div>
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-3 bg-gradient-to-r from-[#3B82F6] to-[#60A5FA] text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-[#3B82F6]/25 transition-all duration-200 active:scale-[0.98] disabled:opacity-50"
-            >
+            <button type="submit" disabled={loading}
+              className="w-full py-3 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-semibold rounded-xl transition-all duration-200 active:scale-[0.98] disabled:opacity-50">
               {loading ? "Creating account..." : "Sign Up"}
             </button>
             <p className="text-center text-[#999999] text-sm">
               Already have an account?{" "}
-              <Link href="/login" className="text-[#3B82F6] hover:text-[#2563EB] transition-colors">
-                Login
-              </Link>
+              <Link href="/login" className="text-[#3B82F6] hover:text-[#2563EB] transition-colors">Login</Link>
             </p>
+            <div className="flex items-center gap-3 pt-2">
+              <div className="flex-1 h-px bg-[#2A2A2A]" />
+              <span className="text-[#555555] text-xs">or</span>
+              <div className="flex-1 h-px bg-[#2A2A2A]" />
+            </div>
+            <GoogleSignIn />
           </form>
         </div>
       </main>
