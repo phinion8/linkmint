@@ -193,15 +193,10 @@ export default function DashboardPage() {
       </div>
 
       {/* Wallet Summary Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="glass-card-accent p-6">
-          <div className="flex items-center gap-2 mb-2">
-            <svg className="w-4 h-4 text-[#3B82F6]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-            </svg>
-            <p className="text-sm text-[#999999]">Wallet Balance</p>
-          </div>
-          <p className="text-3xl font-bold tabular-nums text-[#3B82F6]">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        <div className="glass-card-accent p-4 sm:p-6">
+          <p className="text-xs text-[#999999] mb-1">Balance</p>
+          <p className="text-xl sm:text-3xl font-bold tabular-nums text-[#3B82F6]">
             ${wallet ? Number(wallet.balance).toFixed(2) : "0.00"}
           </p>
           {wallet && wallet.balance >= wallet.min_payout && (
@@ -213,59 +208,46 @@ export default function DashboardPage() {
             </button>
           )}
         </div>
-        <div className="glass-card p-6">
-          <div className="flex items-center gap-2 mb-2">
-            <svg className="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-            </svg>
-            <p className="text-sm text-[#999999]">Total Earned</p>
-          </div>
-          <p className="text-3xl font-bold tabular-nums text-emerald-400">
+        <div className="glass-card p-4 sm:p-6">
+          <p className="text-xs text-[#999999] mb-1">Earned</p>
+          <p className="text-xl sm:text-3xl font-bold tabular-nums text-emerald-400">
             ${wallet ? Number(wallet.total_earned).toFixed(2) : "0.00"}
           </p>
-          <p className="text-xs text-[#666666] mt-1">Lifetime earnings</p>
+          <p className="text-[10px] text-[#666666] mt-1 hidden sm:block">Lifetime</p>
         </div>
-        <div className="glass-card p-6">
-          <div className="flex items-center gap-2 mb-2">
-            <svg className="w-4 h-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
-            </svg>
-            <p className="text-sm text-[#999999]">Total Clicks</p>
-          </div>
-          <p className="text-3xl font-bold tabular-nums text-blue-400">{totalClicks}</p>
-          <p className="text-xs text-[#666666] mt-1">{links.length} links ({links.filter((l) => l.is_active).length} active)</p>
+        <div className="glass-card p-4 sm:p-6">
+          <p className="text-xs text-[#999999] mb-1">Clicks</p>
+          <p className="text-xl sm:text-3xl font-bold tabular-nums text-blue-400">{totalClicks}</p>
+          <p className="text-[10px] text-[#666666] mt-1 hidden sm:block">{links.length} links</p>
         </div>
-        <div className="glass-card p-6">
-          <div className="flex items-center gap-2 mb-2">
-            <svg className="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 8h6m-5 0a3 3 0 110 6H9l3 3-3 3" />
-            </svg>
-            <p className="text-sm text-[#999999]">CPM Rate</p>
-          </div>
-          <p className="text-3xl font-bold tabular-nums text-amber-400">
+        <div className="glass-card p-4 sm:p-6">
+          <p className="text-xs text-[#999999] mb-1">CPM</p>
+          <p className="text-xl sm:text-3xl font-bold tabular-nums text-amber-400">
             ${cpmRate ? Number(cpmRate).toFixed(2) : "0.00"}
           </p>
-          <p className="text-xs text-[#666666] mt-1">Per 1,000 impressions</p>
+          <p className="text-[10px] text-[#666666] mt-1 hidden sm:block">Per 1K views</p>
         </div>
       </div>
 
       {/* Tab Navigation */}
-      <div className="flex gap-1 glass-card p-1.5 w-fit">
-        {tabs.map((tab) => (
-          <button
-            key={tab.key}
-            onClick={() => setActiveTab(tab.key)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
-              activeTab === tab.key
-                ? "bg-gradient-to-r from-[#3B82F6] to-[#60A5FA] text-white shadow-lg shadow-[#3B82F6]/20"
-                : "text-[#999999] hover:text-white hover:bg-[#111111]"
-            }`}
-          >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-              {tab.icon}
-            </svg>
-            {tab.label}
-          </button>
+      <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
+        <div className="flex gap-1 glass-card p-1.5 w-fit min-w-fit">
+          {tabs.map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => setActiveTab(tab.key)}
+              className={`flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all duration-200 whitespace-nowrap ${
+                activeTab === tab.key
+                  ? "bg-[#3B82F6] text-white"
+                  : "text-[#999999] hover:text-white hover:bg-[#111111]"
+              }`}
+            >
+              <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                {tab.icon}
+              </svg>
+              <span className="hidden sm:inline">{tab.label}</span>
+              <span className="sm:hidden">{tab.label.split(" ").pop()}</span>
+            </button>
         ))}
       </div>
 
