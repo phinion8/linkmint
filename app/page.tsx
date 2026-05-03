@@ -1,7 +1,19 @@
 import Navbar from "@/components/Navbar";
 import ShortenForm from "@/components/ShortenForm";
+import { supabase } from "@/lib/supabase";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const { data: settings } = await supabase.from("global_settings").select("cpm_rate").single();
+  const cpm = settings?.cpm_rate ? Number(settings.cpm_rate).toFixed(2) : "1.50";
+
+  // Pre-calculate earnings table
+  const clicks = [1000, 5000, 10000, 50000, 100000];
+  const earningsTable = clicks.map((c) => ({
+    clicks: c.toLocaleString(),
+    daily: `$${((c / 1000) * Number(cpm)).toFixed(2)}`,
+    monthly: `$${(((c / 1000) * Number(cpm)) * 30).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`,
+    highlight: c === 100000,
+  }));
   return (
     <>
       <Navbar />
@@ -58,7 +70,7 @@ export default function HomePage() {
           <div className="mx-auto max-w-7xl px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {[
-                { value: "$1.50", label: "CPM Rate", sub: "per 1K views" },
+                { value: `$${cpm}`, label: "CPM Rate", sub: "per 1K views" },
                 { value: "10K+", label: "Links Created", sub: "and growing" },
                 { value: "1M+", label: "Clicks Tracked", sub: "this month" },
                 { value: "99.9%", label: "Uptime", sub: "guaranteed" },
@@ -102,7 +114,7 @@ export default function HomePage() {
                 {
                   num: "03",
                   title: "Get paid",
-                  desc: "Earn $1.50 per 1,000 views. Track earnings and request payouts from your dashboard.",
+                  desc: `Earn $${cpm} per 1,000 views. Track earnings and request payouts from your dashboard.`,
                   icon: <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />,
                 },
               ].map((step) => (
@@ -192,7 +204,7 @@ export default function HomePage() {
                 How much can you earn?
               </h2>
               <p className="text-[#999999] text-lg max-w-2xl mx-auto">
-                Earn $1.50 per 1,000 completed ad views
+                {`Earn $${cpm} per 1,000 completed ad views`}
               </p>
             </div>
 
@@ -206,13 +218,7 @@ export default function HomePage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {[
-                    { clicks: "1,000", daily: "$1.50", monthly: "$45" },
-                    { clicks: "5,000", daily: "$7.50", monthly: "$225" },
-                    { clicks: "10,000", daily: "$15.00", monthly: "$450" },
-                    { clicks: "50,000", daily: "$75.00", monthly: "$2,250" },
-                    { clicks: "100,000", daily: "$150.00", monthly: "$4,500", highlight: true },
-                  ].map((row) => (
+                  {earningsTable.map((row) => (
                     <tr key={row.clicks} className={`border-b border-[#1A1A1A] last:border-0 ${row.highlight ? "bg-[#3B82F6]/5" : ""}`}>
                       <td className="py-4 px-6 text-white font-medium">{row.clicks}</td>
                       <td className="py-4 px-6 text-[#3B82F6] font-semibold tabular-nums">{row.daily}</td>
@@ -224,7 +230,7 @@ export default function HomePage() {
             </div>
 
             <p className="text-center text-[#444444] text-xs mt-4">
-              Earnings based on $1.50 CPM. Actual rates vary by geography and traffic quality.
+              {`Earnings based on $${cpm} CPM. Actual rates vary by geography and traffic quality.`}
             </p>
           </div>
         </section>

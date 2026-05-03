@@ -71,30 +71,30 @@ export default function ShortenForm() {
   return (
     <div className="w-full max-w-2xl mx-auto">
       <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+        <input
+          type="url"
+          value={url}
+          onChange={(e) => { setUrl(e.target.value); setShowSignupPrompt(false); }}
+          placeholder="Paste your long URL here..."
+          required
+          className="w-full px-5 py-4 bg-[#111111] border border-[#2A2A2A] rounded-2xl text-white text-[15px] placeholder:text-[#555555] focus:border-[#3B82F6]/50 focus:outline-none focus:ring-2 focus:ring-[#3B82F6]/20 transition-all"
+        />
         <div className="flex gap-3">
           <input
-            type="url"
-            value={url}
-            onChange={(e) => { setUrl(e.target.value); setShowSignupPrompt(false); }}
-            placeholder="Paste your long URL here..."
-            required
-            className="flex-1 px-5 py-4 bg-[#111111] border border-[#2A2A2A] rounded-2xl text-white text-[15px] placeholder:text-[#555555] focus:border-[#3B82F6]/50 focus:outline-none focus:ring-2 focus:ring-[#3B82F6]/20 transition-all"
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Title (optional)"
+            className="flex-1 px-5 py-3.5 bg-[#111111] border border-[#2A2A2A] rounded-xl text-white text-sm placeholder:text-[#555555] focus:border-[#3B82F6]/50 focus:outline-none focus:ring-1 focus:ring-[#3B82F6]/20 transition-all"
           />
           <button
             type="submit"
             disabled={loading}
-            className="px-8 py-4 bg-gradient-to-r from-[#3B82F6] to-[#60A5FA] text-white font-semibold text-[15px] rounded-2xl hover:shadow-lg hover:shadow-[#3B82F6]/25 transition-all duration-200 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+            className="px-8 py-3.5 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-semibold text-sm rounded-xl hover:shadow-lg hover:shadow-[#3B82F6]/25 transition-all duration-200 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
           >
             {loading ? "Shortening..." : "Shorten URL"}
           </button>
         </div>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="Title (optional)"
-          className="px-5 py-3 bg-[#111111] border border-[#2A2A2A] rounded-xl text-white text-sm placeholder:text-[#555555] focus:border-[#3B82F6]/50 focus:outline-none focus:ring-1 focus:ring-[#3B82F6]/20 transition-all"
-        />
       </form>
 
       {error && (

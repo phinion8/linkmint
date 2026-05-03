@@ -18,6 +18,11 @@ export default function AdminSettingsPage() {
   const [saved, setSaved] = useState(false);
   const [applying, setApplying] = useState(false);
   const [applied, setApplied] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [passwordSaving, setPasswordSaving] = useState(false);
+  const [passwordMsg, setPasswordMsg] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   useEffect(() => {
     fetch("/api/admin/settings")
@@ -64,10 +69,10 @@ export default function AdminSettingsPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="max-w-2xl mx-auto space-y-6">
       <h1 className="text-2xl font-bold text-white">Global Settings</h1>
 
-      <form onSubmit={handleSave} className="glass-card p-6 space-y-6 max-w-2xl">
+      <form onSubmit={handleSave} className="glass-card p-6 space-y-6">
         <div>
           <label className="block text-sm text-[#999999] mb-1">Site Name</label>
           <input
@@ -248,6 +253,61 @@ export default function AdminSettingsPage() {
           </div>
         </div>
       </form>
+
+      {/* Change Admin Password */}
+      <div className="glass-card p-6 space-y-5">
+        <h2 className="text-lg font-semibold text-white">Change Admin Password</h2>
+        <div>
+          <label className="block text-sm text-[#999999] mb-1">Current Password</label>
+          <input
+            type="password"
+            value={currentPassword}
+            onChange={(e) => setCurrentPassword(e.target.value)}
+            placeholder="Enter current password"
+            className="w-full px-4 py-2 bg-[#111111] border border-[#2A2A2A] rounded-xl text-white placeholder:text-[#555555] focus:border-[#3B82F6]/50 focus:outline-none focus:ring-1 focus:ring-[#3B82F6]/30 transition-all"
+          />
+        </div>
+        <div>
+          <label className="block text-sm text-[#999999] mb-1">New Password</label>
+          <input
+            type="password"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+            placeholder="Min 6 characters"
+            minLength={6}
+            className="w-full px-4 py-2 bg-[#111111] border border-[#2A2A2A] rounded-xl text-white placeholder:text-[#555555] focus:border-[#3B82F6]/50 focus:outline-none focus:ring-1 focus:ring-[#3B82F6]/30 transition-all"
+          />
+        </div>
+        {passwordError && <p className="text-red-400 text-sm">{passwordError}</p>}
+        {passwordMsg && <p className="text-emerald-400 text-sm">{passwordMsg}</p>}
+        <button
+          type="button"
+          disabled={passwordSaving || !currentPassword || !newPassword}
+          onClick={async () => {
+            setPasswordSaving(true);
+            setPasswordError("");
+            setPasswordMsg("");
+            const res = await fetch("/api/auth/profile", {
+              method: "PATCH",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ current_password: currentPassword, new_password: newPassword }),
+            });
+            const data = await res.json();
+            if (!res.ok) {
+              setPasswordError(data.error || "Failed to change password");
+            } else {
+              setPasswordMsg("Password changed successfully!");
+              setCurrentPassword("");
+              setNewPassword("");
+            }
+            setPasswordSaving(false);
+            setTimeout(() => { setPasswordMsg(""); setPasswordError(""); }, 4000);
+          }}
+          className="px-6 py-2.5 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-semibold rounded-xl transition-all duration-200 disabled:opacity-50 text-sm"
+        >
+          {passwordSaving ? "Changing..." : "Change Password"}
+        </button>
+      </div>
     </div>
   );
 }
