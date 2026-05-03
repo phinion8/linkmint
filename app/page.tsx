@@ -19,12 +19,12 @@ export default function HomePage() {
               <span className="text-[#3B82F6]">Get Paid.</span>
             </h1>
 
-            <p className="text-[#999999] text-lg md:text-xl max-w-xl mx-auto mb-10 leading-relaxed">
+            <p className="text-[#999999] text-lg md:text-xl max-w-3xl mx-auto mb-10 leading-relaxed">
               The free URL shortener that pays you for every click. Shorten links, track analytics, and earn money from every visitor — no website needed.
             </p>
 
             {/* Shorten Form */}
-            <div className="max-w-xl mx-auto mb-6">
+            <div className="max-w-3xl mx-auto mb-6">
               <ShortenForm />
             </div>
 
@@ -80,7 +80,7 @@ export default function HomePage() {
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
                 How it works
               </h2>
-              <p className="text-[#999999] text-lg max-w-md mx-auto">
+              <p className="text-[#999999] text-lg max-w-2xl mx-auto">
                 Start earning in three simple steps
               </p>
             </div>
@@ -132,7 +132,7 @@ export default function HomePage() {
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
                 Built for publishers
               </h2>
-              <p className="text-[#999999] text-lg max-w-md mx-auto">
+              <p className="text-[#999999] text-lg max-w-2xl mx-auto">
                 Everything you need to monetize your traffic
               </p>
             </div>
@@ -191,7 +191,7 @@ export default function HomePage() {
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
                 How much can you earn?
               </h2>
-              <p className="text-[#999999] text-lg max-w-md mx-auto">
+              <p className="text-[#999999] text-lg max-w-2xl mx-auto">
                 Earn $1.50 per 1,000 completed ad views
               </p>
             </div>

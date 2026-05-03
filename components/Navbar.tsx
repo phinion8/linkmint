@@ -54,7 +54,7 @@ export default function Navbar({ variant = "public" }: NavbarProps) {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 px-4 py-4">
       <nav
-        className={`max-w-5xl mx-auto transition-all duration-500 ${
+        className={`max-w-7xl mx-auto transition-all duration-500 ${
           isScrolled
             ? "bg-black/90 backdrop-blur-xl shadow-2xl shadow-black/20 border-[#2A2A2A]"
             : "bg-white/5 backdrop-blur-md border-white/10"
