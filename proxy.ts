@@ -10,6 +10,9 @@ const APP_ROUTES = [
   "/go",
   "/_next",
   "/favicon.ico",
+  "/privacy",
+  "/terms",
+  "/support",
 ];
 
 export default async function proxy(req: NextRequest) {
