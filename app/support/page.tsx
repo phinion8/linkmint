@@ -92,7 +92,7 @@ export default function SupportPage() {
                     { q: "How do I earn money?", a: "Create short links, share them, and earn revenue for every visitor who completes the ad steps." },
                     { q: "When can I withdraw?", a: "You can request a payout once your balance reaches the minimum threshold shown in your dashboard." },
                     { q: "Why are my earnings low?", a: "Earnings depend on traffic geography. Tier 1 countries (US, UK, DE) pay significantly more than Tier 3." },
-                    { q: "Can I use LinkMint with ad blockers?", a: "Visitors need to disable ad blockers to proceed through shortened links. This ensures ad revenue is generated." },
+                    { q: "Can I use LinkPearl with ad blockers?", a: "Visitors need to disable ad blockers to proceed through shortened links. This ensures ad revenue is generated." },
                   ].map((faq) => (
                     <div key={faq.q}>
                       <p className="text-white text-sm font-medium mb-1">{faq.q}</p>
@@ -109,13 +109,13 @@ export default function SupportPage() {
                     <svg className="w-4 h-4 text-[#3B82F6]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                     </svg>
-                    Telegram: @linkmint_url_bot
+                    Telegram: @linkpearl_url_bot
                   </div>
                   <div className="flex items-center gap-3 text-[#999999]">
                     <svg className="w-4 h-4 text-[#3B82F6]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
-                    support@linkmint.vercel.app
+                    support@linkpearl.vercel.app
                   </div>
                 </div>
               </div>

@@ -537,7 +537,7 @@ export default function DashboardPage() {
               const res = await fetch("/api/support", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name: "User", email: "user@linkmint.app", subject: ticketSubject, message: ticketMessage }),
+                body: JSON.stringify({ name: "User", email: "user@linkpearl.app", subject: ticketSubject, message: ticketMessage }),
               });
               if (res.ok) {
                 setTicketSent("Ticket submitted successfully!");

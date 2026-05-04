@@ -42,7 +42,7 @@ export default function AdBlockDetector({ children }: { children: React.ReactNod
               </svg>
             </div>
           </div>
-          <p className="text-white font-semibold text-lg mb-1">LinkMint</p>
+          <p className="text-white font-semibold text-lg mb-1">LinkPearl</p>
           <p className="text-[#555555] text-xs">Loading your destination...</p>
         </div>
       </div>
@@ -62,7 +62,7 @@ export default function AdBlockDetector({ children }: { children: React.ReactNod
           <h1 className="text-2xl font-bold text-white mb-3">Ad Blocker Detected</h1>
 
           <p className="text-[#999999] text-sm leading-relaxed mb-6">
-            LinkMint is a free service supported by ads. Please disable your ad blocker to continue to your destination.
+            LinkPearl is a free service supported by ads. Please disable your ad blocker to continue to your destination.
           </p>
 
           <div className="bg-[#111111] border border-[#2A2A2A] rounded-xl p-5 mb-6 text-left">

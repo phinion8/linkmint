@@ -70,7 +70,7 @@ export default function RegisterPage() {
           <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#2563EB] to-[#3B82F6] flex items-center justify-center mx-auto mb-6 text-white font-bold text-2xl">
             L
           </div>
-          <h1 className="text-3xl font-bold mb-3">Start earning with <span className="text-[#3B82F6]">LinkMint.</span></h1>
+          <h1 className="text-3xl font-bold mb-3">Start earning with <span className="text-[#3B82F6]">LinkPearl.</span></h1>
           <p className="text-[#666666] max-w-sm mb-8">
             Create short links and earn revenue every time someone clicks. Free forever, payouts in 24 hours.
           </p>
@@ -104,7 +104,7 @@ export default function RegisterPage() {
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#2563EB] to-[#3B82F6] flex items-center justify-center">
               <span className="text-white font-bold text-sm">L</span>
             </div>
-            <span className="text-white font-bold text-lg">LinkMint</span>
+            <span className="text-white font-bold text-lg">LinkPearl</span>
           </div>
 
           <h2 className="text-2xl font-bold text-white mb-1">Create account</h2>

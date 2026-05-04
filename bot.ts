@@ -42,7 +42,7 @@ bot.onText(/\/start/, (msg) => {
 
   const welcome = session
     ? `Welcome back, *${session.name}*! 👋\n\nJust paste any URL and I'll shorten it for you.\n\nCommands:\n/stats — Your link stats\n/links — Recent links\n/logout — Sign out`
-    : `🔗 *LinkMint Bot*\n\nShorten URLs and earn from every click — right from Telegram.\n\nTo get started:\n/login your@email.com password\n\nDon't have an account?\n/register YourName your@email.com password`;
+    : `🔗 *LinkPearl Bot*\n\nShorten URLs and earn from every click — right from Telegram.\n\nTo get started:\n/login your@email.com password\n\nDon't have an account?\n/register YourName your@email.com password`;
 
   bot.sendMessage(chatId, welcome, { parse_mode: "Markdown" });
 });
@@ -338,7 +338,7 @@ bot.onText(/\/payout (.+)/, async (msg, match) => {
 
 bot.onText(/\/help/, (msg) => {
   const chatId = msg.chat.id;
-  const help = `🔗 *LinkMint Bot — Commands*
+  const help = `🔗 *LinkPearl Bot — Commands*
 
 *Account:*
 /login email password — Sign in
@@ -458,4 +458,4 @@ bot.on("callback_query", (query) => {
   }
 });
 
-console.log("🤖 LinkMint Telegram bot is running...");
+console.log("🤖 LinkPearl Telegram bot is running...");

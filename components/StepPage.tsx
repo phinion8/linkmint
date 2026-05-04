@@ -243,7 +243,7 @@ function PromoPopup() {
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#2563EB] to-[#3B82F6] flex items-center justify-center shrink-0">
             <span className="text-white font-bold text-xs">L</span>
           </div>
-          <span className="text-white font-bold">LinkMint</span>
+          <span className="text-white font-bold">LinkPearl</span>
         </div>
         <p className="text-[#CCCCCC] text-sm font-medium mb-1">Earn money from your links</p>
         <p className="text-[#666666] text-xs mb-4 leading-relaxed">
@@ -505,7 +505,7 @@ export default function StepPage({
                 <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#2563EB] to-[#3B82F6] flex items-center justify-center">
                   <span className="text-white font-bold text-sm leading-none">L</span>
                 </div>
-                <span className="text-white font-bold text-lg">LinkMint</span>
+                <span className="text-white font-bold text-lg">LinkPearl</span>
               </div>
 
               {/* Step Progress - Desktop */}
@@ -827,7 +827,7 @@ export default function StepPage({
             </div>
             <div>
               <p className="text-white text-sm font-medium">Want to earn money by shortening URLs?</p>
-              <p className="text-[#666666] text-xs">Join LinkMint — get paid for every click on your links. Free forever.</p>
+              <p className="text-[#666666] text-xs">Join LinkPearl — get paid for every click on your links. Free forever.</p>
             </div>
           </div>
           <a
@@ -841,7 +841,7 @@ export default function StepPage({
 
       {/* Footer */}
       <div className="relative border-t border-[#111111] px-4 py-3 text-center text-[#444444] text-xs z-10">
-        Powered by LinkMint — You will be redirected after completing all steps
+        Powered by LinkPearl — You will be redirected after completing all steps
       </div>
     </div>
     </AdBlockDetector>

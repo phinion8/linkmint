@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 export default function AdminSettingsPage() {
   const router = useRouter();
   const [settings, setSettings] = useState({
-    site_name: "LinkMint",
+    site_name: "LinkPearl",
     default_steps: 3,
     default_timer_seconds: 5,
     max_links_per_user: 100,

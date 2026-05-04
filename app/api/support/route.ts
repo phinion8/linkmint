@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
         body: JSON.stringify({
           access_key: process.env.WEB3FORMS_KEY || "",
           to: "priyanshuverma8328@gmail.com",
-          subject: `[LinkMint Support] ${subject} — Ticket #${ticket.id.slice(0, 8)}`,
+          subject: `[LinkPearl Support] ${subject} — Ticket #${ticket.id.slice(0, 8)}`,
           from_name: name,
           reply_to: email,
           message: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\n\nMessage:\n${message}\n\nTicket ID: ${ticket.id}`,

@@ -12,12 +12,12 @@ export default function TermsPage() {
 
             <section>
               <h2 className="text-lg font-semibold text-white mb-3">1. Acceptance of Terms</h2>
-              <p>By creating an account or using LinkMint, you agree to be bound by these Terms of Service. If you do not agree to these terms, do not use our services.</p>
+              <p>By creating an account or using LinkPearl, you agree to be bound by these Terms of Service. If you do not agree to these terms, do not use our services.</p>
             </section>
 
             <section>
               <h2 className="text-lg font-semibold text-white mb-3">2. Description of Service</h2>
-              <p>LinkMint provides a URL shortening service with ad monetization. Publishers can create shortened URLs that display advertisement pages to visitors before redirecting them to the destination URL. Publishers earn revenue based on completed ad impressions.</p>
+              <p>LinkPearl provides a URL shortening service with ad monetization. Publishers can create shortened URLs that display advertisement pages to visitors before redirecting them to the destination URL. Publishers earn revenue based on completed ad impressions.</p>
             </section>
 
             <section>
@@ -25,18 +25,18 @@ export default function TermsPage() {
               <p>Publishers earn revenue based on a CPM (Cost Per Mille) rate for every 1,000 completed ad impressions on their shortened links.</p>
               <div className="mt-3 p-4 bg-[#111111] border border-[#2A2A2A] rounded-xl">
                 <p className="text-white font-medium mb-2">Important Notice:</p>
-                <p><strong className="text-amber-400">LinkMint reserves the right to change, modify, or adjust CPM rates at any time, without prior notice.</strong> CPM rates may vary based on factors including but not limited to: advertiser demand, geographic location of traffic, traffic quality, seasonal fluctuations, and market conditions. Publishers will be notified of significant rate changes through the platform dashboard, but continued use of the service after any rate change constitutes acceptance of the new rates.</p>
+                <p><strong className="text-amber-400">LinkPearl reserves the right to change, modify, or adjust CPM rates at any time, without prior notice.</strong> CPM rates may vary based on factors including but not limited to: advertiser demand, geographic location of traffic, traffic quality, seasonal fluctuations, and market conditions. Publishers will be notified of significant rate changes through the platform dashboard, but continued use of the service after any rate change constitutes acceptance of the new rates.</p>
               </div>
             </section>
 
             <section>
               <h2 className="text-lg font-semibold text-white mb-3">4. Payouts</h2>
-              <p>Publishers may request payouts when their wallet balance meets the minimum payout threshold. Payouts are processed via PayPal (available globally) or UPI (available for Indian users only). LinkMint reserves the right to withhold payments in cases of suspected fraud or Terms of Service violations. Payout processing times may vary but are typically completed within 24 hours.</p>
+              <p>Publishers may request payouts when their wallet balance meets the minimum payout threshold. Payouts are processed via PayPal (available globally) or UPI (available for Indian users only). LinkPearl reserves the right to withhold payments in cases of suspected fraud or Terms of Service violations. Payout processing times may vary but are typically completed within 24 hours.</p>
             </section>
 
             <section>
               <h2 className="text-lg font-semibold text-white mb-3">5. Prohibited Content</h2>
-              <p>You may not use LinkMint to shorten URLs that link to:</p>
+              <p>You may not use LinkPearl to shorten URLs that link to:</p>
               <ul className="list-disc list-inside mt-2 space-y-1">
                 <li>Malware, viruses, or harmful software</li>
                 <li>Phishing or fraudulent websites</li>
@@ -58,22 +58,22 @@ export default function TermsPage() {
                 <li>Using iframes or hidden redirects to generate artificial impressions</li>
                 <li>Any form of click fraud or impression manipulation</li>
               </ul>
-              <p className="mt-2">LinkMint uses server-side verification and anti-fraud systems to detect fraudulent activity. Accounts found engaging in fraud will be permanently banned with all earnings forfeited.</p>
+              <p className="mt-2">LinkPearl uses server-side verification and anti-fraud systems to detect fraudulent activity. Accounts found engaging in fraud will be permanently banned with all earnings forfeited.</p>
             </section>
 
             <section>
               <h2 className="text-lg font-semibold text-white mb-3">7. Account Termination</h2>
-              <p>LinkMint may suspend or terminate your account at any time for violations of these terms, suspicious activity, or at our sole discretion. You may also delete your account at any time. Upon termination, any pending earnings below the minimum payout threshold will be forfeited.</p>
+              <p>LinkPearl may suspend or terminate your account at any time for violations of these terms, suspicious activity, or at our sole discretion. You may also delete your account at any time. Upon termination, any pending earnings below the minimum payout threshold will be forfeited.</p>
             </section>
 
             <section>
               <h2 className="text-lg font-semibold text-white mb-3">8. Ad Blockers</h2>
-              <p>LinkMint&apos;s service relies on ad revenue. Visitors using ad blockers may be required to disable them before proceeding through shortened links. This is essential to maintaining the free service and publisher earnings.</p>
+              <p>LinkPearl&apos;s service relies on ad revenue. Visitors using ad blockers may be required to disable them before proceeding through shortened links. This is essential to maintaining the free service and publisher earnings.</p>
             </section>
 
             <section>
               <h2 className="text-lg font-semibold text-white mb-3">9. Limitation of Liability</h2>
-              <p>LinkMint is provided &quot;as is&quot; without warranties of any kind. We are not liable for any indirect, incidental, or consequential damages arising from your use of the service, including but not limited to loss of earnings, data, or business opportunities.</p>
+              <p>LinkPearl is provided &quot;as is&quot; without warranties of any kind. We are not liable for any indirect, incidental, or consequential damages arising from your use of the service, including but not limited to loss of earnings, data, or business opportunities.</p>
             </section>
 
             <section>

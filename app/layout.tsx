@@ -14,9 +14,9 @@ const firaCode = Fira_Code({
 });
 
 export const metadata: Metadata = {
-  title: "LinkMint | Free URL Shortener That Pays You",
+  title: "LinkPearl | Free URL Shortener That Pays You",
   description:
-    "LinkMint is a free URL shortener that pays you for every click. Shorten links, track analytics, and earn money instantly. Sign up free today.",
+    "LinkPearl is a free URL shortener that pays you for every click. Shorten links, track analytics, and earn money instantly. Sign up free today.",
   other: {
     "admaven-placement": "Bqjs6qTgG",
   },

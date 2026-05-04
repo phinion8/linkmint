@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 export default function TelegramPage() {
   const commands = [
     { cmd: "/start", desc: "Welcome message and quick overview", icon: "👋" },
-    { cmd: "/login email password", desc: "Sign in to your LinkMint account", icon: "🔐" },
+    { cmd: "/login email password", desc: "Sign in to your LinkPearl account", icon: "🔐" },
     { cmd: "/register name email password", desc: "Create a new account instantly", icon: "✨" },
     { cmd: "/profile", desc: "View your account details and stats", icon: "👤" },
     { cmd: "/wallet", desc: "Check your balance, earnings, and payout info", icon: "💰" },
@@ -28,7 +28,7 @@ export default function TelegramPage() {
               </svg>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              LinkMint Telegram Bot
+              LinkPearl Telegram Bot
             </h1>
             <p className="text-[#999999] text-lg max-w-xl mx-auto mb-8">
               Shorten URLs, check earnings, and manage your account — all from Telegram. No browser needed.
@@ -52,7 +52,7 @@ export default function TelegramPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
                 { step: "1", title: "Open the bot", desc: "Click the button above or search @linkmint_url_bot on Telegram" },
-                { step: "2", title: "Login or register", desc: "Use /login or /register to connect your LinkMint account" },
+                { step: "2", title: "Login or register", desc: "Use /login or /register to connect your LinkPearl account" },
                 { step: "3", title: "Paste any URL", desc: "Just send a URL — the bot instantly returns your short link" },
               ].map((s) => (
                 <div key={s.step} className="bg-[#111111] border border-[#1A1A1A] rounded-2xl p-6 text-center hover:border-[#2A2A2A] transition-colors">
@@ -96,7 +96,7 @@ export default function TelegramPage() {
               <div className="flex justify-start">
                 <div className="bg-[#1A1A1A] text-white text-sm px-4 py-3 rounded-2xl rounded-bl-md max-w-[80%]">
                   <p className="font-medium mb-1">✅ Link shortened!</p>
-                  <p className="text-[#3B82F6] font-mono">linkmint.vercel.app/xK9mR2</p>
+                  <p className="text-[#3B82F6] font-mono">linkpearl.vercel.app/xK9mR2</p>
                   <p className="text-[#666666] text-xs mt-2">Original: example.com/very/long/url...</p>
                 </div>
               </div>

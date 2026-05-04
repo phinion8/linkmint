@@ -1,6 +1,6 @@
 @AGENTS.md
 
-# LinkMint - URL Shortener with Ad Steps
+# LinkPearl - URL Shortener with Ad Steps
 
 ## Overview
 A monetized URL shortener where visitors must complete configurable timed ad-step pages before reaching the destination URL. Includes a publisher dashboard and an admin panel.

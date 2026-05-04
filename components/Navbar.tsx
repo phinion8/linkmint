@@ -75,7 +75,7 @@ export default function Navbar({ variant = "public" }: NavbarProps) {
                 <span className="text-white font-bold text-sm leading-none">L</span>
               </div>
             </div>
-            <span className="text-lg font-bold text-white">LinkMint</span>
+            <span className="text-lg font-bold text-white">LinkPearl</span>
           </Link>
 
           {/* Desktop Nav Links */}

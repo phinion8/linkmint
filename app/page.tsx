@@ -235,7 +235,7 @@ export default async function HomePage() {
           <div className="mx-auto max-w-7xl px-6">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                Why LinkMint?
+                Why LinkPearl?
               </h2>
               <p className="text-[#999999] text-lg max-w-2xl mx-auto">
                 The only URL shortener that pays you. Here&apos;s how we compare.
@@ -247,7 +247,7 @@ export default async function HomePage() {
                   <tr className="border-b border-[#1A1A1A]">
                     <th className="text-left py-4 px-4 text-[#666666]">Feature</th>
                     <th className="py-4 px-4 text-center">
-                      <span className="text-[#3B82F6] font-bold">LinkMint</span>
+                      <span className="text-[#3B82F6] font-bold">LinkPearl</span>
                     </th>
                     <th className="py-4 px-4 text-center text-[#666666]">Bitly</th>
                     <th className="py-4 px-4 text-center text-[#666666]">TinyURL</th>
@@ -293,9 +293,9 @@ export default async function HomePage() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
-                { name: "Sarah K.", role: "Content Creator", text: "I made $340 last month just sharing deals on Twitter. LinkMint is the easiest passive income I've found.", earning: "$340/mo" },
+                { name: "Sarah K.", role: "Content Creator", text: "I made $340 last month just sharing deals on Twitter. LinkPearl is the easiest passive income I've found.", earning: "$340/mo" },
                 { name: "Raj P.", role: "Blogger", text: "Switched from Bitly. Same shortening, but now I actually earn from my links. The dashboard is clean and fast.", earning: "$120/mo" },
-                { name: "Mike L.", role: "YouTuber", text: "I put LinkMint links in my video descriptions. The Telegram bot makes it super quick to generate short URLs.", earning: "$210/mo" },
+                { name: "Mike L.", role: "YouTuber", text: "I put LinkPearl links in my video descriptions. The Telegram bot makes it super quick to generate short URLs.", earning: "$210/mo" },
               ].map((t) => (
                 <div key={t.name} className="bg-[#111111] border border-[#1A1A1A] rounded-2xl p-6 hover:border-[#2A2A2A] transition-colors">
                   <div className="flex items-center gap-1 mb-4">
@@ -326,12 +326,12 @@ export default async function HomePage() {
             <div className="space-y-3">
               {[
                 { q: "How do I earn money?", a: "Create short links and share them anywhere. When visitors click your links and complete the ad steps, you earn revenue based on our CPM rate per 1,000 completed views." },
-                { q: "Is LinkMint really free?", a: "Yes, completely free. We earn from advertising shown on the interstitial pages, and share a portion of that revenue with you. No hidden fees, no monthly charges." },
+                { q: "Is LinkPearl really free?", a: "Yes, completely free. We earn from advertising shown on the interstitial pages, and share a portion of that revenue with you. No hidden fees, no monthly charges." },
                 { q: "How much can I earn per click?", a: `Our current CPM rate is shown on the dashboard. Earnings vary by traffic geography — US/UK traffic earns significantly more than other regions.` },
                 { q: "When can I withdraw my earnings?", a: "You can request a payout once your wallet balance reaches the minimum threshold. Payouts are processed via PayPal (global) or UPI (India only) within 24 hours." },
                 { q: "What kind of links can I shorten?", a: "Any legitimate URL. We prohibit links to malware, phishing, illegal content, or anything that violates our Terms of Service. Violations result in account termination." },
                 { q: "Is bot traffic allowed?", a: "No. All traffic must be legitimate human visitors. We use server-side verification and anti-fraud systems. Accounts caught using bots or click farms are permanently banned." },
-                { q: "Can I use LinkMint without a website?", a: "Absolutely! Share your short links on social media, forums, messaging apps, YouTube descriptions, or anywhere people click links. No website needed." },
+                { q: "Can I use LinkPearl without a website?", a: "Absolutely! Share your short links on social media, forums, messaging apps, YouTube descriptions, or anywhere people click links. No website needed." },
                 { q: "Do you have an API or Telegram bot?", a: "Yes! We have a Telegram bot (@linkmint_url_bot) where you can shorten URLs instantly. API access is available for developers." },
               ].map((item) => (
                 <details key={item.q} className="group bg-[#111111] border border-[#1A1A1A] rounded-xl overflow-hidden">
@@ -379,14 +379,14 @@ export default async function HomePage() {
               <div className="w-6 h-6 rounded-md bg-gradient-to-br from-[#2563EB] to-[#3B82F6] flex items-center justify-center">
                 <span className="text-white font-bold text-xs leading-none">L</span>
               </div>
-              <span className="text-white font-semibold">LinkMint</span>
+              <span className="text-white font-semibold">LinkPearl</span>
             </div>
             <div className="flex items-center gap-6 text-sm text-[#666666]">
               <a href="/privacy" className="hover:text-white transition-colors">Privacy</a>
               <a href="/terms" className="hover:text-white transition-colors">Terms</a>
               <a href="/support" className="hover:text-white transition-colors">Support</a>
             </div>
-            <p className="text-[#444444] text-sm">&copy; {new Date().getFullYear()} LinkMint</p>
+            <p className="text-[#444444] text-sm">&copy; {new Date().getFullYear()} LinkPearl</p>
           </div>
         </div>
       </footer>

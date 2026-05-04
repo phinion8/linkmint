@@ -92,7 +92,7 @@ export default function LoginPage() {
           <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#2563EB] to-[#3B82F6] flex items-center justify-center mx-auto mb-6 text-white font-bold text-2xl">
             L
           </div>
-          <h1 className="text-3xl font-bold mb-3">Welcome to <span className="text-[#3B82F6]">LinkMint.</span></h1>
+          <h1 className="text-3xl font-bold mb-3">Welcome to <span className="text-[#3B82F6]">LinkPearl.</span></h1>
           <p className="text-[#666666] max-w-sm">
             Shorten URLs, earn money on every click, and grow your revenue with the modern link monetization platform.
           </p>
@@ -112,7 +112,7 @@ export default function LoginPage() {
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#2563EB] to-[#3B82F6] flex items-center justify-center">
               <span className="text-white font-bold text-sm">L</span>
             </div>
-            <span className="text-white font-bold text-lg">LinkMint</span>
+            <span className="text-white font-bold text-lg">LinkPearl</span>
           </div>
 
           <h2 className="text-2xl font-bold text-white mb-1">
@@ -120,7 +120,7 @@ export default function LoginPage() {
             {authState === "forgot_password" && "Reset password"}
           </h2>
           <p className="text-[#666666] text-sm mb-6">
-            {authState === "sign_in" && "Welcome back to LinkMint."}
+            {authState === "sign_in" && "Welcome back to LinkPearl."}
             {authState === "forgot_password" && "We'll send you a reset link"}
           </p>
 
