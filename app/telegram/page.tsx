@@ -34,7 +34,7 @@ export default function TelegramPage() {
               Shorten URLs, check earnings, and manage your account — all from Telegram. No browser needed.
             </p>
             <a
-              href="https://t.me/linkmint_url_bot"
+              href="https://t.me/linkpearl_url_bot"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-semibold px-8 py-4 rounded-xl transition-all duration-200 text-lg"
@@ -51,7 +51,7 @@ export default function TelegramPage() {
             <h2 className="text-2xl font-bold text-white text-center mb-10">How it works</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
-                { step: "1", title: "Open the bot", desc: "Click the button above or search @linkmint_url_bot on Telegram" },
+                { step: "1", title: "Open the bot", desc: "Click the button above or search @linkpearl_url_bot on Telegram" },
                 { step: "2", title: "Login or register", desc: "Use /login or /register to connect your LinkPearl account" },
                 { step: "3", title: "Paste any URL", desc: "Just send a URL — the bot instantly returns your short link" },
               ].map((s) => (
@@ -119,7 +119,7 @@ export default function TelegramPage() {
           {/* CTA */}
           <div className="text-center">
             <a
-              href="https://t.me/linkmint_url_bot"
+              href="https://t.me/linkpearl_url_bot"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-[#3B82F6] hover:bg-[#2563EB] text-white font-semibold px-8 py-4 rounded-xl transition-all duration-200"

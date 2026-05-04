@@ -10,7 +10,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
       {/* Telegram Bot Floating Bar */}
       <a
-        href="https://t.me/linkmint_url_bot"
+        href="https://t.me/linkpearl_url_bot"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-4 right-4 z-40 flex items-center gap-2.5 bg-[#111111] border border-[#2A2A2A] hover:border-[#3A3A3A] px-4 py-2.5 rounded-full shadow-xl shadow-black/30 transition-all hover:scale-105 group"
