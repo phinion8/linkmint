@@ -332,7 +332,7 @@ export default async function HomePage() {
                 { q: "What kind of links can I shorten?", a: "Any legitimate URL. We prohibit links to malware, phishing, illegal content, or anything that violates our Terms of Service. Violations result in account termination." },
                 { q: "Is bot traffic allowed?", a: "No. All traffic must be legitimate human visitors. We use server-side verification and anti-fraud systems. Accounts caught using bots or click farms are permanently banned." },
                 { q: "Can I use LinkPearl without a website?", a: "Absolutely! Share your short links on social media, forums, messaging apps, YouTube descriptions, or anywhere people click links. No website needed." },
-                { q: "Do you have an API or Telegram bot?", a: "Yes! We have a Telegram bot (@linkpearl_url_bot) where you can shorten URLs instantly. API access is available for developers." },
+                { q: "Do you have an API or Telegram bot?", a: "Yes! We have a Telegram bot (@linkpearl_bot) where you can shorten URLs instantly. API access is available for developers." },
               ].map((item) => (
                 <details key={item.q} className="group bg-[#111111] border border-[#1A1A1A] rounded-xl overflow-hidden">
                   <summary className="flex items-center justify-between p-5 cursor-pointer text-white text-sm font-medium hover:bg-[#141414] transition-colors list-none">
