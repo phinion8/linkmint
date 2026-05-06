@@ -62,12 +62,34 @@ export async function PATCH(request: NextRequest) {
     const body = await request.json();
 
     const updates: Record<string, unknown> = {};
-    if (body.default_steps !== undefined) updates.default_steps = body.default_steps;
-    if (body.default_timer_seconds !== undefined) updates.default_timer_seconds = body.default_timer_seconds;
-    if (body.max_links_per_user !== undefined) updates.max_links_per_user = body.max_links_per_user;
-    if (body.site_name !== undefined) updates.site_name = body.site_name;
-    if (body.cpm_rate !== undefined) updates.cpm_rate = body.cpm_rate;
-    if (body.ad_layout !== undefined) updates.ad_layout = body.ad_layout;
+    if (body.default_steps !== undefined) {
+      const v = Number(body.default_steps);
+      if (v < 1 || v > 20 || !Number.isInteger(v)) return Response.json({ error: "Steps must be 1-20" }, { status: 400 });
+      updates.default_steps = v;
+    }
+    if (body.default_timer_seconds !== undefined) {
+      const v = Number(body.default_timer_seconds);
+      if (v < 1 || v > 300 || !Number.isInteger(v)) return Response.json({ error: "Timer must be 1-300 seconds" }, { status: 400 });
+      updates.default_timer_seconds = v;
+    }
+    if (body.max_links_per_user !== undefined) {
+      const v = Number(body.max_links_per_user);
+      if (v < 1 || v > 10000 || !Number.isInteger(v)) return Response.json({ error: "Max links must be 1-10000" }, { status: 400 });
+      updates.max_links_per_user = v;
+    }
+    if (body.site_name !== undefined) {
+      if (typeof body.site_name !== "string" || body.site_name.length > 100) return Response.json({ error: "Invalid site name" }, { status: 400 });
+      updates.site_name = body.site_name.trim();
+    }
+    if (body.cpm_rate !== undefined) {
+      const v = Number(body.cpm_rate);
+      if (v < 0.01 || v > 100 || !isFinite(v)) return Response.json({ error: "CPM rate must be $0.01-$100" }, { status: 400 });
+      updates.cpm_rate = v;
+    }
+    if (body.ad_layout !== undefined) {
+      if (!["v1", "v2"].includes(body.ad_layout)) return Response.json({ error: "Invalid ad layout" }, { status: 400 });
+      updates.ad_layout = body.ad_layout;
+    }
 
     const { data: settings, error } = await supabase
       .from("global_settings")

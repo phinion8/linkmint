@@ -68,8 +68,19 @@ export default async function InterstitialPage({
       else if (/tablet|ipad/i.test(userAgent)) deviceType = "tablet";
     }
 
-    // Log click
-    const { data: click } = await supabase
+    // Deduplicate: check if this IP clicked this link in last 24 hours
+    const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+    const { data: recentClick } = await supabase
+      .from("clicks")
+      .select("id")
+      .eq("link_id", link.id)
+      .eq("ip_address", ip)
+      .gte("created_at", oneDayAgo)
+      .limit(1)
+      .single();
+
+    // Log click (only if not a duplicate)
+    const { data: click } = recentClick ? { data: recentClick } : await supabase
       .from("clicks")
       .insert({
         link_id: link.id,

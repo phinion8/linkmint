@@ -16,15 +16,16 @@ export default function GoogleSignIn() {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
+      const idToken = await user.getIdToken();
 
-      // Create or login user in Supabase
+      // Create or login user in Supabase (with server-side token verification)
       const res = await fetch("/api/auth/google", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          idToken,
           email: user.email,
           name: user.displayName || user.email?.split("@")[0] || "User",
-          firebaseUid: user.uid,
         }),
       });
       const data = await res.json();
