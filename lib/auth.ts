@@ -3,8 +3,11 @@ import bcrypt from "bcryptjs";
 import { cookies } from "next/headers";
 import { supabase, User } from "./supabase";
 
-const JWT_SECRET = process.env.JWT_SECRET;
-if (!JWT_SECRET) throw new Error("JWT_SECRET environment variable is required");
+function getJwtSecret(): string {
+  const secret = process.env.JWT_SECRET;
+  if (!secret) throw new Error("JWT_SECRET environment variable is required");
+  return secret;
+}
 const TOKEN_EXPIRY = "7d";
 
 export interface JwtPayload {
@@ -16,14 +19,14 @@ export interface JwtPayload {
 export function generateToken(user: Pick<User, "id" | "email" | "role">): string {
   return jwt.sign(
     { userId: user.id, email: user.email, role: user.role } as JwtPayload,
-    JWT_SECRET,
+    getJwtSecret(),
     { expiresIn: TOKEN_EXPIRY }
   );
 }
 
 export function verifyToken(token: string): JwtPayload | null {
   try {
-    return jwt.verify(token, JWT_SECRET) as JwtPayload;
+    return jwt.verify(token, getJwtSecret()) as JwtPayload;
   } catch {
     return null;
   }
